@@ -1,1 +1,1 @@
-web: gunicorn registroCursosITCJ.wsgi
+web: gunicorn sistemaDocenteITCJ.wsgi
