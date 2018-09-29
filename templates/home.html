@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Sistema de Registro Docente{% endblock %}
+
+{% block header %}
+    {% include 'header.html'%}
+    
+{% endblock header %}
+
+
+{% block section %}
+
+    {% if user.is_authenticated %}
+   
+    {% include 'information_user_course.html' %}
+    
+    {% else %}
+
+    {%include 'noAuth.html'%}
+        
+
+    {% endif %}
+
+{% endblock section %}

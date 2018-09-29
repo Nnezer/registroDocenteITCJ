@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Cursos disponibles{% endblock %}
+
+{% block header %}
+{% include 'header.html'%}
+{% endblock header %}
+
+{% block section %}
+
+{% if user.is_authenticated %}
+
+<div class="w3-container">
+       <hr>
+    <h1>
+        Cursos disponibles para inscripcion del semestre: 
+    </h1>
+    {% if current_semester == 'ago_dic' %}
+    <h1 class="w3-text-blue">Agosto - Diciembre   {{current_year}}</h1>
+    {% else %}
+    <h1 class="w3-text-blue">Enero - Junio   {{current_year}}</h1>
+    {% endif %}
+    <hr>
+
+        <div class="w3-row-padding">
+                {% for curso in cursos %}
+
+                {% include 'rows.html' %}
+        
+                {% endfor %}
+        </div>
+        
+
+    
+    <hr>
+
+    {% else %}
+    {% include 'noAuth.html' %}
+
+    {% block footer %}
+
+    {% endblock footer %}
+
+
+    {% endif %}
+
+
+</div>
+
+{% endblock section %}

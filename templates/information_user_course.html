@@ -1,0 +1,35 @@
+<div class='w3-container'>
+    <hr>
+    <h1 style="color:black">Bienvenido(a) </h1>
+    <h1 class="w3-text-blue ">{{user.get_full_name|title}} <br> </h1>
+    <h2>{{user.email}} <br> {{now}} </h2>
+   
+
+    {% if cursos_alumno %}
+    <hr>
+    <div class="w3-row-padding">
+        <h3> Cursos Activos como Alumno</h3>
+        {% for curso in cursos_alumno %}
+
+        {% include 'rows.html' %}
+        {% endfor %}
+
+
+    </div>
+
+    {% endif %}
+
+    {% if cursos_instructor %}
+    <hr>
+    <h3>Cursos Activos como Instructor </h3>
+
+    <div class="w3-row-padding">       
+        {% for curso in cursos_instructor %}
+
+        {% include 'rows.html' %}          
+
+        {% endfor %}
+    </div>
+    {% endif %}    
+
+</div>
