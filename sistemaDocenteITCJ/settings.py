@@ -26,7 +26,7 @@ SECRET_KEY = '0-81a-z+*j3$(+o=%bju#udotb*f15fpr+qvz(*l4(bbm8mny#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sistemadocente.herokuapp.com','127.0.0.1']
+ALLOWED_HOSTS = ['sistemadocente.herokuapp.com','127.0.0.1','localhost']
 
 
 
@@ -84,12 +84,11 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.mysql',
         'NAME': 'registroDocente',
-        'USER': 'name',
+        'USER': 'root',
         'PASSWORD': '',
-        'HOST': 'localhost',
-        'PORT': '',
+       
     }
 }
 
