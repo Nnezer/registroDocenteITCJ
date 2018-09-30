@@ -86,10 +86,7 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 
 
 
-if ON_HEROKU:
-    DATABASE_URL = 'postgresql:///postgresql'
-else:
-    DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
+DATABASE_URL = 'postgresql:///postgresql'
 
 DATABASES = {'default': dj_database_url.config( default=DATABASE_URL, conn_max_age=500)}
 
