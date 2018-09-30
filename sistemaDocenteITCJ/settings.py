@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-import dj_database_url
+#import dj_database_url
 
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -86,8 +86,18 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 
 
 
-
-DATABASES = {'default': dj_database_url.parse('postgres://kqnduczhobsxbw:788e76800aa38243f349af466f73a400893c90d550f34a6777fae12e75788521@ec2-174-129-18-98.compute-1.amazonaws.com:5432/d75j4od1g7gsne')}
+DATABASES = {
+ "default": 
+ {
+  "ENGINE": "django.db.backends.postgresql_psycopg2", #one of those should work
+  #'ENGINE': 'django.db.backends.postgresql',   #one of those should work
+  "NAME": 'd75j4od1g7gsne',
+  "HOST": "ec2-174-129-18-98.compute-1.amazonaws.com", 
+  "USER":'kqnduczhobsxbw',
+  "PASSWORD":'88e76800aa38243f349af466f73a400893c90d550f34a6777fae12e75788521',
+  "PORT": "5432",
+ }
+ }
 
 
 
@@ -137,8 +147,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
-# Activate Django-Heroku.
-django_heroku.settings(locals())
+
 
 
 
