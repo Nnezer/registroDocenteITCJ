@@ -12,12 +12,11 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 
 import os
 import dj_database_url
+import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-ON_HEROKU = os.environ.get('ON_HEROKU')
-HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -86,9 +85,9 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 
 
 
-DATABASE_URL = 'postgresql:///postgresql'
 
-DATABASES = {'default': dj_database_url.config( default=DATABASE_URL, conn_max_age=500)}
+
+DATABASES = {'default': dj_database_url.parse('postgres://kqnduczhobsxbw:788e76800aa38243f349af466f73a400893c90d550f34a6777fae12e75788521@ec2-174-129-18-98.compute-1.amazonaws.com:5432/d75j4od1g7gsne'))}
 
 
 
@@ -138,6 +137,8 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 LOGIN_REDIRECT_URL = 'home'
 LOGOUT_REDIRECT_URL = 'home'
 
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
 
 
