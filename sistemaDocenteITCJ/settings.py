@@ -16,6 +16,8 @@ import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+ON_HEROKU = os.environ.get('ON_HEROKU')
+HEROKU_SERVER = os.environ.get('HEROKU_SERVER')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.0/howto/deployment/checklist/
@@ -82,15 +84,16 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-   #     'NAME': 'registroDocente',
-    #    'USER': 'root',
-     #   'PASSWORD': '',
-       
-    }
-}
+
+
+if ON_HEROKU:
+    DATABASE_URL = 'postgresql:///postgresql'
+else:
+    DATABASE_URL = 'sqlite://' + os.path.join(BASE_DIR, 'db.sqlite3')
+
+DATABASES = {'default': dj_database_url.config( default=DATABASE_URL, conn_max_age=500)}
+
+
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
@@ -140,5 +143,4 @@ LOGOUT_REDIRECT_URL = 'home'
 
 
 
-db_from_env = dj_database_url.config(conn_max_age=500, ssl_require=True)
-DATABASES['default'].update(db_from_env)
+
