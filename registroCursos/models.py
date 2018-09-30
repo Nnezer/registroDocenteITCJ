@@ -80,5 +80,7 @@ class Historial(models.Model):
         return self.curso.nombre
 
     class Meta:
+        verbose_name_plural = "Historial"
         db_table = 'Historial'
+        
 
