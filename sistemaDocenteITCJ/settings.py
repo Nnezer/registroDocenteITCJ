@@ -84,9 +84,12 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgressql_psycopg2',
-        'NAME': 'hobby-dev',
-       
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'registroDocente',
+        'USER': 'name',
+        'PASSWORD': '',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
