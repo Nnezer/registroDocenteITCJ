@@ -26,7 +26,7 @@ SECRET_KEY = '0-81a-z+*j3$(+o=%bju#udotb*f15fpr+qvz(*l4(bbm8mny#'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['sistemadocente.herokuapp.com']
+ALLOWED_HOSTS = ['sistemadocente.herokuapp.com','127.0.0.1']
 
 
 
@@ -84,11 +84,11 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgressql_psycopg2',
+        'NAME': 'hobby-dev',
+       
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/2.0/ref/settings/#auth-password-validators
