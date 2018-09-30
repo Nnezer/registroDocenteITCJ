@@ -1,5 +1,4 @@
 from django.db import models
-#from random import randint as rand
 from django.contrib.auth.models import User
 
 grados = (('lic', "Licenciatura"), ("mtr", 'Maestria'), ('doc', 'Doctorado'))
@@ -25,8 +24,8 @@ class Alumno(models.Model):
     def __str__(self):
         return '{} {} , {}'.format(self.apellidoPaterno, self.apellidoMaterno, self.nombre)
 
-    class Meta:
-        db_table = 'Alumno'
+    #class Meta:
+     #   db_table = 'Alumno'
 
 
 class Instructor(models.Model):
@@ -45,9 +44,9 @@ class Instructor(models.Model):
     def __str__(self):
         return '{} {} , {}'.format(self.apellidoPaterno, self.apellidoMaterno, self.nombre)
 
-    class Meta:
-        verbose_name_plural = "Instructores"
-        db_table = 'Instructor'
+    #class Meta:
+     #   verbose_name_plural = "Instructores"
+      #  db_table = 'Instructor'
 
 
 class Curso(models.Model):
@@ -70,8 +69,8 @@ class Curso(models.Model):
     def __str__(self):
         return self.nombre
 
-    class Meta:
-        db_table = 'Curso'
+    #class Meta:
+     #   db_table = 'Curso'
 
 
 
