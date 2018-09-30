@@ -87,7 +87,7 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 
 
 
-DATABASES = {'default': dj_database_url.parse('postgres://kqnduczhobsxbw:788e76800aa38243f349af466f73a400893c90d550f34a6777fae12e75788521@ec2-174-129-18-98.compute-1.amazonaws.com:5432/d75j4od1g7gsne'))}
+DATABASES = {'default': dj_database_url.parse('postgres://kqnduczhobsxbw:788e76800aa38243f349af466f73a400893c90d550f34a6777fae12e75788521@ec2-174-129-18-98.compute-1.amazonaws.com:5432/d75j4od1g7gsne')}
 
 
 
