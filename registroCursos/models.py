@@ -53,7 +53,7 @@ class Instructor(models.Model):
 
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
-    alumnos = models.ManyToManyField(Alumno, through='Clase')
+    alumnos = models.ManyToManyField(Alumno)
     instructor = models.ForeignKey(
         Instructor, on_delete=models.CASCADE, verbose_name="Instructor", blank=True)
     semestre = models.CharField(max_length=20, choices=semestres, default='')
@@ -71,7 +71,7 @@ class Curso(models.Model):
         db_table = 'Curso'
 
 
-class Clase(models.Model):
+class Historial(models.Model):
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     aprobado = models.BooleanField(default=False)
@@ -80,6 +80,5 @@ class Clase(models.Model):
         return self.curso.nombre
 
     class Meta:
-        db_table = 'curso_alumnos'
+        db_table = 'Historial'
 
-        
