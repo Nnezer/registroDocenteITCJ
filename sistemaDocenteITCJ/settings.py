@@ -83,13 +83,13 @@ WSGI_APPLICATION = 'sistemaDocenteITCJ.wsgi.application'
 # https://docs.djangoproject.com/en/2.0/ref/settings/#databases
 
 DATABASES = {
- #   'default': {
+    'default': {
   #      'ENGINE': 'django.db.backends.mysql',
    #     'NAME': 'registroDocente',
     #    'USER': 'root',
      #   'PASSWORD': '',
        
-    #}
+    }
 }
 
 # Password validation
