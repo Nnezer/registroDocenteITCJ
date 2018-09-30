@@ -54,7 +54,8 @@ class Instructor(models.Model):
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
     alumnos = models.ManyToManyField(Alumno, through='Clase')
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, verbose_name="Instructor", blank=True)
+    instructor = models.ForeignKey(
+        Instructor, on_delete=models.CASCADE, verbose_name="Instructor", blank=True)
     semestre = models.CharField(max_length=20, choices=semestres, default='')
     anno = models.IntegerField()
     diaInicio = models.DateField()
@@ -73,7 +74,7 @@ class Curso(models.Model):
 class Clase(models.Model):
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
-    #aprobado = models.BooleanField(default=False)
+    aprobado = models.BooleanField(default=False)
 
     def __str__(self):
         return self.curso.nombre
