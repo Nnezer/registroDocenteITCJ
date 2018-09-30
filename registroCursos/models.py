@@ -4,7 +4,8 @@ from django.contrib.auth.models import User
 grados = (('lic', "Licenciatura"), ("mtr", 'Maestria'), ('doc', 'Doctorado'))
 puestos = (('docente', "Docente"), ('jefe', "Jefe Depto"))
 
-ene_jun = 'ene_jun'from django.db import models
+ene_jun = 'ene_jun'
+from django.db import models
 from django.contrib.auth.models import User
 
 grados = (('lic', "Licenciatura"), ("mtr", 'Maestria'), ('doc', 'Doctorado'))
