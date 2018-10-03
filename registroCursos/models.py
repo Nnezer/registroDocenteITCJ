@@ -3,9 +3,15 @@ from django.contrib.auth.models import User
 
 grados = (('lic', "Licenciatura"), ("mtr", 'Maestria'), ('doc', 'Doctorado'))
 puestos = (('docente', "Docente"), ('jefe', "Jefe Depto"))
-
+sexos = (('H','Hombre'), ('M','Mujer'))
 ene_jun = 'ene_jun'
 ago_dic = 'ago_dic'
+nombramientos = (('TC',"Tiempo Completo"),('3/4',"3/4"),('1/2',"1/2"),('PA',"Por Asignatura")
+                    ,('HN',"Honorarios"),('HA',"Horas Administrativas"),('DIR',"Directivo"))
+
+cursos = (("AP","Actualizacion Profesional"),("FD","Formacion Docente"),
+        ("DT","Diplomado en Tutorias"),("DC","Diplomado en Competencias"),
+        ("APD","Actualizacion Profesional y Formacion Docente"))
 
 semestres = ((ago_dic, 'Ago - Dic'), (ene_jun, 'Ene - Jun'))
 
@@ -16,6 +22,8 @@ class Alumno(models.Model):
     apellidoPaterno = models.CharField(max_length=15, default='')
     apellidoMaterno = models.CharField(max_length=15, default='')
     nombre = models.CharField(max_length=20, default='')
+    sexo = models.CharField(max_length = 1, choices=sexos, default='')
+    nombramiento = models.CharField(max_length=3,choices=nombramientos , default='')
     email = models.EmailField(default='')
     grado = models.CharField(max_length=4, choices=grados, default='')
     departamento = models.CharField(max_length=20)
@@ -31,11 +39,12 @@ class Alumno(models.Model):
 
 
 class Instructor(models.Model):
-    user = models.OneToOneField(
-        User, primary_key=True, on_delete=models.CASCADE, default='')
+    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, default='')
     apellidoPaterno = models.CharField(max_length=15, default='')
     apellidoMaterno = models.CharField(max_length=15, default='')
     nombre = models.CharField(max_length=20, default='')
+    sexo = models.CharField(max_length = 1, choices=sexos, default='')
+    nombramiento = models.CharField(max_length=3,choices=nombramientos , default='')
     email = models.EmailField(default='')
     grado = models.CharField(max_length=4, choices=grados)
     departamento = models.CharField(max_length=20)
@@ -53,9 +62,9 @@ class Instructor(models.Model):
 
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
+    tipo = models.CharField(max_length=3, choices=cursos,default='')
     alumnos = models.ManyToManyField(Alumno)
-    instructor = models.ForeignKey(
-        Instructor, on_delete=models.CASCADE, verbose_name="Instructor", blank=True)
+    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, verbose_name="Instructor", blank=True)
     semestre = models.CharField(max_length=20, choices=semestres, default='')
     anno = models.IntegerField()
     diaInicio = models.DateField()
@@ -75,6 +84,7 @@ class Historial(models.Model):
     alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
     aprobado = models.BooleanField(default=False)
+    calificacion = models.IntegerField(default=0)
 
     def __str__(self):
         return self.curso.nombre

@@ -1,18 +1,29 @@
-
-<div class='w3-card w3-col w3-cell  s6 w3-mobile' >
+<div class='w3-card w3-col w3-cell  s6 w3-mobile'>
     <header class="w3-container w3-black">
-    <h4>{{curso.nombre}}</h4>
+        <h4>{{curso.nombre}}</h4>
     </header>
     <div class="w3-container">
         <p>
-            <strong>{{curso.instructor|title}}</strong><br>
+            <strong>
+                
+                {% block card-body %}
+                {{curso.instructor|title}}
+                
+
+            </strong><br>
+            
             {{curso.diaInicio}} - {{curso.diaFinal}}<br>
             <strong>Horario:</strong> {{curso.horaInicio}} - {{curso.horaFinal}} <br>
             <strong>Salon:</strong> {{curso.salon}}
         </p>
+        {% endblock  %}
         <div class="w3-light-black">
-                <button class="w3-button w3-black w3-hover-blue w3-round-xlarge">Mirar Curso</button>
+            
+            {% block card-footer %}
+            <button class="w3-button w3-black w3-hover-blue w3-round-xlarge">Mirar Curso</button>
+            {% endblock card-footer %}
+                
         </div>
-        
+
     </div>
 </div>
