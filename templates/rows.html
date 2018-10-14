@@ -1,28 +1,27 @@
 <div class='w3-card w3-col w3-cell  s6 w3-mobile'>
     <header class="w3-container w3-black">
-        <h4>{{curso.nombre}}</h4>
+        <h4>#{{curso.id}} {{curso}}</h4>
     </header>
     <div class="w3-container">
         <p>
             <strong>
-                
-                {% block card-body %}
-                {{curso.instructor|title}}
-                
-
+                {{curso.instructor.get_full_name|title}}
             </strong><br>
-            
             {{curso.diaInicio}} - {{curso.diaFinal}}<br>
             <strong>Horario:</strong> {{curso.horaInicio}} - {{curso.horaFinal}} <br>
+            <b>Semestre: </b>{{curso.get_semestre_display}}<br />
+            <b>Tipo:</b> {{curso.get_tipo_display}}<br />
             <strong>Salon:</strong> {{curso.salon}}
         </p>
-        {% endblock  %}
+
         <div class="w3-light-black">
-            
-            {% block card-footer %}
-            <button class="w3-button w3-black w3-hover-blue w3-round-xlarge">Mirar Curso</button>
-            {% endblock card-footer %}
-                
+
+
+            <a href="{% url 'detail' curso.id %}" class="w3-button w3-black w3-hover-blue w3-round-xlarge">
+                Mirar Curso
+            </a>
+
+
         </div>
 
     </div>

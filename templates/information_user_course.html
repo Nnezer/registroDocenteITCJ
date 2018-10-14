@@ -3,10 +3,10 @@
     <h1 style="color:black">Bienvenido(a) </h1>
     <h1 class="w3-text-blue ">{{user.get_full_name|title}} <br> </h1>
     <h2>{{user.email}} <br> {{now}} </h2>
-   
+   <hr>
 
     {% if cursos_alumno %}
-    <hr>
+    
     <div class="w3-row-padding">
         <h3> Cursos Activos como Alumno</h3>
         {% for curso in cursos_alumno %}
@@ -33,5 +33,6 @@
         {% endfor %}
     </div>
     {% endif %}    
+    <hr />
 
 </div>

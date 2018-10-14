@@ -1,0 +1,14 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\registroCursos",
+    "\\sistemaDocenteITCJ",
+    "\\static\\css",
+    "\\static\\js",
+    "\\templates",
+    "\\templates\\registration",
+    "\\templates\\user"
+  ],
+  "SelectedNode": "\\registroCursos\\views.py",
+  "PreviewInSolutionExplorer": false
+}

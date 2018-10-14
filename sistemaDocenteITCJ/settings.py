@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '0-81a-z+*j3$(+o=%bju#udotb*f15fpr+qvz(*l4(bbm8mny#'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['sistemadocente.herokuapp.com', '127.0.0.1', 'localhost']
 
@@ -41,7 +41,6 @@ INSTALLED_APPS = [
 ]
 
 #AUTH_USER_MODEL = 'registroCursos.User'
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

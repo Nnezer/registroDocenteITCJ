@@ -1,43 +1,117 @@
 from django.utils import timezone
-from django.views.generic import TemplateView
-from registroCursos.models import Alumno,Instructor,Curso
+from django.views.generic import TemplateView,View
+from registroCursos.models import Curso
+from django.shortcuts import render
+from django.contrib.auth.models import User
+from .forms import *
+from django.views.generic.edit import FormView
+
 
 date_filter = timezone.now().strftime('%d/%m/%Y')
-current_semester = "ago_dic" if int(date_filter[-7:-5]) > 7 else "ene_jun"
+currentSemester = "ago_dic" if int(date_filter[-7:-5]) > 7 else "ene_jun"
 
 
-class CursosView(TemplateView):
+class DetailView(View):
+    template_name = "detail.html"
+    
+    def post(self,request,*args,**kwargs):   
+        return render(request,self.template_name,locals())
+
+    def get(self,request,*args,**kwargs):
+        
+        current_user = request.user
+        current_user_id = current_user.id
+        id = self.kwargs.get('id_curso')
+        curso= Curso.objects.get(id=id)
+        date= date_filter
+        onCourseAsInstructor= True if Curso.objects.filter(id=id,instructor=current_user_id) else False
+        onCourseAsAlumno= True if Curso.objects.filter(id=id,alumno=current_user_id) else False
+        return render(request,self.template_name,locals())
+
+class DisEnrollCourseView(View):
+    template_name = 'user/disenroll.html'
+
+    def post(self,request,*args,**kwargs):   
+
+        post_data = request.POST.copy()
+        curso = Curso.objects.get(id=post_data['id_curso'])
+        usuario = User.objects.get(id=post_data['id_user'])
+        curso.alumno.remove(usuario)
+
+        return render(request,self.template_name,locals())
+
+    def get(self,request,*args,**kwargs):
+        return render(request,self.template_name,locals())
+
+
+class PersonalView(View):
+    template_name="user/personal.html"
+   
+    def post(self,request,*args,**kwargs):   
+        
+        return render(request,self.template_name,locals())
+    
+    def get(self,request,*args,**kwargs):
+        formUser= UpdateUserForm()
+        formProfile = UpdateUserProfileForm()
+        return render(request,self.template_name,locals())
+
+class CursosView(View):
 
     template_name = 'cursos.html'
 
-    def get_context_data(self,*args, **kwargs):
-        context = super(CursosView, self).get_context_data(**kwargs)
-        context['cursos'] = Curso.objects.filter(anno=int(date_filter[-4:]),
-                                                        semestre=current_semester)
-        context['current_semester'] = current_semester
-        context['current_year'] = date_filter[-4:]
-        return context
+    def post(self,request,*args,**kwargs):   
+        
+        return render(request,self.template_name,locals())
+        
+
+    def get(self,request,*args,**kwargs):
+        cursos = Curso.objects.filter(anno=int(date_filter[-4:]),
+                                                        semestre=currentSemester)
+        current_semester= currentSemester
+        current_year= date_filter[-4:]
+        return render(request,self.template_name,locals())
+
+class EnrollCourseView(View):
+
+    template_name = 'user/enroll.html'     
+    
+    def post(self,request,*args,**kwargs):   
+        post_data = request.POST.copy()
+        curso = Curso.objects.get(id=post_data['curso'])
+        usuario = User.objects.get(id=post_data['user'])
+        curso.alumno.add(usuario)
+        return render(request,self.template_name,locals())
+        
+
+    def get(self,request,*args,**kwargs):
+        
+        return render(request,self.template_name,locals())
 
 
-class HomeView(TemplateView): 
+class HomeView(View): 
       
     template_name = "home.html"
-    
-    def get_context_data(self, *args, **kwargs):
-        context = super(HomeView, self).get_context_data(**kwargs)
-        current_user = self.request.user
+
+    def post(self,request,*args,**kwargs):   
+        return render(request,self.template_name,locals())
+
+
+    def get(self, request, *args, **kwargs):
+
+        current_user = request.user
         current_user_id = current_user.id
 
-        context['now'] = timezone.now()
+        now= timezone.now()
       
-        context['cursos_alumno'] = Curso.objects.filter(alumnos=current_user_id, 
+        cursos_alumno= Curso.objects.filter(alumno=current_user_id, 
                                                         anno=int(date_filter[-4:]),
-                                                        semestre=current_semester)
-        context['cursos_instructor'] = Curso.objects.filter(instructor_id=current_user_id,
+                                                        semestre=currentSemester)
+        cursos_instructor= Curso.objects.filter(instructor_id=current_user_id,
                                                          anno=int(date_filter[-4:]),
-                                                            semestre=current_semester)
+                                                            semestre=currentSemester)
 
-        return context
+        return render(request,self.template_name,locals())
     
         
         

@@ -16,55 +16,25 @@ cursos = (("AP","Actualizacion Profesional"),("FD","Formacion Docente"),
 semestres = ((ago_dic, 'Ago - Dic'), (ene_jun, 'Ene - Jun'))
 
 
-class Alumno(models.Model):
-
-    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, default='')
-    apellidoPaterno = models.CharField(max_length=15, default='')
-    apellidoMaterno = models.CharField(max_length=15, default='')
-    nombre = models.CharField(max_length=20, default='')
+class UserProfile(models.Model):
+    user = models.OneToOneField(User,on_delete=models.CASCADE)
     sexo = models.CharField(max_length = 1, choices=sexos, default='')
     nombramiento = models.CharField(max_length=3,choices=nombramientos , default='')
     email = models.EmailField(default='')
     grado = models.CharField(max_length=4, choices=grados, default='')
-    departamento = models.CharField(max_length=20)
+    departamento = models.CharField(max_length=20,default='')
     puesto = models.CharField(max_length=7, choices=puestos, default='')
     RFC = models.CharField(max_length=14, blank=True)
     CURP = models.CharField(max_length=18, blank=True)
 
     def __str__(self):
-        return '{} {} , {}'.format(self.apellidoPaterno, self.apellidoMaterno, self.nombre)
-
-    class Meta:
-        db_table = 'Alumno'
-
-
-class Instructor(models.Model):
-    user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, default='')
-    apellidoPaterno = models.CharField(max_length=15, default='')
-    apellidoMaterno = models.CharField(max_length=15, default='')
-    nombre = models.CharField(max_length=20, default='')
-    sexo = models.CharField(max_length = 1, choices=sexos, default='')
-    nombramiento = models.CharField(max_length=3,choices=nombramientos , default='')
-    email = models.EmailField(default='')
-    grado = models.CharField(max_length=4, choices=grados)
-    departamento = models.CharField(max_length=20)
-    puesto = models.CharField(max_length=7, choices=puestos, default='')
-    RFC = models.CharField(max_length=14, blank=True)
-    CURP = models.CharField(max_length=18, blank=True)
-
-    def __str__(self):
-        return '{} {} , {}'.format(self.apellidoPaterno, self.apellidoMaterno, self.nombre)
-
-    class Meta:
-        verbose_name_plural = "Instructores"
-        db_table = 'Instructor'
-
+        return self.user.get_full_name()
 
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
     tipo = models.CharField(max_length=3, choices=cursos,default='')
-    alumnos = models.ManyToManyField(Alumno)
-    instructor = models.ForeignKey(Instructor, on_delete=models.CASCADE, verbose_name="Instructor", blank=True)
+    alumno = models.ManyToManyField(User, related_name="alumno", blank=True)
+    instructor = models.ForeignKey(User, on_delete=models.CASCADE, related_name="instructor", blank=True)
     semestre = models.CharField(max_length=20, choices=semestres, default='')
     anno = models.IntegerField()
     diaInicio = models.DateField()
@@ -81,8 +51,9 @@ class Curso(models.Model):
 
 
 class Historial(models.Model):
-    alumno = models.ForeignKey(Alumno, on_delete=models.CASCADE)
     curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+    alumno = models.ForeignKey(User, on_delete=models.CASCADE)
+    enCurso= models.BooleanField(default=False)
     aprobado = models.BooleanField(default=False)
     calificacion = models.IntegerField(default=0)
 

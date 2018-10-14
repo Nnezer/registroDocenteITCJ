@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+
+{% block title %}
+Detalles del curso
+{% endblock title %}
+
+{% block section %}
+
+{% if user.is_authenticated %}
+<hr>
+
+<h2>el usuario {{user}}, ha sido agregado exitosamente en el curso</h2>
+
+
+
+<h3>click aqui para seguir viendo los cursos </h3>
+<a href="{%url 'course' %}" class="w3-button w3-black w3-hover-blue w3-round-large w3-xlarge w3-mobile ">
+    Ver cursos
+</a>
+
+<h3>o click aqui para regresar a la pagina principal</h3>
+<a href="{% url 'home' %}" class="w3-button w3-black w3-hover-blue w3-round-large w3-xlarge w3-mobile ">
+    Inicio
+</a>
+
+{% else %}
+{% include 'noAuth.html' %}
+{% endif %}
+{% endblock section %}
