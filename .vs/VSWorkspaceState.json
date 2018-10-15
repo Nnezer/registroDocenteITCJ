@@ -1,11 +1,13 @@
 {
   "ExpandedNodes": [
     "",
-    "\\static",
+    "\\registroCursos",
+    "\\sistemaDocenteITCJ",
+    "\\static\\css",
     "\\static\\js",
-    "\\templates\\registration",
-    "\\templates\\user"
+    "\\templates",
+    "\\templates\\registration"
   ],
-  "SelectedNode": "\\static\\js\\myScript.js",
+  "SelectedNode": "\\templates\\registration\\password_change_form.html",
   "PreviewInSolutionExplorer": false
 }

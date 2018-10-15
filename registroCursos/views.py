@@ -57,7 +57,6 @@ class PersonalView(View):
         return render(request,self.template_name,locals())
     
     def get(self,request,*args,**kwargs):
-        formUser= UpdateUserForm()
         formProfile = UpdateUserProfileForm()
         return render(request,self.template_name,locals())
 
