@@ -29,6 +29,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['sistemadocente.herokuapp.com', '127.0.0.1', 'localhost']
 
+FILE_CHARSET = 'utf-8'
+
 # Application definition
 INSTALLED_APPS = [
     'registroCursos',

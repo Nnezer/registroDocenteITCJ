@@ -1,44 +1,54 @@
-﻿{% load staticfiles %}
-<!DOCTYPE html>
-<html>
-
+﻿<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>{% block title %}{% endblock %}</title>
-  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css'%}">
- 
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <title>{% block title %}{% endblock %}</title>
+
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 </head>
-
-<body>
-
-    <div class="w3-header">
+<body class="w3-light-gray">
+    <div class="w3-header" >
         {% include 'header.html' %}
     </div>
-    
+
+
+
     <div class="w3-container w3-center w3-section">
 
-        {%block section%}
+        <div class="w3-col" style="width:5%">
+            <hr />
+        </div>
+        <div class="w3-col" style="width:90%">
+            {%block section%}
 
-        {% endblock section%}
+            {% endblock section%}
+        </div>
+        
 
     </div>
-  
-    <div class="w3-bottom">
-        <div class="w3-container w3-dark-gray">
+
+
+
+    <br />
+    <br />
+    <br />
+        <div class="w3-container w3-bottom w3-dark-gray">
             <h5>
                 Instituto Tecnologico De Ciudad Juarez |  Av. Tecnológico No. 1340 C.P. 32500 Ciudad Juárez, Chih. México
                 | Make it simple, but not simpler
             </h5>
         </div>
-    </div>
+    
 
 
 
     {% load static %}
-    <script src="{% static 'js/myScript.js' %}"></script>
-</body>
+    <script src="{% static 'myScript.js' %}">
 
+    </script>
+</body>
 </html>

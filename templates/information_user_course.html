@@ -1,38 +1,56 @@
 <div class='w3-container'>
-    <hr>
-    <h1 style="color:black">Bienvenido(a) </h1>
-    <h1 class="w3-text-blue ">{{user.get_full_name|title}} <br> </h1>
-    <h2>{{user.email}} <br> {{now}} </h2>
-   <hr>
+    <br />
+    <br />
+    <div class="w3-card-4 w3-section w3-white">
+        <h1 style="color:black">Bienvenido(a) </h1>
+        <h1 class="w3-text-blue ">{{user.get_full_name|title}} <br> </h1>
+        <h2>{{user.email}} <br> {{now}} </h2>
 
-    {% if cursos_alumno %}
-    
-    <div class="w3-row-padding">
-        <h3> Cursos Activos como Alumno</h3>
-        {% for curso in cursos_alumno %}
-
-        {% include 'rows.html' %}
-
+        <br />
+        <br />
         
-        {% endfor %}
-
-
     </div>
 
-    {% endif %}
+   
+    <div class="w3-card-4 w3-white">
+        <button onclick="myFunction('demo')" class="w3-btn w3-block w3-black w3-center w3-xlarge">Cursos Activos como Alumno</button>
+        <div id="demo" class="w3-container w3-hide">
+            {% if cursos_alumno %}
+            {% for curso in cursos_alumno %}
+            {% include 'rows.html' %}
+            {% endfor %}
 
-    {% if cursos_instructor %}
-    <hr>
-    <h3>Cursos Activos como Instructor </h3>
-
-    <div class="w3-row-padding">       
-        {% for curso in cursos_instructor %}
-
-        {% include 'rows.html' %}          
-
-        {% endfor %}
+            {%else%}
+            <h3>No tiene actualmente ningun curso activo como Alumno</h3>
+            {% endif %}
+        </div>
     </div>
-    {% endif %}    
-    <hr />
+   
 
+    
+    <div class="w3-card-4 w3-white w3-section">
+        <button onclick="myFunction('demo2')" class="w3-btn w3-block w3-black w3-center w3-xlarge">Cursos Activos como Instructor</button>
+        
+        <div id="demo2" class="w3-container w3-hide">
+            {%if cursos_instructor%}
+            {% for curso in cursos_instructor %}
+            {% include 'rows.html' %}
+            {% endfor %}
+            {%else%}
+            <h3>No tiene actualmente ningun curso activo como Instructor</h3>
+            {%endif%}
+        </div>
+    </div>
+   
+
+    <script>
+        function myFunction(id) {
+            var x = document.getElementById(id);
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
 </div>

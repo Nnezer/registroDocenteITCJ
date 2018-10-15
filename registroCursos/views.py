@@ -1,6 +1,6 @@
 from django.utils import timezone
 from django.views.generic import TemplateView,View
-from registroCursos.models import Curso
+from registroCursos.models import Curso,Historial
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .forms import *
@@ -9,7 +9,6 @@ from django.views.generic.edit import FormView
 
 date_filter = timezone.now().strftime('%d/%m/%Y')
 currentSemester = "ago_dic" if int(date_filter[-7:-5]) > 7 else "ene_jun"
-
 
 class DetailView(View):
     template_name = "detail.html"
@@ -36,7 +35,13 @@ class DisEnrollCourseView(View):
         post_data = request.POST.copy()
         curso = Curso.objects.get(id=post_data['id_curso'])
         usuario = User.objects.get(id=post_data['id_user'])
-        curso.alumno.remove(usuario)
+        
+        if  Historial.objects.filter(curso = curso,alumno = usuario):
+            Historial.objects.get(curso = curso.id,alumno=usuario.id).delete()
+            print("borrado exitoso")
+            
+
+
 
         return render(request,self.template_name,locals())
 
@@ -80,7 +85,11 @@ class EnrollCourseView(View):
         post_data = request.POST.copy()
         curso = Curso.objects.get(id=post_data['curso'])
         usuario = User.objects.get(id=post_data['user'])
-        curso.alumno.add(usuario)
+
+        if not Historial.objects.filter(curso = curso,alumno = usuario):
+            h1 = Historial(curso = curso,alumno=usuario)
+            h1.save()
+
         return render(request,self.template_name,locals())
         
 

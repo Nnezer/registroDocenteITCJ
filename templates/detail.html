@@ -8,6 +8,7 @@ Detalles del curso
 {% block section %}
 
 {% if user.is_authenticated %}
+{%csrf_token%}
 <hr>
 <div class="w3-container">
     <hr>
@@ -28,37 +29,37 @@ Detalles del curso
     <h3>El usuario es Instructor de este curso, no es posible inscribirse</h3>
 
     {%else%}
-        {% if onCourseAsAlumno %}
-        <h3>
+    {% if onCourseAsAlumno %}
+    <h3>
         Es usuario esta actualmente inscrito a este curso <br /> (es posible cancelar la inscripcion hasta un dia despues del inicio del curso)
-        </h3>
+    </h3>
 
-        <form action="/course/detail/{{curso.id}}/disenroll" method="post">
-            {%csrf_token%}
-           
-            <input type="hidden" name="id_user" value="{{user.id}}" />
-            <input type="hidden" name="id_curso" value="{{curso.id}}" />
+    <form action="/course/detail/{{curso.id}}/disenroll" method="post">
+        {%csrf_token%}
 
-            <input type="submit" value="Desinscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge" />
+        <input type="hidden" name="id_user" value="{{user.id}}" />
+        <input type="hidden" name="id_curso" value="{{curso.id}}" />
 
-        </form>
-        {%else%}
-        
-        <h3>Para inscribirse a este curso solo presione el boton "Inscribir"</h3>
-        <form action="/course/detail/{{curso.id}}/enroll" method="POST">
-            {%csrf_token%}
-            
-            <input type="hidden" name="user" value="{{user.id}}" />
-            <input type="hidden" name="curso" value="{{curso.id}}" />
+        <input type="submit" value="Desinscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge" />
 
-            <input type="submit" value="Inscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge" />
+    </form>
+    {%else%}
 
-        </form>
+    <h3>Para inscribirse a este curso solo presione el boton "Inscribir"</h3>
+    <form action="/course/detail/{{curso.id}}/enroll" method="POST">
+        {%csrf_token%}
 
-        {%endif%}
+        <input type="hidden" name="user" value="{{user.id}}" />
+        <input type="hidden" name="curso" value="{{curso.id}}" />
+
+        <input type="submit" value="Inscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge" />
+
+    </form>
 
     {%endif%}
-          </div>
+
+    {%endif%}
+</div>
 
 {% else %}
 {% include 'noAuth.html' %}
