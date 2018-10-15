@@ -1,19 +1,21 @@
 
 <div class='w3-card-4 w3-half w3-section w3-white w3-mobile w3-large'>
 
-        <header class="w3-black">#{{curso.id}} - {{curso}}</header>
-        
-        <strong>{{curso.instructor.get_full_name|title}}</strong>
-        {%if curso.colaborador%}
-        Colaborador(a): {{curso.colaborador.get_full_name|title}}
-        {%endif%}
+    <header class="w3-black w3-padding">#{{curso.id}} - {{curso}}</header>
+    <br />
+    <strong>Instructor(a): </strong>{{curso.instructor.get_full_name|title}}<br />
+    {%if curso.colaborador%}
+    <b>Colaborador(a):</b> {{curso.colaborador.get_full_name|title}}
+    <br />
+    <br />
+    {%endif%}
 
-        {{curso.diaInicio}} - {{curso.diaFinal}}<br>
-        <strong>Horario:</strong> {{curso.horaInicio}} - {{curso.horaFinal}} <br>
-        <b>Semestre: </b>{{curso.get_semestre_display}}<br />
-        <b>Tipo:</b> {{curso.get_tipo_display}}<br />
-        <strong>Salon:</strong> {{curso.salon}}
-        <br />
-        <a href="{% url 'detail' curso.id %}" class="w3-button w3-black w3-hover-blue w3-round-xlarge w3-section"> Mirar Curso</a>
-         
+    {{curso.dia_inicio}} - {{curso.dia_final}}<br>
+    <strong>Horario:</strong> {{curso.hora_inicio}} - {{curso.hora_final}} <br>
+    <b>Semestre: </b>{{curso.get_semestre_display}}<br />
+    <b>Tipo:</b> {{curso.get_tipo_display}}<br />
+    <strong>Salon:</strong> {{curso.salon}}
+    <br />
+    <a href="{% url 'detail' curso.id %}" class="w3-button w3-black w3-hover-blue w3-round-xlarge w3-section"> Mirar Curso</a>
+
 </div>

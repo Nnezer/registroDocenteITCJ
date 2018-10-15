@@ -11,18 +11,26 @@
 {% if user.is_authenticated %}
 
 <div class="w3-container">
-       <hr>
-    <h1>
-        Cursos disponibles para inscripcion del semestre: 
-    </h1>
-    {% if current_semester == 'ago_dic' %}
-    <h1 class="w3-text-blue">Agosto - Diciembre   {{current_year}}</h1>
-    {% else %}
-    <h1 class="w3-text-blue">Enero - Junio   {{current_year}}</h1>
-    {% endif %}
-    <hr>
+    <hr />
+    <hr />
+    <div class="w3-card-4 w3-white w3-section">
+        <h1>
+            Cursos disponibles para inscripcion del semestre:
+        </h1>
+        {% if current_semester == 'ago_dic' %}
+        <h1 class="w3-text-blue">Agosto - Diciembre   {{current_year}}</h1>
+        {% else %}
+        <h1 class="w3-text-blue">Enero - Junio   {{current_year}}</h1>
+        {% endif %}
+    </div>
 
-        <div class="w3-row-padding">
+    <div class="w3-card-4 w3-white">
+        <header class="w3-black w3-padding w3-xlarge">Barra de Busqueda</header>
+        <input type="text" id="myInput" class="w3-input w3-large" placeholder="Introduce el nombre del curso" onkeyup="Myfunction2()" />
+    </div>
+
+        <div class="w3-card-4 w3-white">
+
                 {% for curso in cursos %}
 
                 {% include 'rows.html' %}
@@ -30,8 +38,6 @@
                 {% endfor %}
         </div>
         
-
-    
     <hr>
 
     {% else %}

@@ -11,56 +11,72 @@ Detalles del curso
 {%csrf_token%}
 <hr>
 <div class="w3-container">
-    <hr>
-    <h2> <strong>#{{curso.id}} {{curso}}</strong></h2>
-    <h2 class="w3-text-blue"><strong>{{curso.instructor.get_full_name|title}}</strong></h2>
-    <h3>
-        {{curso.diaInicio}} - {{curso.diaFinal}}<br>
-        <strong>Horario:</strong> {{curso.horaInicio}} - {{curso.horaFinal}} <br>
-        <b>Semestre: </b>{{curso.get_semestre_display}}<br />
-        <b>Tipo:</b> {{curso.get_tipo_display}}<br />
-        <strong>Salon:</strong> {{curso.salon}}
-    </h3>
 
-    <hr>
 
-    {%if onCourseAsInstructor %}
+    <div class="w3-card-4 w3-white w3-section">
+        <h2> <strong>#{{curso.id}} {{curso}}</strong></h2>
+        <h2 class="w3-text-blue"><strong>{{curso.instructor.get_full_name|title}}</strong></h2>
+        <h3>
+            {{curso.dia_inicio}} - {{curso.dia_final}}<br>
+            <strong>Horario:</strong> {{curso.hora_inicio}} - {{curso.hora_final}} <br>
+            <b>Semestre: </b>{{curso.get_semestre_display}}<br />
+            <b>Tipo:</b> {{curso.get_tipo_display}}<br />
+            <strong>Salon:</strong> {{curso.salon}}
+        </h3>
+        {%if onCourseAsInstructor %}
 
-    <h3>El usuario es Instructor de este curso, no es posible inscribirse</h3>
+        <h3>El usuario es Instructor de este curso, no es posible inscribirse</h3>
 
-    {%else%}
-    {% if onCourseAsAlumno %}
-    <h3>
-        Es usuario esta actualmente inscrito a este curso <br /> (es posible cancelar la inscripcion hasta un dia despues del inicio del curso)
-    </h3>
+        {%else%}
+        {% if onCourseAsAlumno %}
+        <h3 class="w3-text-red">
+            <b>
+                Este usuario esta actualmente inscrito a este curso <br /> (Es posible cancelar la inscripcion hasta el dia de inicio del curso)
+            </b>
+            
+        </h3>
 
-    <form action="/course/detail/{{curso.id}}/disenroll" method="post">
-        {%csrf_token%}
+        <form action="/course/detail/{{curso.id}}/disenroll"  class="w3-section" method="post">
+            {%csrf_token%}
 
-        <input type="hidden" name="id_user" value="{{user.id}}" />
-        <input type="hidden" name="id_curso" value="{{curso.id}}" />
+            <input type="hidden" name="id_user" value="{{user.id}}" />
+            <input type="hidden" name="id_curso" value="{{curso.id}}" />
 
-        <input type="submit" value="Desinscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge" />
+            <input type="submit" value="Desinscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge w3-xlarge " />
 
-    </form>
-    {%else%}
+        </form>
+        {%else%}
 
-    <h3>Para inscribirse a este curso solo presione el boton "Inscribir"</h3>
-    <form action="/course/detail/{{curso.id}}/enroll" method="POST">
-        {%csrf_token%}
+        <h3>Para inscribirse a este curso solo presione el boton "Inscribir"</h3>
+        <form action="/course/detail/{{curso.id}}/enroll" method="POST">
+            {%csrf_token%}
 
-        <input type="hidden" name="user" value="{{user.id}}" />
-        <input type="hidden" name="curso" value="{{curso.id}}" />
+            <input type="hidden" name="user" value="{{user.id}}" />
+            <input type="hidden" name="curso" value="{{curso.id}}" />
 
-        <input type="submit" value="Inscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge" />
+            <input type="submit" value="Inscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge w3-xlarge" />
 
-    </form>
+        </form>
+    
 
-    {%endif%}
+        {%endif%}
 
-    {%endif%}
+        {%endif%}
+        <br /><br />
+    </div>
+
+
+
+
+
+
 </div>
 
+    
+
+    
+
+    
 {% else %}
 {% include 'noAuth.html' %}
 {% endif %}

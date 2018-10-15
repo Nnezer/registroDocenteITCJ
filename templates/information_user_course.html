@@ -3,17 +3,19 @@
     <br />
     <div class="w3-card-4 w3-section w3-white">
         <h1 style="color:black">Bienvenido(a) </h1>
-        <h1 class="w3-text-blue ">{{user.get_full_name|title}} <br> </h1>
+
+        <h1 class="w3-text-blue "><b>{{user.get_full_name|title}}</b> <br> </h1>
         <h2>{{user.email}} <br> {{now}} </h2>
 
         <br />
+        <h3 class="w3-text-orange"><b>Para ver los cursos activos solo de click en las secciones de abajo</b></h3>
         <br />
         
     </div>
 
    
     <div class="w3-card-4 w3-white">
-        <button onclick="myFunction('demo')" class="w3-btn w3-block w3-black w3-center w3-xlarge">Cursos Activos como Alumno</button>
+        <button onclick="myFunction('demo')" class="w3-btn w3-block w3-black w3-center w3-xlarge w3-hover-blue">Cursos Activos como Alumno</button>
         <div id="demo" class="w3-container w3-hide">
             {% if cursos_alumno %}
             {% for curso in cursos_alumno %}
@@ -29,7 +31,7 @@
 
     
     <div class="w3-card-4 w3-white w3-section">
-        <button onclick="myFunction('demo2')" class="w3-btn w3-block w3-black w3-center w3-xlarge">Cursos Activos como Instructor</button>
+        <button onclick="myFunction('demo2')" class="w3-btn w3-block w3-black w3-center w3-xlarge w3-hover-blue">Cursos Activos como Instructor</button>
         
         <div id="demo2" class="w3-container w3-hide">
             {%if cursos_instructor%}
@@ -42,15 +44,4 @@
         </div>
     </div>
    
-
-    <script>
-        function myFunction(id) {
-            var x = document.getElementById(id);
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-    </script>
 </div>
