@@ -10,10 +10,8 @@ Detalles del curso
 {% if user.is_authenticated %}
 {%csrf_token%}
 <hr>
-<div class="w3-container">
-
-
-    <div class="w3-card-4 w3-white w3-section">
+<div class="w3-container ">
+    <div class="w3-card-4 w3-white w3-section w3-round-xlarge">
         <h2> <strong>#{{curso.id}} {{curso}}</strong></h2>
         <h2 class="w3-text-blue"><strong>{{curso.instructor.get_full_name|title}}</strong></h2>
         <h3>
