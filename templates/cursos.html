@@ -13,23 +13,24 @@
 <div class="w3-container">
     <hr />
     <hr />
-    <div class="w3-card-4 w3-white w3-section w3-round-xlarge">
-        <h1>
+    <div class="w3-card w3-white w3-section w3-round-large">
+        <h1 class="w3-karla"> 
             Cursos disponibles para inscripcion del semestre:
         </h1>
         {% if current_semester == 'ago_dic' %}
-        <h1 class="w3-text-blue">Agosto - Diciembre   {{current_year}}</h1>
+        <h1 class="w3-text-blue w3-karla">Agosto - Diciembre   {{current_year}}</h1>
         {% else %}
-        <h1 class="w3-text-blue">Enero - Junio   {{current_year}}</h1>
+        <h1 class="w3-text-blue w3-karla">Enero - Junio   {{current_year}}</h1>
         {% endif %}
+        <br />
     </div>
 
-    <div class="w3-card-4 w3-white w3-round-xlarge"> 
-        <header class="w3-black w3-padding w3-xlarge w3-round-xlarge">Barra de Busqueda</header>
+    <div class="w3-card w3-white w3-round-large"> 
+        <header class="w3-black w3-padding w3-xlarge w3-round-large">Barra de Busqueda</header>
         <input type="text" id="myInput" class="w3-input w3-large w3-round-xlarge" placeholder="Introduce el nombre del curso" onkeyup="Myfunction2()" />
     </div>
 
-        <div class="w3-card-4 w3-white">
+        <div class="w3-card w3-white">
 
                 {% for curso in cursos %}
 

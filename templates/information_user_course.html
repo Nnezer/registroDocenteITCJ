@@ -1,45 +1,46 @@
 <div class='w3-container'>
     <br />
     <br />
-    <div class="w3-card-4 w3-section w3-white w3-round-xlarge">
-        <h1> Bienvenido(a) </h1>
+    <div class="w3-card w3-section w3-white w3-round-large">
+        <h1 class="w3-karla"> Bienvenido(a) </h1>
 
-        <h1 class="w3-text-blue "><b>{{user.get_full_name|title}}</b> <br> </h1>
-        <h2>{{user.email}} <br> {{now}} </h2>
-
+        <h1 class="w3-text-blue w3-karla"><b>{{user.get_full_name|title}}</b> <br> </h1>
+        <h2 class="w3-karla">{{user.email}}</h2>
+        <h2 class="w3-karla">{{now}}</h2>
+         
         <br />
-        <h3 class="w3-text-orange"><b>Para ver los cursos activos solo de click en las secciones de abajo</b></h3>
+        <h3 class="w3-text-orange w3-karla"><b>Para ver los cursos activos solo de click en las secciones de abajo</b></h3>
         <br />
         
     </div>
 
    
-    <div class="w3-card-4">
-        <button onclick="myFunction('demo')" class="w3-btn w3-block w3-black w3-center w3-xlarge w3-hover-blue w3-round-large" >Cursos Activos como Alumno</button>
-        <div id="demo" class="w3-container w3-hide w3-white w3-round-xlarge">
+    <div class="w3-card w3-white w3-section">
+        <button onclick="myFunction('demo')" class="w3-btn w3-block w3-black w3-center w3-xlarge w3-hover-blue w3-round-large" ><b>Cursos Activos como Alumno</b></button>
+        <div id="demo" class="w3-container w3-hide w3-white w3-round-large">
             {% if cursos_alumno %}
             {% for curso in cursos_alumno %}
             {% include 'rows.html' %}
             {% endfor %}
 
             {%else%}
-            <h3 class="w3-round-xlarge">No tiene actualmente ningun curso activo como Alumno</h3>
+            <h3 class="w3-round-large">No tiene actualmente ningun curso activo como Alumno</h3>
             {% endif %}
         </div>
     </div>
    
 
     
-    <div class="w3-card-4 w3-white w3-section">
-        <button onclick="myFunction('demo2')" class="w3-btn w3-block w3-black w3-center w3-xlarge w3-hover-blue w3-round-large">Cursos Activos como Instructor</button>
+    <div class="w3-card w3-white w3-section">
+        <button onclick="myFunction('demo2')" class="w3-btn w3-block w3-black w3-center w3-xlarge w3-hover-blue w3-round-large"> <b>Cursos Activos como Instructor</b></button>
         
-        <div id="demo2" class="w3-container w3-hide w3-round-xlarge">
+        <div id="demo2" class="w3-container w3-hide w3-round-large">
             {%if cursos_instructor%}
             {% for curso in cursos_instructor %}
             {% include 'rows.html' %}
             {% endfor %}
             {%else%}
-            <h3 class="w3-round-xlarge">No tiene actualmente ningun curso activo como Instructor</h3>
+            <h3 class="w3-round-large">No tiene actualmente ningun curso activo como Instructor</h3>
             {%endif%}
         </div>
     </div>

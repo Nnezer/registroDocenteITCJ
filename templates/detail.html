@@ -11,7 +11,7 @@ Detalles del curso
 {%csrf_token%}
 <hr>
 <div class="w3-container ">
-    <div class="w3-card-4 w3-white w3-section w3-round-xlarge">
+    <div class="w3-card-4 w3-white w3-section w3-round-large">
         <h2> <strong>#{{curso.id}} {{curso}}</strong></h2>
         <h2 class="w3-text-blue"><strong>{{curso.instructor.get_full_name|title}}</strong></h2>
         <h3>
@@ -27,7 +27,7 @@ Detalles del curso
 
         {%else%}
         {% if onCourseAsAlumno %}
-        <h3 class="w3-text-red">
+        <h3 class="w3-text-red w3-karla">
             <b>
                 Este usuario esta actualmente inscrito a este curso <br /> (Es posible cancelar la inscripcion hasta el dia de inicio del curso)
             </b>
@@ -45,7 +45,7 @@ Detalles del curso
         </form>
         {%else%}
 
-        <h3>Para inscribirse a este curso solo presione el boton "Inscribir"</h3>
+        <h3 class="w3-text-orange w3-karla">Para inscribirse a este curso solo presione el boton "Inscribir"</h3>
         <form action="/course/detail/{{curso.id}}/enroll" method="POST">
             {%csrf_token%}
 

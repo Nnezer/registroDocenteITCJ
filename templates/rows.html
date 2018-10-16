@@ -1,7 +1,7 @@
 
-<div class='w3-card-4 w3-half w3-section w3-white w3-mobile w3-large w3-round-xlarge'>
+<div class='w3-card w3-half w3-section w3-white w3-mobile w3-large w3-round-large'>
 
-    <header class="w3-black w3-padding w3-round-xlarge">#{{curso.id}} - {{curso}}</header>
+    <header class="w3-black w3-padding w3-round-large"><b>#{{curso.id}} - {{curso}}</b></header>
     <br />
     <strong>Instructor(a): </strong>{{curso.instructor.get_full_name|title}}<br />
     {%if curso.colaborador%}
@@ -16,6 +16,6 @@
     <b>Tipo:</b> {{curso.get_tipo_display}}<br />
     <strong>Salon:</strong> {{curso.salon}}
     <br />
-    <a href="{% url 'detail' curso.id %}" class="w3-button w3-black w3-hover-blue w3-round-xlarge w3-section"> Mirar Curso</a>
+    <a href="{% url 'detail' curso.id %}" class="w3-button w3-black w3-hover-blue w3-round-large w3-section"> Mirar Curso</a>
 
 </div>
