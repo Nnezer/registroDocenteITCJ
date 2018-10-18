@@ -119,6 +119,14 @@ class HomeView(View):
                                                          anno=int(date_filter[-4:]),
                                                             semestre=currentSemester)
 
+        cursos_colaborador= Curso.objects.filter(colaborador_id=current_user_id,
+                                                         anno=int(date_filter[-4:]),
+                                                            semestre=currentSemester)
+
+        print(cursos_alumno)
+        print(cursos_instructor)
+        print(cursos_colaborador)
+
         return render(request,self.template_name,locals())
     
         

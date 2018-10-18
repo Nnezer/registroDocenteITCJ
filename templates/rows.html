@@ -1,21 +1,54 @@
+<table id="dtMaterialDesignExample" class="table table-striped text-light" cellspacing="0" width="100%">
+    <thead class="black text-white">
+        <tr>
+            <th class="th-sm">
+               ID 
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+            <th class="th-sm">
+                Nombre
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+            <th class="th-sm">
+                Instructor
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+            <th class="th-sm">
+                Fecha
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+            <th class="th-sm">
+                Detalles
+                <i class="fa fa-sort float-right" aria-hidden="true"></i>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
 
-<div class='w3-card w3-half w3-section w3-white w3-mobile w3-large w3-round-large'>
+        {%for curso in cursos%}
+        
+        <tr>
+            <td><b>{{curso.id}}</b></td>
 
-    <header class="w3-black w3-padding w3-round-large"><b>#{{curso.id}} - {{curso}}</b></header>
-    <br />
-    <strong>Instructor(a): </strong>{{curso.instructor.get_full_name|title}}<br />
-    {%if curso.colaborador%}
-    <b>Colaborador(a):</b> {{curso.colaborador.get_full_name|title}}
-    <br />
-    <br />
-    {%endif%}
+            <td ><b>{{curso.nombre}}</b></td>
 
-    {{curso.dia_inicio}} - {{curso.dia_final}}<br>
-    <strong>Horario:</strong> {{curso.hora_inicio}} - {{curso.hora_final}} <br>
-    <b>Semestre: </b>{{curso.get_semestre_display}}<br />
-    <b>Tipo:</b> {{curso.get_tipo_display}}<br />
-    <strong>Salon:</strong> {{curso.salon}}
-    <br />
-    <a href="{% url 'detail' curso.id %}" class="w3-button w3-black w3-hover-blue w3-round-large w3-section"> Mirar Curso</a>
+            <td><b>{{curso.instructor.get_full_name|title}}</b></td>
 
-</div>
+            <td>
+                <b>
+                 {{curso.hora_inicio}} - {{curso.hora_final}}<br />
+                 {{curso.dia_inicio}} - {{curso.dia_final}}
+                </b>
+            </td>
+           
+
+            <td>
+            <a href="{% url 'detail' curso.id %}" class="btn btn-primary text-white btn-sm m-0">Ver Curso</a>
+            </td>
+      
+        </tr>
+
+        {%endfor%}
+    </tbody>
+</table>
+

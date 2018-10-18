@@ -1,0 +1,77 @@
+
+<table class="table table-striped table-hover text-light  table-responsive-md ">
+
+    <thead class="text-white bg-light">
+        <tr>
+            <th scope="col">Status</th>
+            <th scope="col">Nombre Curso</th>
+            <th scope="col">Fecha</th>
+            <th scope="col">Mas Detalles</th>
+
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {%if cursos_alumno %}
+        {% for curso in cursos_alumno %}
+       
+        <tr>
+            <td><b>Alumno</b></td>
+            <td><b>{{curso.nombre}}</b></td>
+            <td>
+                <b>
+                    {{curso.hora_inicio}} - {{curso.hora_final}}<br />
+                    {{curso.dia_inicio}} - {{curso.dia_final}}
+                </b>
+            </td>
+            <td>
+                <a href="{% url 'detail' curso.id %}" class="btn  btn-primary text-white btn-sm m-0"><b>Ver Curso</b></a>
+            </td>
+
+        </tr>
+
+        {%endfor%}
+        {%endif%}
+
+
+        {%if cursos_instructor%}
+
+        {%for curso in cursos_instructor%}
+
+        <tr>
+            <td>Instructor</td>
+            <td>{{curso.nombre}}</td>
+            <td>
+                {{curso.hora_inicio}} - {{curso.hora_final}}<br />
+                {{curso.dia_inicio}} - {{curso.dia_final}}
+            </td>
+            <td>
+                <a href="{% url 'detail' curso.id %}" class="btn btn-primary text-white btn-sm m-0"><b>Ver Curso</b></a>
+            </td>
+        </tr>
+        {%endfor%}
+   
+    {%endif%}
+
+    {%if cursos_colaborador%}
+    {%for curso in cursos_colaborador%}
+
+    <tr>
+        <td>Colaborador</td>
+        <td>{{curso.nombre}}</td>
+        <td>
+            {{curso.hora_inicio}} - {{curso.hora_final}}<br />
+            {{curso.dia_inicio}} - {{curso.dia_final}}
+        </td>
+        <td>
+            <a href="{% url 'detail' curso.id %}" class="btn btn-primary text-white btn-sm m-0"><b>Ver Curso</b></a>
+        </td>
+    </tr>
+    {%endfor%}
+
+    {%endif%}
+
+    </tbody>
+
+</table>

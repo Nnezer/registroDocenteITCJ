@@ -10,48 +10,29 @@
 
 {% if user.is_authenticated %}
 
-<div class="w3-container">
-    <hr />
-    <hr />
-    <div class="w3-card w3-white w3-section w3-round-large">
-        <h1 class="w3-karla"> 
-            Cursos disponibles para inscripcion del semestre:
-        </h1>
-        {% if current_semester == 'ago_dic' %}
-        <h1 class="w3-text-blue w3-karla">Agosto - Diciembre   {{current_year}}</h1>
-        {% else %}
-        <h1 class="w3-text-blue w3-karla">Enero - Junio   {{current_year}}</h1>
-        {% endif %}
-        <br />
-    </div>
+<div class="bg-white mt-4 shadow-lg">
 
-    <div class="w3-card w3-white w3-round-large"> 
-        <header class="w3-black w3-padding w3-xlarge w3-round-large">Barra de Busqueda</header>
-        <input type="text" id="myInput" class="w3-input w3-large w3-round-xlarge" placeholder="Introduce el nombre del curso" onkeyup="Myfunction2()" />
-    </div>
+    <h4 class="mt-2 text-light">  Cursos disponibles para inscripcion del semestre: </h4>
 
-        <div class="w3-card w3-white">
+    {% if current_semester == 'ago_dic' %}
 
-                {% for curso in cursos %}
-
-                {% include 'rows.html' %}
-        
-                {% endfor %}
-        </div>
-        
-    <hr>
+    <h4 class="text-primary">Agosto - Diciembre   {{current_year}}</h4>
 
     {% else %}
-    {% include 'noAuth.html' %}
 
-    {% block footer %}
-
-    {% endblock footer %}
-
+    <h4 class="text-primary">Enero - Junio   {{current_year}}</h4>
 
     {% endif %}
-
-
+   
+    <br />
+       
 </div>
+
+
+<div class="bg-white mt-4 shadow-lg">
+    {% include 'rows.html' %}
+</div>
+    {%endif%}
+
 
 {% endblock section %}

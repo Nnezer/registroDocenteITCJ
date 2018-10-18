@@ -2,12 +2,12 @@
   "ExpandedNodes": [
     "",
     "\\registroCursos",
-    "\\sistemaDocenteITCJ",
+    "\\static",
     "\\static\\css",
     "\\static\\js",
     "\\templates",
     "\\templates\\registration"
   ],
-  "SelectedNode": "\\templates\\registration\\password_change_form.html",
+  "SelectedNode": "\\templates\\base.html",
   "PreviewInSolutionExplorer": false
 }
