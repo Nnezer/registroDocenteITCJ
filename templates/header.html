@@ -38,16 +38,16 @@
       <div class="nav-item dropdown ">
           <a class="nav-link dropdown-toggle text-white" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user-circle"></i> {{user.username}}</a>
           <div class="dropdown-menu dropdown-primary btn black" aria-labelledby="navbarDropdownMenuLink">
-              <a href="#" class="dropdown-item black text-white"> <i class="fas fa-calendar-alt"></i>  Historial</a>
+              <a href="#" class="dropdown-item black text-white text-capitalize"> <i class="fas fa-calendar-alt"></i>  Historial</a>
 
-              <a href="#" class="dropdown-item black text-white"><i class="fas fa-envelope"> </i>  Cambiar Email</a>
+              <a href="#" class="dropdown-item black text-white text-capitalize"><i class="fas fa-envelope"> </i>  Cambiar Email</a>
 
-              <a href="#" class="dropdown-item black text-white"><i class="fas fa-user-cog"> </i>  Cambiar Nombre de Usuario</a>
+              <a href="#" class="dropdown-item black text-white text-capitalize"><i class="fas fa-user-cog"> </i>  Cambiar Nombre de Usuario</a>
 
-              <a href="{% url 'password_change' %}" class="dropdown-item black text-white"><i class="fas fa-key"> </i>  Cambiar Contraseña</a>
+              <a href="{% url 'password_change' %}" class="dropdown-item black text-white text-capitalize"><i class="fas fa-key"> </i>  Cambiar Contraseña</a>
 
-              <a href="{%url 'personal' %}" class="dropdown-item  black text-white"><i class="w3-xlarge fas fa-user-edit"> </i>  Datos Personales</a>
-              <a href="{% url 'logout' %}" class="dropdown-item  black text-white"> <i class="fas fa-sign-out-alt"> </i> Cerrar Sesion      </a>
+              <a href="{%url 'personal' %}" class="dropdown-item  black text-white text-capitalize"><i class="fas fa-user-edit"> </i>  Datos Personales</a>
+              <a href="{% url 'logout' %}" class="dropdown-item  black text-white text-capitalize"> <i class="fas fa-sign-out-alt"> </i> Cerrar Sesion      </a>
 
           </div>
       </div>

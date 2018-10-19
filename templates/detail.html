@@ -7,80 +7,149 @@ Detalles del curso
 
 {% block section %}
 
-{% if user.is_authenticated %}
-{%csrf_token%}
+    {% if user.is_authenticated %}
+    {%csrf_token%}
 
-<div>
+<section >
+    <div class="row">
 
-</div>
+        <!-- Panel de la informacion del curso -->
+        <div class="panel white mb-4 col-7 z-depth-2 rounded">
+
+            <!-- Card image -->
+
+            <div class="view overlay z-depth-2 rounded">
+                <img class="z-depth-2 rounded card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ_D7wHe9cNZ76CZUAhB2u8p1TlG-EEdkr5hxDeq4BTWk1zEPs5"
+                     width="120" height="150" alt="Card image cap">
+                <a href="#!">
+                    <div class="mask rgba-white-slight"></div>
+                </a>
+            </div>
+            <!-- Card content -->
+            <div class="card-body ">
+
+                <!-- Title -->
+                <h4 class="card-title text-default">{{curso}}</h4>
+                <!-- Text -->
+                <p class="card-text ">
+                    <h5><b>Instructor </b><br />{{curso.instructor.get_full_name|title}}</h5>
+
+                    {%if curso.colaborador%}
+
+                    <h5><b>Colaborador </b> <br />{{curso.colaborador.get_full_name|title}}</h5>
+                    {%endif%}
+                    <br />
+                    <h5><b>Fecha </b> <br />{{curso.dia_inicio}} - {{curso.dia_final}}</h5>
+                    <br />
+                    <div class="row">
+                        <div class="col-4">
+                            <h5><b>Horario </b> <br /> {{curso.hora_inicio}} - {{curso.hora_final}}</h5>
+                        </div>
+                        <div class="col-4">
+                            <h5><b>Semestre </b> <br />{{curso.get_semestre_display}}</h5>
+                        </div>
+
+                        <div class="col-4">
+                            <h5><b>Salon </b> <br />{{curso.salon}}</h5>
+                        </div>
+                    </div>
+                    <br />
+
+                    <h5><b>Tipo</b> <br />{{curso.get_tipo_display}}</h5>
+
+                </p>
+
+            </div>
+        </div>
+        
+        <div class="panel white m-3 mb-4 col-4 z-depth-3 rounded">
+
+            {%if onCourseAsInstructor%}
+            <h3>El usuario es Instructor de este curso, no es posible inscribirse</h3>
+            <h3>Presione abajo para administrar este grupo</h3>
+            <a href="#" class="btn btn-primary">Administrar</a>
+            {%else%}
 
 
-<div class="w3-container ">
-    <div class="w3-card-4 w3-white w3-section w3-round-large">
-        <h2> <strong>#{{curso.id}} {{curso}}</strong></h2>
-        <h2 class="w3-text-blue"><strong>{{curso.instructor.get_full_name|title}}</strong></h2>
-        <h3>
-            {{curso.dia_inicio}} - {{curso.dia_final}}<br>
-            <strong>Horario:</strong> {{curso.hora_inicio}} - {{curso.hora_final}} <br>
-            <b>Semestre: </b>{{curso.get_semestre_display}}<br />
-            <b>Tipo:</b> {{curso.get_tipo_display}}<br />
-            <strong>Salon:</strong> {{curso.salon}}
-        </h3>
-        {%if onCourseAsInstructor %}
+            <!-- Panel para usuario ya inscrito -->
+            {% if onCourseAsAlumno %}
 
-        <h3>El usuario es Instructor de este curso, no es posible inscribirse</h3>
+            <div id="disenroll">
+                <br /><br /><br /><br /><br />
+                <h5 class="warning-text m-3">  Este usuario esta actualmente inscrito a este curso</h5>
 
-        {%else%}
-        {% if onCourseAsAlumno %}
-        <h3 class="w3-text-red w3-karla">
-            <b>
-                Este usuario esta actualmente inscrito a este curso <br /> (Es posible cancelar la inscripcion hasta el dia de inicio del curso)
-            </b>
-            
-        </h3>
 
-        <form action="/course/detail/{{curso.id}}/disenroll"  class="w3-section" method="post">
-            {%csrf_token%}
+                <form action="/course/detail/{{curso.id}}/disenroll" method="post">
+                    {%csrf_token%}
 
-            <input type="hidden" name="id_user" value="{{user.id}}" />
-            <input type="hidden" name="id_curso" value="{{curso.id}}" />
+                    <input type="hidden" name="id_user" value="{{user.id}}" />
+                    <input type="hidden" name="id_curso" value="{{curso.id}}" />
+                    
+                    <button type="submit" class="btn btn-red btn-md text-white text-capitalize">
 
-            <input type="submit" value="Desinscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge w3-xlarge " />
+                        <h5>desinscribirse  <i class="fas fa-times-circle fa-lg ml-2"></i></h5>
 
-        </form>
-        {%else%}
+                    </button>
+                   
 
-        <h3 class="w3-text-orange w3-karla">Para inscribirse a este curso solo presione el boton "Inscribir"</h3>
-        <form action="/course/detail/{{curso.id}}/enroll" method="POST">
-            {%csrf_token%}
+                </form>
+                <h5 class="m-3">
+                    Es posible desinscribirse hasta el dia de inicio del curso
+                </h5>
+            </div>
+           
 
-            <input type="hidden" name="user" value="{{user.id}}" />
-            <input type="hidden" name="curso" value="{{curso.id}}" />
 
-            <input type="submit" value="Inscribir" class="w3-button w3-black w3-hover-blue w3-round-xlarge w3-xlarge" />
+            {%else%}
+            <!-- Panel para usuario no inscrito -->
+            <div id="enroll">
+                <h5 class="text-justify m-3">
+                    Es posible desinscribirse hasta el dia de inicio del curso
+                    <br /><br />Para inscribirse a este curso solo presione el boton de abajo.
+                </h5>
 
-        </form>
-    
 
-        {%endif%}
+                <form action="/course/detail/{{curso.id}}/enroll" class="mt-3" method="POST">
+                    {%csrf_token%}
 
-        {%endif%}
-        <br /><br />
+                    <input type="hidden" name="user" value="{{user.id}}" />
+                    <input type="hidden" name="curso" value="{{curso.id}}" />
+
+                    <button type="submit" class="btn btn-default btn-md text-white text-capitalize">
+
+                        <h5>Inscribirse  <i class="fas fa-paper-plane fa-lg ml-2"></i></h5>
+
+                    </button>
+                </form>
+                <br />
+                <h5 class=" text-justify m-3">
+                    El ultimo dia del curso se le activara esta opcion para que pueda realizar la
+                    encuesta de servicio
+                </h5>
+
+                <button type="submit" class="btn btn-primary btn-md text-white text-capitalize m-3 disabled">
+
+                    <h5>Realizar Encuesta  <i class="fas fa-file-alt fa-lg ml-2 "></i></h5>
+
+                </button>
+            </div>
+
+
+            {%endif%}
+            {%endif%}
+        </div>
     </div>
 
 
 
 
 
+</section>
+    {% else %}
 
-</div>
+        {% include 'noAuth.html' %}
 
-    
+    {% endif %}
 
-    
+   {% endblock section %}
 
-    
-{% else %}
-{% include 'noAuth.html' %}
-{% endif %}
-{% endblock section %}

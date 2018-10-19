@@ -1,17 +1,18 @@
 
 
-    <div class="bg-white mt-2 shadow-lg">
-        <h3 class="text-dark"> Bienvenido(a) </h3>
+    <div class="bg-white mt-2 z-depth-2 rounded">
+        <br />
+        <h2 class="text-dark "> Bienvenido(a) </h2>
 
-        <h4 class="text-primary"><b>{{user.get_full_name|title}}</b> <br> </h4>
-        <h5 class="w3-karla text-dark">{{user.email}}</h5>
-        <h5 class="w3-karla text-dark">{{now}}</h5>
+        <h3 class="text-info"><b>{{user.get_full_name|title}}</b> <br> </h3>
+        <h4 class=" text-dark">{{user.email}} <br />{{now}}</h4>
+   
         <br />
 
-        <br />
+
     </div>
 
-    <div class="bg-white m-3 shadow-lg">
+    <div class="bg-white m-3 z-depth-2 rounded">
 
 
             {%if cursos_alumno or cursos_instructor or cursos_colaborador%}
@@ -20,10 +21,13 @@
 
              {%else%}
 
-        <h5 class="w3-karla text-warning">No tienes ningun curso activo, haz click en la parte superior "Ver Cursos" o en el link que aparece abajo para ver
+        <h5 class="red-text m-3">No tienes ningun curso activo, haz click en la parte superior "Ver Cursos" o en el link que aparece abajo para ver
         todos los cursos disponibles.</h5>
-        <a href="{% url 'course' %}" class="btn btn-primary">
-           Ver Cursos
+
+
+
+        <a href="{% url 'course' %}" class="btn btn-info btn-lg text-white text-capitalize">
+            <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
         </a>
             {%endif%}
 

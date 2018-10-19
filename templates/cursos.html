@@ -10,9 +10,10 @@
 
 {% if user.is_authenticated %}
 
-<div class="bg-white mt-4 shadow-lg">
+<div class="bg-white mt-4 z-depth-2 rounded">
+    <br />
 
-    <h4 class="mt-2 text-dark">  Cursos disponibles para inscripcion del semestre: </h4>
+    <h3 class="mt-2 text-dark">  Cursos disponibles para inscripcion del semestre: </h3>
 
     {% if current_semester == 'ago_dic' %}
 
@@ -28,8 +29,7 @@
        
 </div>
 
-
-<div class="bg-white mt-4 shadow-lg">
+<div class="bg-white mt-4 z-depth-2 rounded">
     {% include 'rows.html' %}
 </div>
     {%endif%}
