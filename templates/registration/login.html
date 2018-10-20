@@ -8,58 +8,52 @@
 {%if user.is_authenticated %}
 
 <script type="text/javascript">
-    window.location = "http://www.htmlcodes.ws/"
+    window.location = "/"
 </script>
 
 {%else%}
-<section class="row" >
-    <div class="card col-6 row m-4 ">
-
-    <h5 class="card-header info-color white-text text-center py-4">
-        <strong>Sign in</strong>
-    </h5>
-    <!--Card content-->
-    <div class="card-body m-3 white ">
-        <form action="" method="post" style="color: #757575;">
-            {%csrf_token%}
-            <div class="md-form">
-                <input type="text" name="username" id="materialLoginFormUsername" required_id="id_username" class="form-control" />
-                <label for="materialLoginFormUsername">Nombre de Usuario</label>
-            </div>
-            <div class="md-form">
-                <input type="password" id="materialLoginFormPassword" name="password" required_id="id_password" class="form-control" />
-                <label for="materialLoginFormPassword">Contraseña</label>
-            </div>
-            <div>
-                <!-- Forgot password -->
-                <a href="#">Olvidaste tu contraseña</a>
-                <br /><br />
-                <a href="#">Olvidaste tu nombre de usuario</a>
-            </div>
-            <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
-
-        </form>
-    </div>
-    </div>
-    <div class="text-justify card bg-white  shadow-lg col-5 m-3">
-        <h4 class="card-header bg-primary text-white">¿Como Entrar?</h4>
-        <div class="card-body text-dark bg-white lead">
-
-            Ya sea que se le haya enviado un correo con los datos de su cuenta
-            o el personal encargado de este sistema o de desarrollo academico,
-            solo necesita entrar con esos datos para poder accesar al sistema,
-            es libre de cambiar el nombre de usuario, contraseña, correo y datos
-            personales a su gusto
-
+<section class="row m-3">
+   
+    <div class="panel white mb-4 col-md-6 z-depth-4 rounded">
+        <div class="view overlay z-depth-2 rounded">
+            <img class="z-depth-2 card-img-top" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR717rq3ajD6tbQRFTJvm2exI6LP-ppx1ZACprZ3DGSXcchz0eh9g"
+                 width="100" height="100" alt="Card image cap">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
         </div>
+       
+        <div class="card-body m-3">
+            <h4 class="card-title text-info">Iniciar Sesion</h4>
+            <form action="" method="post" style="color: #757575;">
+                {%csrf_token%}
+                <div class="md-form">
+                    <input type="text" name="username" id="materialLoginFormUsername" required_id="id_username" class="form-control" />
+                    <label for="materialLoginFormUsername">Nombre de Usuario</label>
+                </div>
+                <div class="md-form">
+                    <input type="password" id="materialLoginFormPassword" name="password" required_id="id_password" class="form-control" />
+                    <label for="materialLoginFormPassword">Contraseña</label>
+                </div>
+
+                <div>
+                    <!-- Forgot password -->
+                    <a href="#" class="text-info">Olvidaste tu contraseña</a>
+                    <br /><br />
+                    <a href="#" class="text-info">Olvidaste tu nombre de usuario</a>
+                </div>
+                <button class="btn btn-outline-info btn-rounded  my-4 waves-effect z-depth-0 text-capitalize" type="submit">Entrar</button>
+
+            </form>
+        </div>
+    </div>
+
+    <div class="card white m-5 col-md-4 mb-4 z-depth-4 rounded">
+
     </div>
 </section>
 
 
     {%endif%}
-
-
-
-
-
+ 
     {% endblock %}
