@@ -29,7 +29,7 @@ Detalles del curso
             <div class="card-body ">
 
                 <!-- Title -->
-                <h4 class="card-title text-default">{{curso}}</h4>
+                <h4 class="card-title text-primary">{{curso}}</h4>
                 <!-- Text -->
                 <p class="card-text ">
                     <h5><b>Instructor </b><br />{{curso.instructor.get_full_name|title}}</h5>
@@ -71,66 +71,38 @@ Detalles del curso
             {%else%}
 
 
+            <br /><br />
+            <h5 class="text-justify m-3">
+                Es posible desinscribirse hasta el dia de inicio del curso.
+            </h5>
             <!-- Panel para usuario ya inscrito -->
             {% if onCourseAsAlumno %}
 
-            <div id="disenroll">
-                <br /><br /><br /><br /><br />
-                <h5 class="warning-text m-3">  Este usuario esta actualmente inscrito a este curso</h5>
 
 
-                <form action="/course/detail/{{curso.id}}/disenroll" method="post">
-                    {%csrf_token%}
+            {%include 'modals/disenroll.html' %}
 
-                    <input type="hidden" name="id_user" value="{{user.id}}" />
-                    <input type="hidden" name="id_curso" value="{{curso.id}}" />
-                    
-                    <button type="submit" class="btn btn-red btn-md text-white text-capitalize">
+            <h5 class="warning-text m-3">  Este usuario esta actualmente inscrito a este curso</h5>
 
-                        <h5>desinscribirse  <i class="fas fa-times-circle fa-lg ml-2"></i></h5>
-
-                    </button>
-                   
-
-                </form>
-                <h5 class="m-3">
-                    Es posible desinscribirse hasta el dia de inicio del curso
-                </h5>
-            </div>
-           
             {%else%}
             <!-- Panel para usuario no inscrito -->
-            <div id="enroll">
-                <h5 class="text-justify m-3">
-                    Es posible desinscribirse hasta el dia de inicio del curso
-                    <br /><br />Para inscribirse a este curso solo presione el boton de abajo.
-                </h5>
 
+            <h5 class="text-justify m-3">
+                Para inscribirse a este curso solo presione el boton de abajo.
+            </h5>
 
-                <form action="/course/detail/{{curso.id}}/enroll" class="mt-3" method="POST">
-                    {%csrf_token%}
+            {%include 'modals/enroll.html' %}
 
-                    <input type="hidden" name="user" value="{{user.id}}" />
-                    <input type="hidden" name="curso" value="{{curso.id}}" />
+            <br />
+            <h5 class=" text-justify m-3">
+                El ultimo dia del curso se le activara esta opcion para que pueda realizar la
+                encuesta de servicio.
+            </h5>
 
-                    <button type="submit" class="btn btn-default btn-md text-white text-capitalize">
+            <button type="submit" class="btn btn-primary btn-md text-white text-capitalize m-3 disabled">
+                <h5>Realizar Encuesta  <i class="fas fa-file-alt fa-lg ml-2 "></i></h5>
+            </button>
 
-                        <h5>Inscribirse  <i class="fas fa-paper-plane fa-lg ml-2"></i></h5>
-
-                    </button>
-                </form>
-                <br />
-                <h5 class=" text-justify m-3">
-                    El ultimo dia del curso se le activara esta opcion para que pueda realizar la
-                    encuesta de servicio
-                </h5>
-
-                <button type="submit" class="btn btn-primary btn-md text-white text-capitalize m-3 disabled">
-
-                    <h5>Realizar Encuesta  <i class="fas fa-file-alt fa-lg ml-2 "></i></h5>
-
-                </button>
-            </div>
 
             {%endif%}
             {%endif%}

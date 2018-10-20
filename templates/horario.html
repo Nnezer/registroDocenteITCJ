@@ -3,10 +3,10 @@
 
     <thead class="text-white black">
         <tr>
-            <th scope="col">Status</th>
-            <th scope="col">Nombre Curso</th>
-            <th scope="col">Fecha</th>
-            <th scope="col">Mas Detalles</th>
+            <th scope="col"><h6>Status</h6></th>
+            <th scope="col"><h6>Nombre Curso</h6></th>
+            <th scope="col"><h6>Fecha</h6></th>
+            <th scope="col"><h6>Mas Detalles</h6></th>
 
         </tr>
     </thead>
@@ -16,7 +16,7 @@
         {%if cursos_alumno %}
         {% for curso in cursos_alumno %}
        
-        <tr>
+        <tr class="text-lg">
             <td><b>Alumno</b></td>
             <td ><b>{{curso.nombre}}</b></td>
             <td>
@@ -39,7 +39,7 @@
 
         {%for curso in cursos_instructor%}
 
-        <tr>
+        <tr class="text-lg">
             <td>Instructor</td>
             <td>{{curso.nombre}}</td>
             <td>
@@ -57,7 +57,8 @@
     {%if cursos_colaborador%}
     {%for curso in cursos_colaborador%}
 
-    <tr>
+    <tr class="text-lg">
+
         <td>Colaborador</td>
         <td>{{curso.nombre}}</td>
         <td>
@@ -67,6 +68,7 @@
         <td>
             <a href="{% url 'detail' curso.id %}" class="btn btn-primary text-white btn-sm m-0"><b>Ver Curso</b></a>
         </td>
+
     </tr>
     {%endfor%}
 

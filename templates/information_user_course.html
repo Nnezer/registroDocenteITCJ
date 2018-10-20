@@ -4,8 +4,8 @@
         <br />
         <h2 class="text-dark "> Bienvenido(a) </h2>
 
-        <h3 class="text-info"><b>{{user.get_full_name|title}}</b> <br> </h3>
-        <h4 class=" text-dark">{{user.email}} <br />{{now}}</h4>
+        <h1 class="text-info"><b>{{user.get_full_name|title}}</b> <br></h1>
+        <h3 class=" text-dark">{{user.email}} <br />{%now  "D/M/Y P" %}</h3>
    
         <br />
 

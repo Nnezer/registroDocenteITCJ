@@ -17,7 +17,6 @@ class DetailView(View):
         return render(request,self.template_name,locals())
 
     def get(self,request,*args,**kwargs):
-        
         current_user = request.user
         current_user_id = current_user.id
         id = self.kwargs.get('id_curso')
@@ -25,6 +24,7 @@ class DetailView(View):
         date= date_filter
         onCourseAsInstructor= True if Curso.objects.filter(id=id,instructor=current_user_id) else False
         onCourseAsAlumno= True if Curso.objects.filter(id=id,alumno=current_user_id) else False
+        onCourseAsColaborador= True if Curso.objects.filter(id=id,colaborador=current_user_id) else False
         return render(request,self.template_name,locals())
 
 class DisEnrollCourseView(View):
@@ -33,16 +33,12 @@ class DisEnrollCourseView(View):
     def post(self,request,*args,**kwargs):   
 
         post_data = request.POST.copy()
-        curso = Curso.objects.get(id=post_data['id_curso'])
-        usuario = User.objects.get(id=post_data['id_user'])
+        curso = Curso.objects.get(id=post_data['curso'])
+        usuario = User.objects.get(id=post_data['user'])
         
         if  Historial.objects.filter(curso = curso,alumno = usuario):
             Historial.objects.get(curso = curso.id,alumno=usuario.id).delete()
-            print("borrado exitoso")
-            
-
-
-
+  
         return render(request,self.template_name,locals())
 
     def get(self,request,*args,**kwargs):
@@ -109,8 +105,6 @@ class HomeView(View):
 
         current_user = request.user
         current_user_id = current_user.id
-
-        now= timezone.now()
       
         cursos_alumno= Curso.objects.filter(alumno=current_user_id, 
                                                         anno=int(date_filter[-4:]),
