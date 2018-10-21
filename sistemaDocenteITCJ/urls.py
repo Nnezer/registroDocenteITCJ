@@ -36,6 +36,7 @@ urlpatterns = [
 
     path('personal/', PersonalView.as_view(),name='personal'), # link para ver y modificar los datos personales (nombre, usuario, email, etc)
     
+    path('accounts/email_change/',UpdateEmailView.as_view(),name='change_email') # link para el cambio de email
    
 ]
 

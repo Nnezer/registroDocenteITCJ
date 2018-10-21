@@ -4,7 +4,7 @@
         <br />
         <h2 class="text-dark "> Bienvenido(a) </h2>
 
-        <h1 class="text-info"><b>{{user.get_full_name|title}}</b> <br></h1>
+        <h1 class="text-primary"><b>{{user.get_full_name|title}}</b> <br></h1>
         <h3 class=" text-dark">{{user.email}} <br />{%now  "D/M/Y P" %}</h3>
    
         <br />
@@ -26,7 +26,7 @@
 
 
 
-        <a href="{% url 'course' %}" class="btn btn-info btn-lg text-white text-capitalize">
+        <a href="{% url 'course' %}" class="btn btn-primary btn-lg text-white text-capitalize">
             <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
         </a>
             {%endif%}

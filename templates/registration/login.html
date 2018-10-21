@@ -25,17 +25,22 @@
        
         <div class="card-body m-3">
             <h4 class="card-title text-info">Iniciar Sesion</h4>
-            <form action="" method="post" style="color: #757575;">
+            <form action="" method="post">
                 {%csrf_token%}
-                <div class="md-form">
-                    <input type="text" name="username" id="materialLoginFormUsername" required_id="id_username" class="form-control" />
-                    <label for="materialLoginFormUsername">Nombre de Usuario</label>
-                </div>
-                <div class="md-form">
-                    <input type="password" id="materialLoginFormPassword" name="password" required_id="id_password" class="form-control" />
-                    <label for="materialLoginFormPassword">Contraseña</label>
-                </div>
 
+                {% load widget_tweaks %}
+           
+                <div class="md-form">
+                        {% render_field form.username class+="form-control"%}
+                        <label>Nombre de Usuario</label>
+                        {{form.username.errors}}
+                </div>
+                             
+                <div class="md-form">
+                        {% render_field form.password class+="form-control"%}
+                        <label>Contraseña</label>
+                        {{form.password.errors}}
+                </div>
                 <div>
                     <!-- Forgot password -->
                     <a href="#" class="text-info">Olvidaste tu contraseña</a>

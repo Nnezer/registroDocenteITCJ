@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark black lead shadow-lg">
 
   <!-- Navbar brand -->
-  <a class="navbar-brand btn black" href="\">Sistema de Registro Docente</a>
+  <a class="navbar-brand btn black text-capitalize" href="\">Sistema de Registro Docente</a>
 
   <!-- Collapse button -->
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav" aria-controls="basicExampleNav"
@@ -40,7 +40,7 @@
           <div class="dropdown-menu dropdown-primary btn black" aria-labelledby="navbarDropdownMenuLink">
               <a href="#" class="dropdown-item black text-white text-capitalize"> <i class="fas fa-calendar-alt"></i>  Historial</a>
 
-              <a href="#" class="dropdown-item black text-white text-capitalize"><i class="fas fa-envelope"> </i>  Cambiar Email</a>
+              <a href="{% url 'change_email' %}" class="dropdown-item black text-white text-capitalize"><i class="fas fa-envelope"> </i>  Cambiar Email</a>
 
               <a href="#" class="dropdown-item black text-white text-capitalize"><i class="fas fa-user-cog"> </i>  Cambiar Nombre de Usuario</a>
 

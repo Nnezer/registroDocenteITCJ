@@ -5,16 +5,41 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from .forms import *
 from django.views.generic.edit import FormView
+from django.shortcuts import redirect
 
 
 date_filter = timezone.now().strftime('%d/%m/%Y')
 currentSemester = "ago_dic" if int(date_filter[-7:-5]) > 7 else "ene_jun"
+
+class UpdateEmailView(View):
+    template_name = 'user/update_email.html'
+
+    def post(self,request,*args,**kwargs):
+        post_data = request.POST.copy()
+        user = User.objects.get(id=post_data['user_id'])
+
+        if User.objects.filter(email=post_data['email']):
+            action = False
+        else:
+            user.email = post_data['email']
+            user.save()
+            action = True
+           
+
+        return render(request,'user/update_email_done.html',locals())
+
+    def get(self,request,*args,**kwargs):
+        form = UpdateEmailForm()
+        return render(request,self.template_name,locals())
+
+
 
 class DetailView(View):
     template_name = "detail.html"
     
     def post(self,request,*args,**kwargs):   
         return render(request,self.template_name,locals())
+
 
     def get(self,request,*args,**kwargs):
         current_user = request.user
@@ -27,8 +52,9 @@ class DetailView(View):
         onCourseAsColaborador= True if Curso.objects.filter(id=id,colaborador=current_user_id) else False
         return render(request,self.template_name,locals())
 
+
 class DisEnrollCourseView(View):
-    template_name = 'user/disenroll.html'
+    template_name = 'user/confirm.html'
 
     def post(self,request,*args,**kwargs):   
 
@@ -38,7 +64,7 @@ class DisEnrollCourseView(View):
         
         if  Historial.objects.filter(curso = curso,alumno = usuario):
             Historial.objects.get(curso = curso.id,alumno=usuario.id).delete()
-  
+           
         return render(request,self.template_name,locals())
 
     def get(self,request,*args,**kwargs):
@@ -74,7 +100,7 @@ class CursosView(View):
 
 class EnrollCourseView(View):
 
-    template_name = 'user/enroll.html'     
+    template_name = 'user/confirm.html'     
     
     def post(self,request,*args,**kwargs):   
         post_data = request.POST.copy()
@@ -116,15 +142,9 @@ class HomeView(View):
         cursos_colaborador= Curso.objects.filter(colaborador_id=current_user_id,
                                                          anno=int(date_filter[-4:]),
                                                             semestre=currentSemester)
-
-        print(cursos_alumno)
-        print(cursos_instructor)
-        print(cursos_colaborador)
-
         return render(request,self.template_name,locals())
     
-        
-        
+            
 
 
 

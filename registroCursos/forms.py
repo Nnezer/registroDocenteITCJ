@@ -6,6 +6,13 @@ from django.contrib.auth.models import User
 class ConfirmForm(forms.Form):
     confirmar = forms.BooleanField(required=True)
 
+class UpdateEmailForm(forms.ModelForm):
+ 
+     class Meta:
+        model = User
+        fields = ['email',]
+
+
 
 class UpdateUserForm(forms.ModelForm):
     class Meta:
