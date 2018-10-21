@@ -3,6 +3,7 @@ Django==2.1.1
 gunicorn==19.9.0
 psycopg2==2.7.4
 whitenoise==4.1
+django-widget-tweaks == 1.4.3
 
 
 
