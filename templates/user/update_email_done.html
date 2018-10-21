@@ -10,13 +10,14 @@
                     <h4>Email cambiada exitosamente</h4>    
                 </div>
                 <div class="card-body">
-                    <h5>En breve sera redireccionado a la pagina de inicio</h5>
-    
+                        <h5>Sera redireccionado a la pagina principal en breve</h5>
+                        <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
+                        <a href="{%url 'home'%}">Inicio</a>
                     <script type="text/javascript">
                         setTimeout(function(){
                             window.location = "/"
                         },
-                        3000);
+                        4000);
                     </script>
     
                 </div>
@@ -27,12 +28,14 @@
                     <h4>Error</h4>    
                 </div>
                 <div class="card-body">
-                    <h5>Este correo ya esta en uso, por favor intente otro</h5>
-                    <h5>En breve sera redireccionado de regreso</h5>
+                        <h5>Este correo ya esta en uso, por favor intente otro</h5>
+                        <h5>En breve sera redireccionado de regreso para que vuelva a intentarlo</h5>
+                        <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
+                        <a href="{%url 'update_email'%}">Cambiar Email</a>
     
                     <script type="text/javascript">
                         setTimeout(function(){
-                            window.location = "{% url 'change_email'%}"
+                            window.location = "{% url ' update_email '%}"
                         },
                         4000);
                     </script>

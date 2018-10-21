@@ -34,9 +34,9 @@ urlpatterns = [
 
     path('accounts/', include('django.contrib.auth.urls')), # link para el inicio de sesion
     
-    path('accounts/email_change/',UpdateEmailView.as_view(),name='update_email'), # link para el cambio de email
+    path('accounts/update_email/',UpdateEmailView.as_view(),name='update_email'), # link para el cambio de email
 
-    path('accounts/username_change/',UpdateUsernameView.as_view(),name='update_username') # link para el cambio de nombre de usuario
+    path('accounts/update_username/',UpdateUsernameView.as_view(),name='update_username') # link para el cambio de nombre de usuario
 
    
 ]

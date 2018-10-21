@@ -5,9 +5,9 @@
 {% if user.is_authenticated %}
   
 <div class="card z-depth-4 rounded">
-    <div class="card-header bg-primary text-white">Cambiar Email</div>
+    <div class="card-header bg-primary text-white">Cambiar Nombre de Usuario</div>
         <div class="card-body">
-                <form action="/accounts/email_change/" method="POST">
+                <form action="/accounts/update_username/" method="POST">
                     {%csrf_token%}
                     {% load widget_tweaks %}
                     <div class="md-form">
@@ -15,7 +15,6 @@
                             <label>Nombre de Usuario nuevo</label>
                             {{form.username.errors}}
                     </div>
-                    <input type="hidden" name="user_id" value="{{user.id}}" />
                     
                     <input type="submit" value="Cambiar" class="btn btn-primary">
                     

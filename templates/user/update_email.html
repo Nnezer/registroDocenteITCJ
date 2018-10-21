@@ -7,7 +7,7 @@
 <div class="card z-depth-4 rounded">
     <div class="card-header bg-primary text-white">Cambiar Email</div>
         <div class="card-body">
-                <form action="/accounts/email_change/" method="POST">
+                <form action="/accounts/update_email/" method="POST">
                     {%csrf_token%}
                     {% load widget_tweaks %}
                     <div class="md-form">
@@ -15,8 +15,7 @@
                             <label>Email Nuevo</label>
                             {{form.email.errors}}
                     </div>
-                    <input type="hidden" name="user_id" value="{{user.id}}" />
-                    
+                                       
                     <input type="submit" value="Cambiar" class="btn btn-primary">
                     
                 </form>

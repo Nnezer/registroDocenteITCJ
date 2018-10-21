@@ -15,7 +15,16 @@ class UpdateUsernameView(View):
     template_name = 'user/update_username.html'
     
     def post(self,request,*args,**kwargs):
-        return render(request,self.template_name,locals())
+        post_data = request.POST.copy()
+        user = User.objects.get(id=request.user.id)
+
+        if User.objects.filter(username=post_data['username']):
+            action = False
+        else:
+            user.username = post_data['username']
+            user.save()
+            action = True
+        return render(request,'user/update_username_done.html',locals())
 
     def get(self,request,*args,**kwargs):
         form = UpdateUsernameForm()
@@ -27,7 +36,7 @@ class UpdateEmailView(View):
 
     def post(self,request,*args,**kwargs):
         post_data = request.POST.copy()
-        user = User.objects.get(id=post_data['user_id'])
+        user = User.objects.get(id=request.user.id)
 
         if User.objects.filter(email=post_data['email']):
             action = False
@@ -35,8 +44,6 @@ class UpdateEmailView(View):
             user.email = post_data['email']
             user.save()
             action = True
-           
-
         return render(request,'user/update_email_done.html',locals())
 
     def get(self,request,*args,**kwargs):

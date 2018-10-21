@@ -1,27 +1,51 @@
 {% extends "base.html" %}
 
+
+{% block section %}
 {% if user.is_authenticated %}
-  
+{% if action %}
 <div class="card z-depth-4 rounded">
-        <div class="card-header bg-danger text-white">
-            <h4>Error</h4>    
-        </div>
-        <div class="card-body">
-            <h5>Este correo ya esta en uso, por favor intente otro</h5>
-            <h5>En breve sera redireccionado de regreso</h5>
+      <div class="card-header bg-success text-white">
+          <h4>Nombre de Usuario cambiado Exitosamente</h4>    
+      </div>
+      <div class="card-body">
+          <h5>Sera redireccionado a la pagina principal en breve</h5>
+            <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
+            <a href="{%url 'home'%}">Inicio</a>
+          <script type="text/javascript">
+              setTimeout(function(){
+                  window.location = "/"
+              },
+              4000);
+          </script>
 
-            <script type="text/javascript">
-                setTimeout(function(){
-                    window.location = "{% url 'change_email'%}"
-                },
-                4000);
-            </script>
+      </div>
+  </div>
+  {% else %}
+  <div class="card z-depth-4 rounded">
+          <div class="card-header bg-danger text-white">
+              <h4>Error</h4>    
+          </div>
+          <div class="card-body">
+              <h5>Este nombre de usuario ya esta en uso, por favor intente otro</h5>
+              <h5>En breve sera redireccionado de regreso para que vuelva a intentarlo</h5>
+              <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
+              <a href="{%url 'update_username'%}">Cambiar Nombre de Usuario</a>
+              <script type="text/javascript">
+                  setTimeout(function(){
+                      window.location = "{% url 'update_username'%}"
+                  },
+                  4000);
+              </script>
+  
+          </div>
+      </div>
+{% endif %}
 
-        </div>
-    </div>
 
 
 {% else %}
 {% include "noAuth.html" %}
 
 {% endif %}
+{% endblock section %}
