@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% if user.is_authenticated %}
+  
+<div class="card z-depth-4 rounded">
+        <div class="card-header bg-danger text-white">
+            <h4>Error</h4>    
+        </div>
+        <div class="card-body">
+            <h5>Este correo ya esta en uso, por favor intente otro</h5>
+            <h5>En breve sera redireccionado de regreso</h5>
+
+            <script type="text/javascript">
+                setTimeout(function(){
+                    window.location = "{% url 'change_email'%}"
+                },
+                4000);
+            </script>
+
+        </div>
+    </div>
+
+
+{% else %}
+{% include "noAuth.html" %}
+
+{% endif %}

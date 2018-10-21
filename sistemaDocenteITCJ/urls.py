@@ -33,8 +33,6 @@ urlpatterns = [
     path('admin/', admin.site.urls), # link a sitio de administracion (solo administradores o superuser)
 
     path('accounts/', include('django.contrib.auth.urls')), # link para el inicio de sesion
-
-    path('personal/', PersonalView.as_view(),name='personal'), # link para ver y modificar los datos personales (nombre, usuario, email, etc)
     
     path('accounts/email_change/',UpdateEmailView.as_view(),name='update_email'), # link para el cambio de email
 

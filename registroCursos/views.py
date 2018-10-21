@@ -18,6 +18,7 @@ class UpdateUsernameView(View):
         return render(request,self.template_name,locals())
 
     def get(self,request,*args,**kwargs):
+        form = UpdateUsernameForm()
         return render(request,self.template_name,locals())
 
 
@@ -80,17 +81,6 @@ class DisEnrollCourseView(View):
     def get(self,request,*args,**kwargs):
         return render(request,self.template_name,locals())
 
-
-class PersonalView(View):
-    template_name="user/personal.html"
-   
-    def post(self,request,*args,**kwargs):   
-        
-        return render(request,self.template_name,locals())
-    
-    def get(self,request,*args,**kwargs):
-        formProfile = UpdateUserProfileForm()
-        return render(request,self.template_name,locals())
 
 class CursosView(View):
 
