@@ -11,6 +11,16 @@ from django.shortcuts import redirect
 date_filter = timezone.now().strftime('%d/%m/%Y')
 currentSemester = "ago_dic" if int(date_filter[-7:-5]) > 7 else "ene_jun"
 
+class UpdateUsernameView(View):
+    template_name = 'user/update_username.html'
+    
+    def post(self,request,*args,**kwargs):
+        return render(request,self.template_name,locals())
+
+    def get(self,request,*args,**kwargs):
+        return render(request,self.template_name,locals())
+
+
 class UpdateEmailView(View):
     template_name = 'user/update_email.html'
 
