@@ -18,8 +18,15 @@ class UserProfileView(View):
     def post(self, request, *args, **kwargs):
         post_data = request.POST.copy()
 
-        user_profile = UserProfile.objects.get(id=request.user.id)
-        user = User.objects.get(id=request.user.id)
+        try:
+            user_profile = UserProfile.objects.get(id=request.user.id)
+        except UserProfile.DoesNotExist:
+            user_profile = None
+
+        try:
+            user = User.objects.get(id=request.user.id)
+        except User.DoesNotExist:
+            user = None
 
         if User.objects.filter(username=post_data['username']) and not User.objects.filter(id=request.user.id, username=post_data['username']):
             error = ['username']
