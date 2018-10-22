@@ -46,7 +46,7 @@ class UserProfileView(View):
     def get(self, request, *args, **kwargs):
         try:
             profile = UserProfile.objects.get(id=request.user.id)
-        except :
+        except UserProfile.DoesNotExist:
             profile = None
 
         form_profile = UpdateUserProfileForm()
