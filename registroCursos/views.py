@@ -1,11 +1,10 @@
 from django.utils import timezone
-from django.views.generic import TemplateView, View
-from registroCursos.models import Curso, Historial
+from django.views.generic import View
+from registroCursos.models import Curso, Historial, UserProfile
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .forms import *
-from django.views.generic.edit import FormView
-from django.shortcuts import redirect
+
 
 
 date_filter = timezone.now().strftime('%d/%m/%Y')
