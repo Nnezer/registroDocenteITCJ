@@ -20,7 +20,7 @@ class UserProfileView(View):
         user_profile = UserProfile.objects.get(id=request.user.id)
         
         user = User.objects.get(id=request.user.id)
-
+        print(request.user.id)
         if User.objects.filter(username=post_data['username']) and not User.objects.filter(id=request.user.id, username=post_data['username']):
             error = ['username']
         else:
@@ -41,9 +41,8 @@ class UserProfileView(View):
 
     def get(self, request, *args, **kwargs):
         
-        if UserProfile.objects.filter(id=request.user.id).exists():
-            profile = UserProfile.objects.get(id=request.user.id)
-
+        profile = UserProfile.objects.get(id=request.user.id)
+       
         form_profile = UpdateUserProfileForm()
         form_user = UpdateUserForm()
 
