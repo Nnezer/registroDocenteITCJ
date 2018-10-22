@@ -18,15 +18,8 @@ class UserProfileView(View):
     def post(self, request, *args, **kwargs):
         post_data = request.POST.copy()
 
-        try:
-            user_profile = UserProfile.objects.get(id=request.user.id)
-        except UserProfile.DoesNotExist:
-            user_profile = None
-
-        try:
-            user = User.objects.get(id=request.user.id)
-        except User.DoesNotExist:
-            user = None
+        user_profile = UserProfile.objects.get(id=request.user.id)
+        user = User.objects.get(id=request.user.id)
 
         if User.objects.filter(username=post_data['username']) and not User.objects.filter(id=request.user.id, username=post_data['username']):
             error = ['username']
@@ -47,10 +40,7 @@ class UserProfileView(View):
         return render(request, 'user/update_user_profile_done.html', locals())
 
     def get(self, request, *args, **kwargs):
-        try:
-            user_profile = UserProfile.objects.get(id=request.user.id)
-        except UserProfile.DoesNotExist:
-            user_profile = None
+        profile = UserProfile.objects.get(id=request.user.id)
         form_profile = UpdateUserProfileForm()
         form_user = UpdateUserForm()
 
