@@ -47,7 +47,10 @@ class UserProfileView(View):
         return render(request, 'user/update_user_profile_done.html', locals())
 
     def get(self, request, *args, **kwargs):
-        profile = UserProfile.objects.get(id=request.user.id)
+        try:
+            user_profile = UserProfile.objects.get(id=request.user.id)
+        except UserProfile.DoesNotExist:
+            user_profile = None
         form_profile = UpdateUserProfileForm()
         form_user = UpdateUserForm()
 
