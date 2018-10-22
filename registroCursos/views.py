@@ -41,8 +41,9 @@ class UserProfileView(View):
 
     def get(self, request, *args, **kwargs):
         
-        profile = UserProfile.objects.get(id=request.user.id)
-       
+        if UserProfile.objects.filter(id=request.user.id).exists():
+            profile = UserProfile.objects.get(id=request.user.id)
+
         form_profile = UpdateUserProfileForm()
         form_user = UpdateUserForm()
 
