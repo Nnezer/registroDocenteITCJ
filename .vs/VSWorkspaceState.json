@@ -6,6 +6,6 @@
     "\\templates",
     "\\templates\\user"
   ],
-  "SelectedNode": "\\registroCursos\\views.py",
+  "SelectedNode": "\\templates\\user\\user_profile.html",
   "PreviewInSolutionExplorer": false
 }

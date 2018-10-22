@@ -1,0 +1,38 @@
+<table class="table table-responsive-md text-center">
+    <thead class="bg-info text-white">
+        <tr>
+            <th class="th-sm"> ID </th>
+            <th class="th-sm"> Nombre </th>
+            <th class="th-sm"> Instructor </th>
+            <th class="th-sm"> Fecha </th>
+            <th class="th-sm"> Detalles </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {%for curso in cursos%}
+
+        <tr>
+            <td>{{curso.id}}</td>
+
+            <td>{{curso.nombre}}</td>
+
+            <td>{{curso.instructor.get_full_name|title}}</td>
+
+            <td>
+                
+                    {{curso.hora_inicio}} - {{curso.hora_final}}<br />
+                    {{curso.dia_inicio}} - {{curso.dia_final}}
+                
+            </td>
+
+
+            <td>
+                <a href="{% url 'detail' curso.id %}" class="btn btn-outline-info btn-sm m-0">Ver Curso</a>
+            </td>
+
+        </tr>
+
+        {%endfor%}
+    </tbody>
+</table>

@@ -1,17 +1,17 @@
 
-<table class="table table-striped table-hover text-dark  table-responsive-md ">
+<table class="table text-dark text-md-center  table-responsive-md ">
 
-    <thead class="text-white black">
+    <thead class="text-white bg-info">
         <tr>
-            <th scope="col"><h6>Status</h6></th>
-            <th scope="col"><h6>Nombre Curso</h6></th>
-            <th scope="col"><h6>Fecha</h6></th>
-            <th scope="col"><h6>Mas Detalles</h6></th>
+            <th scope="col-md"><h6>Status</h6></th>
+            <th scope="col-md"><h6>Curso</h6></th>
+            <th scope="col-md"><h6>Fecha</h6></th>
+            <th scope="col-md"><h6>Detalles</h6></th>
 
         </tr>
     </thead>
 
-    <tbody>
+    <tbody class="white">
 
         {%if cursos_alumno %}
         {% for curso in cursos_alumno %}
@@ -26,7 +26,7 @@
                 </b>
             </td>
             <td>
-                <a href="{% url 'detail' curso.id %}" class="btn  btn-primary text-white btn-sm m-0"><b>Ver Curso</b></a>
+                <a href="{% url 'detail' curso.id %}" class="btn  btn-outline-info  btn-sm m-0"><b>Ver Curso</b></a>
             </td>
 
         </tr>
@@ -47,7 +47,7 @@
                 {{curso.dia_inicio}} - {{curso.dia_final}}
             </td>
             <td>
-                <a href="{% url 'detail' curso.id %}" class="btn btn-primary text-white btn-sm m-0"><b>Ver Curso</b></a>
+                <a href="{% url 'detail' curso.id %}" class="btn btn-outline-info  btn-sm m-0"><b>Ver Curso</b></a>
             </td>
         </tr>
         {%endfor%}
@@ -66,7 +66,7 @@
             {{curso.dia_inicio}} - {{curso.dia_final}}
         </td>
         <td>
-            <a href="{% url 'detail' curso.id %}" class="btn btn-primary text-white btn-sm m-0"><b>Ver Curso</b></a>
+            <a href="{% url 'detail' curso.id %}" class="btn btn-outline-info  btn-sm m-0"><b>Ver Curso</b></a>
         </td>
 
     </tr>

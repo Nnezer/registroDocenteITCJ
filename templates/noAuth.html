@@ -1,9 +1,7 @@
-
-<div class="card-deck mt-4">
-
+<div class="col-md-6 text-md-center">
     <div class="card bg-white  shadow-lg">
-        <h4 class="card-header black text-white">¿Como Entrar?</h4>
-        <div class="card-body text-dark bg-white lead">
+        <h4 class="card-header bg-white text-info">¿Como Entrar?</h4>
+        <div class="card-body text-info bg-white lead">
             <b>
                 Ya sea que se le haya enviado un correo con los datos de su cuenta
                 o el personal encargado de este sistema o de desarrollo academico,
@@ -11,44 +9,31 @@
                 es libre de cambiar el nombre de usuario, contraseña, correo y datos
                 personales a su gusto
             </b>
-            
-                
+
+
         </div>
     </div>
-
-    <div class="card bg-white shadow-lg">
-        <h4 class="card-header black text-white">¿Olvidaste tus Credenciales?</h4>
-        <p class="card-body text-dark bg-white lead">
-            <b>
-                Si olvidaste alguna de tus credenciales (nombre de usuario, contraseña o ambos) da click en el que necesites y sigue las
-                instrucciones
-            </b>
-           <br />
-
-                 <div class="text-center">
-                     <a href="{% url 'password_reset' %}" class="">Recuperar Contraseña</a>
-                     <br /><br />
-                     <a href="#" class="">Recuperar nombre de usuario</a>
-                 </div>
-
-           
-        </p>
-
-    </div>
 </div>
-
-<div class="card bg-white mt-3 shadow-lg pd-5">
-    <h4 class="card-header black text-white">¿Que es el Sistema Docente?</h4>
-    <p class="card-body text-dark bg-white lead">
-        <b> Sistema creado con la finalidad de reducir el tiempo durante la inscripcion y
-        imparticion de los cursos a los docentes durante los periodos vacacionales.
-</b>
-       
-    </p>
-
-</div>
-
-
-
-
-
+ <div class="col-md-6 text-md-center">
+        <div class="card bg-white shadow-lg text-md-center">
+                <h4 class="card-header bg-white text-info">¿Olvidaste tus Credenciales?</h4>
+                <p class="card-body text-info bg-white lead">
+                    <b>
+                        Si olvidaste alguna de tus credenciales (nombre de usuario, contraseña o ambos) da click en el que
+                        necesites y sigue las
+                        instrucciones
+                    </b>
+                    <br />
+        
+                    <div class="text-center">
+                        <a href="{% url 'password_reset' %}" class="">Recuperar Contraseña</a>
+                        <br /><br />
+                        <a href="#" class="">Recuperar nombre de usuario</a>
+                    </div>
+        
+                </p>
+        
+          
+        </div>
+ </div>
+   

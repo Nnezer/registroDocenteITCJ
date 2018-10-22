@@ -10,29 +10,33 @@
 
 {% if user.is_authenticated %}
 
-<div class="bg-white mt-4 z-depth-2 rounded">
-    <br />
+<div class="col-md-7">
+    <div class=" card bg-white mt-4 z-depth-2 col-10 rounded text-center">
 
-    <h3 class="mt-2 text-dark">  Cursos disponibles para inscripcion del semestre: </h3>
+        <h3 class="card-header text-info white"> Cursos Disponibles Para Inscripcion</h3>
 
-    {% if current_semester == 'ago_dic' %}
+        <div class="card-body">
+            {% if current_semester == 'ago_dic' %}
 
-    <h4 class="text-primary">Agosto - Diciembre   {{current_year}}</h4>
+            <h4>Agosto - Diciembre {{current_year}}</h4>
 
-    {% else %}
+            {% else %}
 
-    <h4 class="text-primary">Enero - Junio   {{current_year}}</h4>
+            <h4>Enero - Junio {{current_year}}</h4>
 
-    {% endif %}
-   
-    <br />
-       
+            {% endif %}
+        </div>
+    </div>
 </div>
 
-<div class="bg-white mt-4 z-depth-2 rounded">
-    {% include 'rows.html' %}
+<div class="col-md-10">
+    <div class="card bg-white mt-4 z-depth-2 rounded align-content-md-center">
+        {% include 'snippets/rows.html' %}
+    </div>
 </div>
-    {%endif%}
+
+
+{%endif%}
 
 
 {% endblock section %}

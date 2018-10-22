@@ -17,7 +17,7 @@
                         setTimeout(function(){
                             window.location = "/"
                         },
-                        4000);
+                        4000); 
                     </script>
     
                 </div>
@@ -37,13 +37,13 @@
                         setTimeout(function(){
                             window.location = "{% url ' update_email '%}"
                         },
-                        4000);
+                        6000);
                     </script>
     
                 </div>
             </div>
         {% endif %}
-
+            
         
     </section>
 {%else%}
@@ -51,6 +51,9 @@
 {% include "noAuth.html" %}
 
 {% endif %}
+{% block footer %}
+         fixed-bottom
+      {% endblock footer %}
 
 {% endblock section %}
 

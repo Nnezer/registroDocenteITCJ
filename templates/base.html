@@ -2,6 +2,7 @@
 
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
 
@@ -13,34 +14,38 @@
 
     {% load static %}
     <link href="{%static 'css/mdb.min.css' %}" rel="stylesheet" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
-
+    <link href="{%static 'css/style.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
+        crossorigin="anonymous">
 
 </head>
-<body class="blue-grey lighten-5">
-    <header class="sticky-top fixed-top">
-        {% include 'header.html' %}
+
+<body>
+
+    <header>
+        {% include 'snippets/navbar.html' %}
     </header>
+    
+    <main>
+        
+        <div class="container">
+            <div class="row justify-content-md-center">
+                    {%block section%}
+                    
+                    {% endblock section%}    
+            </div>
 
+            
+                 
 
-    <main class="container text-center mt-4">
-
-        {%block section%}
-
-        {% endblock section%}
-
-
+        </div>
     </main>
-    <br />
-    <footer class="font-small fixed-bottom pt-4 mt-4">
 
-        <section class="footer-copyright text-center text-white black py-3">
-            Instituto Tecnologico De Ciudad Juarez |  Av. Tecnológico No. 1340 C.P. 32500 Ciudad Juárez, Chih. México
+    <footer class="page-footer font-small fixed-bottom pt-md-4 mt-md-4 text-center text-info white  py-md-3">        
+            Instituto Tecnologico De Ciudad Juarez | Av. Tecnológico No. 1340 C.P. 32500 Ciudad Juárez, Chih. México
             | Make it simple, but not simpler 
-            © 2018 Copyright:
-            <a href="https://www.itcj.edu.mx/"> Instituto Tecnologico de Ciudad Juarez</a>
-        </section>
+   
 
     </footer>
 
@@ -52,4 +57,5 @@
 
 
 </body>
+
 </html>

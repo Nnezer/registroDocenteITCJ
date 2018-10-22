@@ -23,8 +23,6 @@ class UserProfile(models.Model):
 
     nombramiento = models.CharField(max_length=3,choices=nombramientos , default='')
 
-    email = models.EmailField(default='')
-
     grado = models.CharField(max_length=4, choices=grados, default='')
 
     departamento = models.CharField(max_length=20,default='')

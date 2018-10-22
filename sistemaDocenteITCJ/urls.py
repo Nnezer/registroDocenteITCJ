@@ -26,18 +26,19 @@ urlpatterns = [
 
     path('course/detail/<int:id_curso>', DetailView.as_view(), name='detail'), # donde se confirma la inscripcion o se desinscribe del curso
 
-    path('course/detail/<int:id_curso>/enroll',EnrollCourseView.as_view(),name='enroll'), # pagina de confirmacion de inscripcion
+    path('course/detail/<int:id_curso>/enroll', EnrollCourseView.as_view(),name='enroll'), # pagina de confirmacion de inscripcion
 
-    path('course/detail/<int:id_curso>/disenroll',DisEnrollCourseView.as_view(),name='disenroll'), # pagina de confirmacion de desuscripcion
+    path('course/detail/<int:id_curso>/disenroll', DisEnrollCourseView.as_view(),name='disenroll'), # pagina de confirmacion de desuscripcion
 
     path('admin/', admin.site.urls), # link a sitio de administracion (solo administradores o superuser)
 
     path('accounts/', include('django.contrib.auth.urls')), # link para el inicio de sesion
     
-    path('accounts/update_email/',UpdateEmailView.as_view(),name='update_email'), # link para el cambio de email
+    path('accounts/update_email/', UpdateEmailView.as_view(),name='update_email'), # link para el cambio de email
 
-    path('accounts/update_username/',UpdateUsernameView.as_view(),name='update_username') # link para el cambio de nombre de usuario
+    path('accounts/update_username/', UpdateUsernameView.as_view(),name='update_username'), # link para el cambio de nombre de usuario
 
+    path('accounts/user_profile/', UserProfileView.as_view(),name='user_profile') # link para ver los datos personales
    
 ]
 
