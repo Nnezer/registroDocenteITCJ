@@ -17,10 +17,7 @@ class UserProfileView(View):
     def post(self, request, *args, **kwargs):
         post_data = request.POST.copy()
         
-        try:
-            user_profile = UserProfile.objects.get(id=request.user.id)
-        except UserProfile.DoesNotExist:    
-            user_profile = None
+        user_profile = UserProfile.objects.get(id=request.user.id)
         
         user = User.objects.get(id=request.user.id)
 
@@ -43,11 +40,9 @@ class UserProfileView(View):
         return render(request, 'user/update_user_profile_done.html', locals())
 
     def get(self, request, *args, **kwargs):
-        try:
-            profile = UserProfile.objects.get(id=request.user.id)
-        except UserProfile.DoesNotExist:
-            profile = None
-
+        
+        profile = UserProfile.objects.get(id=request.user.id)
+       
         form_profile = UpdateUserProfileForm()
         form_user = UpdateUserForm()
 
