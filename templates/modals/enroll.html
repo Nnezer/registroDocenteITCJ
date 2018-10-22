@@ -9,7 +9,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
 
-            <div class="modal-header info-color text-white">
+            <div class="modal-header white text-info">
                 <h5 class="modal-title " id="exampleModalLabel">Confirmar Accion</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -24,10 +24,11 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-red" data-dismiss="modal">Cerrar</button>
                 
-                <form action="/course/detail/{{curso.id}}/enroll" method="post">
+                <form action="/course/detail/{{curso.id}}/course_confirm_action" method="post">
                     {%csrf_token%}
                     <input type="hidden" name="user" value="{{user.id}}" />
                     <input type="hidden" name="curso" value="{{curso.id}}" />
+                    <input type="hidden" name="action" value="enroll" />
                   
                     <button type="submit" class="btn btn-success">Aceptar</button>
                 </form>

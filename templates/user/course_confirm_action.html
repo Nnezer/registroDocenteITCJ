@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+
+{% block section %}
+{% if user.is_authenticated %}
+
+
+<div class="col-md-10 mt-md-5">
+    <div class="card white text-center{% if done == True %} text-success {% else %} text-danger {% endif %}">
+
+        <div class="card-header">
+            <h4>
+                {% if done == True %} Curso agregado con exito {% else %} Hubo un error al agregar el curso {% endif %}
+            </h4>
+        </div>
+
+        <div class="card-body">
+            <h5>
+                {% if done == True %}
+
+                Haz sido exitosamente inscrito en la materia: <br> {{curso}} <br>
+                sera redireccionando hacia la pagina de inicio automaticamente, 
+                si esto no sucede presione el link de abajo <br>
+
+                <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-md-2"> </i>Inicio</a>
+        <script type="text/javascript">
+            setTimeout(function () {
+                window.location = "/"
+            },
+                4000);
+        </script>
+
+                {% else %}
+                Ha surgido un error al momento de inscripcion, esta actualmente inscrito en otro curso a la misma hora y fecha <br>
+                el curso es {{verify_enroll.nombre}} <br>
+                En breve sera redireccionado a los cursos para que pueda verificar esto <br>
+                O presione el link que aparece abajo <br>
+                <a href="{% url 'course' %}" class="btn btn-info  text-capitalize">
+                        <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
+                    </a>
+
+                    <script type="text/javascript">
+                        setTimeout(function () {
+                            window.location = "{%url 'course'%}"
+                        },
+                            8000);
+                    </script>
+                
+
+
+                {% endif %}
+            </h5>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+{%else%}
+{% include "noAuth.html" %}
+
+{% endif %}
+
+
+{% endblock section %}

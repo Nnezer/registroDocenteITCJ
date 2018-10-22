@@ -26,9 +26,7 @@ urlpatterns = [
 
     path('course/detail/<int:id_curso>', DetailView.as_view(), name='detail'), # donde se confirma la inscripcion o se desinscribe del curso
 
-    path('course/detail/<int:id_curso>/enroll', EnrollCourseView.as_view(),name='enroll'), # pagina de confirmacion de inscripcion
-
-    path('course/detail/<int:id_curso>/disenroll', DisEnrollCourseView.as_view(),name='disenroll'), # pagina de confirmacion de desuscripcion
+    path('course/detail/<int:id_curso>/course_confirm_action', ConfirmActionCourseView.as_view(),name='course_confirm_action'), # pagina de confirmacion de inscripcion y desinscripcion del curso
 
     path('admin/', admin.site.urls), # link a sitio de administracion (solo administradores o superuser)
 
