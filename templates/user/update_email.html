@@ -5,8 +5,8 @@
 {% if user.is_authenticated %}
 
 <div class="col-md-6 mt-md-5">
-        <div class="card z-depth-4 rounded">
-                <div class="card-header text-white bg-info text-md-center">Cambiar Email</div>
+        <div class="card white">
+                <h5 class="card-header text-info text-md-center">Cambiar Email</h5>
                 <div class="card-body">
                         <form action="/accounts/update_email/" method="POST">
                                 {%csrf_token%}
@@ -17,7 +17,7 @@
                                         {{form.email.errors}}
                                 </div>
                                 <div class="row justify-content-md-center">
-                                                <input type="submit" value="Cambiar Email" class="btn btn-outline-info">
+                                                <input type="submit" value="Cambiar Email" class="btn btn-info">
 
                                 </div>
                                

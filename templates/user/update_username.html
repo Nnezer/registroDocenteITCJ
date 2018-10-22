@@ -6,19 +6,19 @@
 
 <div class="col-md-7 mt-md-5">
         <div class="card white">
-                <div class="card-header bg-info text-white text-center">Cambiar Nombre de Usuario</div>
+                <h5 class="card-header text-info text-center">Cambiar Nombre de Usuario</h5>
                 <div class="card-body">
                         <form action="/accounts/update_username/" method="POST">
                                 {%csrf_token%}
                                 {% load widget_tweaks %}
                                 <div class="md-form">
                                         {% render_field form.username class+="form-control"%}
-                                        <label>Nombre de Usuario nuevo</label>
+                                        <label>Nombre de Usuario Nuevo</label>
                                         {{form.username.errors}}
                                 </div>
 
                                 <div class="row justify-content-md-center">
-                                         <input type="submit" value="Cambiar Nombre de Usuario" class="btn btn-outline-info">
+                                         <input type="submit" value="Cambiar Nombre de Usuario" class="btn btn-info">
                                 </div>
 
                                 

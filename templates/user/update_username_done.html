@@ -1,52 +1,49 @@
 {% extends "base.html" %}
 
-
 {% block section %}
 {% if user.is_authenticated %}
-{% if action %}
-<div class="card z-depth-4 rounded">
-      <div class="card-header bg-success text-white">
-          <h4>Nombre de Usuario cambiado Exitosamente</h4>    
-      </div>
-      <div class="card-body">
-          <h5>Sera redireccionado a la pagina principal en breve</h5>
-            <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
-            <a href="{%url 'home'%}">Inicio</a>
-          <script type="text/javascript">
-              setTimeout(function(){
-                  window.location = "/"
-              },
-              4000);
-          </script>
 
-      </div>
-  </div>
-  {% else %}
-  <div class="card z-depth-4 rounded">
-          <div class="card-header bg-danger text-white">
-              <h4>Error</h4>    
-          </div>
-          <div class="card-body">
-              <h5>Este nombre de usuario ya esta en uso, por favor intente otro</h5>
-              <h5>En breve sera redireccionado de regreso para que vuelva a intentarlo</h5>
-              <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
-              <a href="{%url 'update_username'%}">Cambiar Nombre de Usuario</a>
-              <script type="text/javascript">
-                  setTimeout(function(){
-                      window.location = "{% url 'update_username'%}"
-                  },
-                  4000);
-              </script>
-  
-          </div>
-      </div>
+<div class="card mt-md-5">
+    <div class="card-header white {% if action %} text-success {%else%} text-danger{% endif %}">
+        {% if action %}
+        <h4>Nombre de Usuario cambiado Exitosamente</h4>
+        {% else %}
+        <h4>Ocurrio un problema al cambiar el nombre de usuario</h4>
+        {% endif %}
 
-      {% block footer %}
-         fixed-bottom
-      {% endblock footer %}
-{% endif %}
+    </div>
+    <div class="card-body text-center {% if action %} text-success {%else%} text-danger{% endif %}">
 
+        {% if action %}
+        <h5>cambio efectuado con exito, sera redireccionado a la pagina principal en breve</h5>
+        {%else%}
+        <h5>Nombre de usuario ya esta en uso, sera redireccionado de vuelta para que lo vuelva a intentar con un nombre
+            de usuario diferente</h5>
+        {% endif %}
 
+        <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
+
+        {% if action %}
+        <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-md-2"> </i>Inicio</a>
+        <script type="text/javascript">
+            setTimeout(function () {
+                window.location = "/"
+            },
+                4000);
+        </script>
+        {%else%}
+        <a href="{%url 'update_username' %}" class="btn btn-info text-capitalize">
+            <i class="fas fa-user-cog"> </i> Cambiar Nombre de Usuario</a>
+        <script type="text/javascript">
+            setTimeout(function () {
+                window.location = "{%url 'update_username'%}"
+            },
+                5000);
+        </script>
+        {% endif %}
+
+    </div>
+</div>
 
 {% else %}
 {% include "noAuth.html" %}
