@@ -18,7 +18,10 @@ class UserProfileView(View):
     def post(self, request, *args, **kwargs):
         post_data = request.POST.copy()
             
-        user_profile = UserProfile.objects.get(id=request.user.id)
+        try:
+            profile = User.profile.objects.get(id=request.user.id)
+        except :
+            profile = None
         user = User.objects.get(id=request.user.id)
 
         if User.objects.filter(username=post_data['username']) and not User.objects.filter(id=request.user.id, username=post_data['username']):
@@ -44,7 +47,7 @@ class UserProfileView(View):
             profile = User.profile.objects.get(id=request.user.id)
         except :
             profile = None
-            
+
         form_profile = UpdateUserProfileForm()
         form_user = UpdateUserForm()
 
