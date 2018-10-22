@@ -18,7 +18,10 @@ class UserProfileView(View):
     def post(self, request, *args, **kwargs):
         post_data = request.POST.copy()
         
-        user_profile = UserProfile.objects.get(id=request.user.id)
+        try:
+            user_profile = UserProfile.objects.get(id=request.user.id)
+        except UserProfile.DoesNotExist:    
+            user_profile = None
         
         user = User.objects.get(id=request.user.id)
 
