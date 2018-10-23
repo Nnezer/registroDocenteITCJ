@@ -164,8 +164,16 @@ class CursosView(View):
         return render(request, self.template_name, locals())
 
     def get(self, request, *args, **kwargs):
+        get_data = request.GET.copy()
         cursos = Curso.objects.filter(anno=int(date_filter[-4:]),
                                       semestre=currentSemester)
+        if get_data:
+            cursos = cursos.filter(nombre__icontains=get_data['search'])
+            #cursos = Curso.objects.filter(nombre__icontains = get_data['search'],
+             #                           anno=int(date_filter[-4:]),
+              #                          semestre=currentSemester)
+       
+
         current_semester = currentSemester
         current_year = date_filter[-4:]
         return render(request, self.template_name, locals())

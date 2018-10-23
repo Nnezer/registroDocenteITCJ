@@ -11,29 +11,38 @@
 {% if user.is_authenticated %}
 
 <div class="col-md-7">
-    <div class=" card bg-white mt-4 z-depth-2 col-10 rounded text-center">
+    <div class=" card my-md-4 text-center">
 
-        <h3 class="card-header text-info white"> Cursos Disponibles Para Inscripcion</h3>
+        <div class="card-header bg-info text-white">
+            <h4>Cursos Disponibles Para Inscripcion</h4>
+
+            <h5> {% if current_semester == 'ago_dic' %} Agosto - Diciembre {% else %} Enero - Junio {% endif %} {%now 'Y'%} </h5>
+
+        </div>
 
         <div class="card-body">
-            {% if current_semester == 'ago_dic' %}
-
-            <h4>Agosto - Diciembre {{current_year}}</h4>
-
-            {% else %}
-
-            <h4>Enero - Junio {{current_year}}</h4>
-
-            {% endif %}
+                <form class="form-inline md-form mr-auto mb-4">
+                    <div class="col-md-12">
+                            <input class="form-control mr-sm-2" type="text" placeholder="Buscar" name="search" aria-label="Search">
+                            <button class="btn btn-outline-info btn-rounded btn-sm my-0 text-capitalize" type="submit">Buscar Cursos</button>
+                    </div>
+                        
+                      </form>
         </div>
     </div>
 </div>
 
-<div class="col-md-10">
-    <div class="card bg-white mt-4 z-depth-2 rounded align-content-md-center">
+
+
+
+<div class="col-md-12">
+    <div class="card white mt-4 align-content-md-center">
         {% include 'snippets/rows.html' %}
     </div>
 </div>
+
+
+
 
 
 {%endif%}
