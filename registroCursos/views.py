@@ -119,7 +119,7 @@ class ConfirmActionCourseView(View):
     def post(self, request, *args, **kwargs):
 
         post_data = request.POST.copy()
-
+        action = post_data['action']
         curso = Curso.objects.get(id=post_data['curso'])
         usuario = User.objects.get(id=post_data['user'])
 
@@ -132,7 +132,7 @@ class ConfirmActionCourseView(View):
         done = False
 
             # Si el usuario desea inscribirse a un curso
-        if post_data['action'] == 'enroll':
+        if action == 'enroll':
             # QuerySet que verifica que no este inscrito ya 
             if not Historial.objects.filter(curso=curso,
              alumno=usuario):
@@ -142,7 +142,7 @@ class ConfirmActionCourseView(View):
                     h1.save()
                     done = True
 
-        if post_data['action'] == 'disenroll':
+        if action == 'disenroll':
             if Historial.objects.filter(curso=curso, alumno=usuario):
                 Historial.objects.get(curso=curso.id, alumno=usuario.id).delete()
                 done = True

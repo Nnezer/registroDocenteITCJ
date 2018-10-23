@@ -10,42 +10,71 @@
 
         <div class="card-header">
             <h4>
-                {% if done == True %} Curso agregado con exito {% else %} Hubo un error al agregar el curso {% endif %}
+                {% if done == True %}
+
+                {% if action == 'enroll' %}
+                Curso Agregado Con Exito
+                {% else %}
+                Curso Eliminado Con Exito
+                {% endif %}
+
+
+                {% else %}
+                    {% if action == 'enroll' %}
+
+                    Hubo un Error al Agregar el Curso
+
+                    {% else %}
+                    Hubo Un Error al Eliminar el Curso
+                    {% endif %}
+
+                {% endif %}
             </h4>
         </div>
 
         <div class="card-body">
             <h5>
                 {% if done == True %}
-
-                Haz sido exitosamente inscrito en la materia: <br> {{curso}} <br>
-                sera redireccionando hacia la pagina de inicio automaticamente, 
-                si esto no sucede presione el link de abajo <br>
+                    {% if action == 'enroll' %}
+                    Haz sido exitosamente inscrito en la materia: <br> {{curso}} <br>
+                   
+                    {% else %}
+                    El curso: {{curso}} ha sido eliminado exitosamente de tu horario
+                    {% endif %}
+                
+                    sera redireccionando hacia la pagina de inicio automaticamente,
+                    si esto no sucede presione el link de abajo <br>
 
                 <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-md-2"> </i>Inicio</a>
-        <script type="text/javascript">
-            setTimeout(function () {
-                window.location = "/"
-            },
-                4000);
-        </script>
+                <script type="text/javascript">
+                    setTimeout(function () {
+                        window.location = "/"
+                    },
+                        4000);
+                </script>
 
                 {% else %}
-                Ha surgido un error al momento de inscripcion, esta actualmente inscrito en otro curso a la misma hora y fecha <br>
-                el curso es {{verify_enroll.nombre}} <br>
+                    {% if action == 'enroll' %}
+                    Ha surgido un error al momento de inscripcion, esta actualmente inscrito en otro curso a la misma hora
+                    y fecha <br>
+                    el curso en el que ya estas inscrito es {{verify_enroll.nombre}} <br>
+                    {% else %}
+                    No fue posible eliminar este curso de tu horario, por favor intentalo de nuevo  <br>
+                    {% endif %}
+                
                 En breve sera redireccionado a los cursos para que pueda verificar esto <br>
                 O presione el link que aparece abajo <br>
                 <a href="{% url 'course' %}" class="btn btn-info  text-capitalize">
-                        <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
-                    </a>
+                    <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
+                </a>
 
-                    <script type="text/javascript">
-                        setTimeout(function () {
-                            window.location = "{%url 'course'%}"
-                        },
-                            8000);
-                    </script>
-                
+                <script type="text/javascript">
+                    setTimeout(function () {
+                        window.location = "{%url 'course'%}"
+                    },
+                        8000);
+                </script>
+
 
 
                 {% endif %}
