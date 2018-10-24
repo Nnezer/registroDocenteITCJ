@@ -1,41 +1,33 @@
 <div class="col-md-8">
         <div class=" card bg-white z-depth-2 mb-md-3 pb-md-3 rounded text-center">
-                
+
                 <h3 class="card-header white "> Bienvenido(a) </h3>
                 <div class="card-body">
                         <h4 class="card-title text-info"><b>{{user.get_full_name|title}}</b> <br></h4>
                         <h5>{{user.email}} </h5>
-                        <h6>{%now  "l, j F Y, H:i" %} </h6>
+                        <h6>{%now "l, j F Y, H:i" %} </h6>
                 </div>
                 <h6 class="card-footer">Puedes desinscribirte del curso hasta el dia de inicio del mismo.</h6>
-        </div> 
+        </div>
 </div>
 
 <div class="col-md-10">
-        <div class="card bg-white z-depth-2 rounded">       
+        <div class="card bg-white z-depth-2 rounded">
                 {%if cursos_alumno or cursos_instructor or cursos_colaborador%}
-                {% include 'horario.html' %}
-    
-                 {%else%}
-    
-            <h5 class="red-text card-header text-md-center">No tienes ningun curso activo, haz click en la parte superior "Ver Cursos" o en el link que aparece abajo para ver
-            todos los cursos disponibles.</h5>
-    
-    
-    
-            <a href="{% url 'course' %}" class="btn btn-info  text-capitalize">
-                <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
-            </a>
+                        {% include 'horario.html' %}
+
+                {%else%}
+
+                <h5 class="red-text card-header text-md-center">
+                        No tienes ningun curso activo, haz click en la parte
+                        superior "Ver Cursos" o en el link que aparece abajo para ver
+                        todos los cursos disponibles.
+                </h5>
+
+                <a href="{% url 'course' %}" class="btn btn-info  text-capitalize">
+                        <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
+                </a>
                 {%endif%}
-    
-            </div>
+
+        </div>
 </div>
-
-       
-
-        
-        
-           
- 
-
-   

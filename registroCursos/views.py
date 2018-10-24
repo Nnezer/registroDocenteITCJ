@@ -168,19 +168,15 @@ class CursosView(View):
         cursos = Curso.objects.filter(anno=int(date_filter[-4:]),
                                       semestre=currentSemester)
         if get_data:
-            cursos = cursos.filter(nombre__icontains=get_data['search'])
-            #cursos = Curso.objects.filter(nombre__icontains = get_data['search'],
-             #                           anno=int(date_filter[-4:]),
-              #                          semestre=currentSemester)
-       
+            cursos = cursos.filter(nombre__icontains=get_data['search'])     
 
         current_semester = currentSemester
         current_year = date_filter[-4:]
         return render(request, self.template_name, locals())
 
-
+# vista de la pagina de inicio
 class HomeView(View):
-
+    
     template_name = "home.html"
 
     def post(self, request, *args, **kwargs):

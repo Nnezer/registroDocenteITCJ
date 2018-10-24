@@ -1,3 +1,3 @@
 from django.test import TestCase
-
-# Create your tests here.
+from registroCursos.models import *
+from django.contrib.auth.models import User

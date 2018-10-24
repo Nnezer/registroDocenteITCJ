@@ -1,20 +1,17 @@
-
 {% extends 'base.html' %}
 
 
 {% block title %}Sistema de Registro Docente{% endblock %}
 
 {% block section %}
-   
- 
-
+        
         {% if user.is_authenticated %}
 
-        {% include 'index.html' %}
+                {% include 'index.html' %}
     
         {% else %}
     
-        {%include 'noAuth.html'%}
+                {%include 'noAuth.html'%}
     
         {% endif %}
  
