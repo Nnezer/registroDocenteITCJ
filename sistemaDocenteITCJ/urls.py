@@ -25,8 +25,11 @@ urlpatterns = [
     path('course/detail/<int:id_curso>', DetailView.as_view(), name='detail'), # donde se confirma la inscripcion o se desinscribe del curso
 
     path('course/detail/<int:id_curso>/course_confirm_action', ConfirmActionCourseView.as_view(),name='course_confirm_action'), # pagina de confirmacion de inscripcion y desinscripcion del curso
-
-    path('admin/', admin.site.urls), # link a sitio de administracion (solo administradores o superuser)
+    path('course/detail/<int:id_curso>/admin', AdminCourseView.as_view(), name='admin_course'), # Pagina donde el instructor subira la asistencia
+    path('course/detail/<int:id_curso>/admin/<int:id_user>', EvaluateView.as_view(), name='evaluate'),
+    path('course/detail/<int:id_curso>/admin/<int:id_user>/done', EvaluateDoneView.as_view(), name='evaluate_done'),
+    
+     path('admin/', admin.site.urls), # link a sitio de administracion (solo administradores o superuser)
 
     path('accounts/', include('django.contrib.auth.urls')), # link para el inicio de sesion
     

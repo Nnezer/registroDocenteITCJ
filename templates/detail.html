@@ -10,100 +10,106 @@ Detalles del curso
 {% if user.is_authenticated %}
 {%csrf_token%}
 
-
-<div class="col-md-6 mt-md-4">
-    <div class="card white">
-
-        <div class="card-body mt-md-2 text-center">
-
-            <!-- Title -->
-            <h5 class="card-title text-info">{{curso}}</h5>
-            <!-- Text -->
-            <div class="card-text">
-
-                <h6><b>Instructor</b> <br />{{curso.instructor.get_full_name|title}}</h6>
-
-                {%if curso.colaborador%}
-
-                <h6><b>Colaborador</b> <br />{{curso.colaborador.get_full_name|title}}</h6>
-                {%endif%}
-                <br />
-
-                <h6><b>Fecha</b> <br />{{curso.dia_inicio}} - {{curso.dia_final}}</h6>
-                <br />
-
-                <div class="row">
-                    <div class="col-md-5">
-                        <h6><b>Horario</b> <br /> {{curso.hora_inicio}} - {{curso.hora_final}}</h6>
-                    </div>
-                    <div class="col-md-6">
-                        <h6><b>Tipo</b> <br />{{curso.get_tipo_display}}</h6>
-
+<div class="row mt-md-5 justify-content-md-center">
+        <div class="col-md-6 ">
+                <div class="card white">
+            
+                    <div class="card-body mt-md-2 text-center">
+            
+                        <!-- Title -->
+                        <h5 class="card-title text-info">{{curso}}</h5>
+                        <!-- Text -->
+                        <div class="card-text">
+            
+                            <h6><b>Instructor</b> <br />{{curso.instructor.get_full_name|title}}</h6>
+            
+                            {%if curso.colaborador%}
+            
+                            <h6><b>Colaborador</b> <br />{{curso.colaborador.get_full_name|title}}</h6>
+                            {%endif%}
+                            <br />
+            
+                            <h6><b>Fecha</b> <br />{{curso.dia_inicio}} - {{curso.dia_final}}</h6>
+                            <br />
+            
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h6><b>Horario</b> <br /> {{curso.hora_inicio}} - {{curso.hora_final}}</h6>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6><b>Tipo</b> <br />{{curso.get_tipo_display}}</h6>
+            
+                                </div>
+                            </div>
+                            <br />
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6><b>Salon</b> <br />{{curso.salon}}</h6>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6><b>Semestre</b> <br />{{curso.get_semestre_display}}</h6>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <br />
-                <div class="row">
-                    <div class="col-md-6">
-                        <h6><b>Salon</b> <br />{{curso.salon}}</h6>
-                    </div>
-                    <div class="col-md-6">
-                        <h6><b>Semestre</b> <br />{{curso.get_semestre_display}}</h6>
-                    </div>
-                </div>
+            
             </div>
-        </div>
-    </div>
-
-</div>
-
-<div class="col-md-4 mt-md-4">
-
-    <div class="card white">
-        <div class="card-body mt-md-2 text-center">
-            {%if onCourseAsInstructor%}
             
-            <h6 class="text-center mt-md-4">El usuario es Instructor de este curso, no es posible inscribirse</h6>
-            <h6>Presione abajo para administrar este grupo</h6>
-            <a href="#" class="btn btn-outline-purple text-capitalize"> Administrar<i class="fas fa-book fa-lg ml-md-2"> </i> </a>
-
-
-            {%else%}
-
-            <h6 class="text-center mt-md-4"> Es posible desinscribirse hasta el dia de inicio del curso. </h6>
-
-            <!-- Panel para usuario ya inscrito -->
-            {% if onCourseAsAlumno %}
-
-            {%include 'modals/disenroll.html' %}
-            <br>
-            <h6 class="text-danger m-3"> Este usuario esta actualmente inscrito a este curso</h6>
+            <div class="col-md-4 mt-md-4">
             
+                <div class="card white">
+                    <div class="card-body mt-md-2 text-center">
+                        {%if onCourseAsInstructor%}
+                        
+                        <h6 class="text-center mt-md-4">El usuario es Instructor de este curso, no es posible inscribirse</h6>
+                        <h6>Presione abajo para administrar este grupo</h6>
 
-            {%else%}
-
-            <!-- Panel para usuario no inscrito -->
-
-            <h6 class="text-center m-3">
-                Para inscribirse a este curso solo presione el boton de abajo.
-            </h6>
-
-            {%include 'modals/enroll.html' %}
-
-            <br />
-            <h6 class=" text-center m-3">
-                El ultimo dia del curso se le activara esta opcion para que pueda realizar la
-                encuesta de servicio.
-            </h6>
-
-            <button type="submit" class="btn btn-outline-info text-capitalize m-3 disabled">
-                <h6>Realizar Encuesta <i class="fas fa-file-alt fa-lg ml-2 "></i></h6>
-            </button>
-            {%endif%}
-            {%endif%}
-        </div>
-
-    </div>
-
+                        <a href="{%url 'admin_course' curso.id %}" class="btn btn-outline-purple text-capitalize">
+                            Administrar
+                            <i class="fas fa-book fa-lg ml-md-2"> </i>
+                        </a>
+ 
+            
+                        {%else%}
+            
+                        <h6 class="text-center mt-md-4"> Es posible desinscribirse hasta el dia de inicio del curso. </h6>
+            
+                        <!-- Panel para usuario ya inscrito -->
+                        {% if onCourseAsAlumno %}
+            
+                        {%include 'modals/disenroll.html' %}
+                        <br>
+                        <h6 class="text-danger m-3"> Este usuario esta actualmente inscrito a este curso</h6>
+              
+                        <h6 class=" text-center m-3">
+                            El ultimo dia del curso se le activara esta opcion para que pueda realizar la
+                            encuesta de servicio.
+                        </h6>
+            
+                        <a href="/course/detail/{{curso.id}}/poll" class="btn btn-outline-info text-capitalize m-3">
+                            <h6>Realizar Encuesta <i class="fas fa-file-alt fa-lg ml-2 "></i></h6>
+                        </a>
+            
+                        {%else%}
+            
+                        <!-- Panel para usuario no inscrito -->
+            
+                        <h6 class="text-center m-3">
+                            Para inscribirse a este curso solo presione el boton de abajo.
+                        </h6>
+            
+                        {%include 'modals/enroll.html' %}
+            
+                        
+                        {%endif%}
+                        {%endif%}
+                    </div>
+            
+                </div>
+            
+            </div>
+            
 </div>
 
 

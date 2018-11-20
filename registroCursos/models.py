@@ -15,21 +15,26 @@ cursos = (("AP","Actualizacion Profesional"),("FD","Formacion Docente"),
 
 semestres = ((ago_dic, 'Ago - Dic'), (ene_jun, 'Ene - Jun'))
 
+evaluacion = ((5,"Totalmente de Acuerdo"),(4,"Parcialmente de Acuerdo"),
+                (3,"Indiferente"),(2,"Parcialmente"),
+                (1,"Totalmente en Desacuerdo"))
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
-    sexo = models.CharField(max_length = 1, choices=sexos, default='')
+    sexo = models.CharField(max_length = 1, choices=sexos, default='',blank=True)
 
     nombramiento = models.CharField(max_length=3,choices=nombramientos , default='')
 
+    Horas = models.IntegerField(blank=True, default='')
+
     grado = models.CharField(max_length=4, choices=grados, default='')
 
-    departamento = models.CharField(max_length=20,default='')
+    departamento = models.CharField(max_length=20,blank=True,default='')
 
     puesto = models.CharField(max_length=7, choices=puestos, default='')
 
-    telefono_particular = models.IntegerField(blank=True, default='')
+    telefono_particular = models.BigIntegerField(blank=True, default='')
 
     RFC = models.CharField(max_length=14, blank=True, default='')
 
@@ -48,7 +53,7 @@ class Curso(models.Model):
 
     tipo = models.CharField(max_length=3, choices=cursos,default='')
 
-    alumno = models.ManyToManyField(User, related_name="alumno",through='Historial', blank=True,default="",null=True)
+    alumno = models.ManyToManyField(User, related_name="alumno",through='Historial', blank=True,default="")
 
     colaborador = models.ForeignKey(User,on_delete = models.CASCADE, related_name='colaborador',blank=True, default='',null=True)
 
@@ -60,7 +65,7 @@ class Curso(models.Model):
 
     dia_final = models.DateField(blank=True)
 
-    hora_inicio = models.TimeField(blank=True,)
+    hora_inicio = models.TimeField(blank=True)
 
     hora_final = models.TimeField(blank=True)
 
@@ -91,4 +96,51 @@ class Historial(models.Model):
         verbose_name_plural = "Historial"
         db_table = 'Historial'
         
+class Asistencia(models.Model):
 
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+
+    alumno = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    dia = models.DateField()
+
+    asistio = models.BooleanField(default=False)
+
+    def __str__(self):
+        return self.curso.nombre + " "+ self.alumno.get_full_name() + " " +str(self.dia)
+
+    class Meta:
+        verbose_name_plural = "Asistencia"
+        db_table = "Asistencia"
+
+class Encuesta(models.Model):
+    curso = models.ForeignKey(Curso, on_delete=models.CASCADE)
+
+    alumno = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    pregunta_1 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_2 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_3 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_4 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_5 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_6 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_7 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_8 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_9 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    pregunta_10 = models.CharField(max_length=2,choices=evaluacion,default='')
+
+    def __str__(self):
+        return self.curso.nombre
+
+    class Meta:
+        verbose_name_plural = "Encuesta"
+        db_table = "Encuesta"

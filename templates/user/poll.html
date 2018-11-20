@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block section %}
+
+
+{% if user.is_authenticated %}
+
+
+{% else %}
+{% include 'noAuth.html' %}
+{% endif %}
+    
+  
+{% endblock section %}

@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% include 'snippets/navbar.html' %}
+
+{% block section %}
+
+
+{% if user.is_authenticated %}
+  
+<div class="row mt-md-5 justify-content-md-center">
+    <div class="card">
+        <h3 class="card-header bg-success text-white">
+            Cambios Realizados
+        </h3>
+        <div class="card-body">
+            los cambios han sido establecidos correctamente <br>
+            presione el boton que aparece abajo para ir a los cursos <br>
+            <a href="{% url 'course' %}" class="btn btn-success  text-capitalize">
+                <i class="fas fa-chalkboard-teacher fa-lg ml-2"> </i> Ver Cursos
+        </a>
+        </div>
+    </div>
+</div>
+
+{% else %}
+{% include 'noAuth.html' %}
+{% endif %}
+    
+
+{% endblock section %}

@@ -3,48 +3,50 @@
 {% block section %}
 
 {% if user.is_authenticated %}
-   
-<div class="card mt-md-5">
-        <div class="card-header white {% if action %} text-success {%else%} text-danger{% endif %}">
-            {% if action %}
-            <h4>Email cambiado Exitosamente</h4>
-            {% else %}
-            <h4>Ocurrio un problema al cambiar el Email</h4>
-            {% endif %}
-    
-        </div>
-        <div class="card-body text-center {% if action %} text-success {%else%} text-danger{% endif %}">
-    
-            {% if action %}
-            <h5>cambio efectuado con exito, sera redireccionado a la pagina principal en breve</h5>
-            {%else%}
-            <h5>Email ya esta en uso, sera redireccionado de vuelta para que lo vuelva a intentar con un nombre
-                de usuario diferente</h5>
-            {% endif %}
-    
-            <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
-    
-            {% if action %}
-            <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-md-2"> </i>Inicio</a>
-            <script type="text/javascript">
-                setTimeout(function () {
-                    window.location = "/"
-                },
-                    4000);
-            </script>
-            {%else%}
-            <a href="{%url 'update_email' %}" class="btn btn-info text-capitalize">
-                <i class="fas fa-user-envelope"> </i> Cambiar Email</a>
-            <script type="text/javascript">
-                setTimeout(function () {
-                    window.location = "{%url 'update_email'%}"
-                },
-                    5000);
-            </script>
-            {% endif %}
-    
-        </div>
-    </div>
+   <div class="row mt-md-5 justify-content-md-center">
+        <div class="card">
+                <div class="card-header white {% if action %} text-success {%else%} text-danger{% endif %}">
+                    {% if action %}
+                    <h4>Email cambiado Exitosamente</h4>
+                    {% else %}
+                    <h4>Ocurrio un problema al cambiar el Email</h4>
+                    {% endif %}
+            
+                </div>
+                <div class="card-body text-center {% if action %} text-success {%else%} text-danger{% endif %}">
+            
+                    {% if action %}
+                    <h5>cambio efectuado con exito, sera redireccionado a la pagina principal en breve</h5>
+                    {%else%}
+                    <h5>Email ya esta en uso, sera redireccionado de vuelta para que lo vuelva a intentar con un nombre
+                        de usuario diferente</h5>
+                    {% endif %}
+            
+                    <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
+            
+                    {% if action %}
+                    <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-md-2"> </i>Inicio</a>
+                    <script type="text/javascript">
+                        setTimeout(function () {
+                            window.location = "/"
+                        },
+                            4000);
+                    </script>
+                    {%else%}
+                    <a href="{%url 'update_email' %}" class="btn btn-info text-capitalize">
+                        <i class="fas fa-user-envelope"> </i> Cambiar Email</a>
+                    <script type="text/javascript">
+                        setTimeout(function () {
+                            window.location = "{%url 'update_email'%}"
+                        },
+                            5000);
+                    </script>
+                    {% endif %}
+            
+                </div>
+            </div>
+   </div>
+
 {%else%}
 
 {% include "noAuth.html" %}

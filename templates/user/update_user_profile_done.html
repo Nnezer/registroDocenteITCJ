@@ -4,8 +4,8 @@
 {% block section %}
 {% if user.is_authenticated %}
 
-
-<div class="card mt-md-5">
+<div class="row justify-content-md-center mt-md-5">
+<div class="card ">
 
     <div class="card-header white {% if 'username' in error or 'email' in error %}  text-danger {%else%} text-success {% endif %}">
         {% if 'username' in error or 'email' in error %}
@@ -42,6 +42,8 @@
 
 
     </div>
+
+</div>
 
 </div>
 

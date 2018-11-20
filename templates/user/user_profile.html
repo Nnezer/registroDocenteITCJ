@@ -3,11 +3,9 @@
 
 {% block section %}
 {% if user.is_authenticated %}
-
-<div class="col-md-12 my-md-5">
-        <div class="row justify-content-md-center">
+        <div class="row mt-md-5 justify-content-md-center">
                 <!--Form con los datos-->
-                <div class="card white col-md-auto rounded">
+                <div class="card">
                     <div class="card-img-top">
                         <img class="z-depth-2 rounded-circle"  src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
                             width="250" height="100" alt="Card image cap">
@@ -15,17 +13,17 @@
                             <div class="mask rgba-white-slight"></div>
                         </a>
                     </div>
-        
                     <div class="card-body">
-                        <h4 class="card-title text-info text-center"> Datos Personales</h4>
+                        <h2 class="card-title text-info text-center"> Datos Personales</h2>
                         <form action="/accounts/user_profile/" method="POST" class="md-form">
         
                             {%csrf_token%}
                             {% load widget_tweaks %}
                             <!--Primera fila -->
         
-                            <!--Fist name-->
+                            
                             <div class="row justify-content-md-center">
+                                <!--Fist name-->
                                 <div class="md-form ">
                                     {% render_field form_user.first_name class+="form-control" value=user.first_name %}
                                     <label>Nombre(s)</label>
@@ -61,7 +59,7 @@
                             </div>
         
                             <!--Tercera Fila-->
-                            <h4 class="card-title text-info text-center"> Datos Academicos</h4>
+                            <h2 class="card-title text-info text-center"> Datos Academicos</h2>
         
                             <div class="row justify-content-md-center">
                                 <div class="md-form ml-md-4">
@@ -96,7 +94,6 @@
                                     {{form_profile.CURP.errors}}
                                 </div>
                             </div>
-        
                             <div class="row justify-content-md-center">
                                     <input type="submit" value="Guardar Cambios" class="btn btn-outline-info">
                             </div>
@@ -105,45 +102,10 @@
         
                     </div>
                 </div>
-                <!--
-        <div class="card white col-md-4 rounded">
-                    <h3 class="card-title text-info">Aclaraciones</h3>
-        
-                    <div class="card-body text-justify">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                La contraseña por medidas de seguridad no es posible cambiarla en este apartado.
-                                puede cambiar su contraseña en la barra desplegable de arriba en la seccion "Cambiar
-                                Contraseña"
-                                o en link abajo <br>
-                                <div class="row justify-content-md-center">
-                                    <a href="{% url 'password_change' %}">Cambiar Contraseña</a>
-                                </div>
-        
-                            </li>
-                            <li class="list-group-item">
-                                Si desea cambiar solamente su Nombre de Usuario o Email existe una opcion para esto en
-                                el menu desplegable de la barra de navegacion. <br>
-                                <div class="row justify-content-md-between">
-                                    <a href="{%url 'update_username'%}">Cambiar Nombre de Usuario</a>
-                                    <a href="{%url 'update_email'%}"> Cambiar Email</a>
-                                </div>
-        
-                            </li>
-                            <li class="list-group-item">
-                                Los apartados Nombramiento, Grado y Puesto no son posibles de modificar por el usuario,
-                                si existe algun error favor de hablarlo con el personal de Desarrollo Academico.
-                            </li>
-        
-                        </ul>
-                    </div>
-                </div>
-               -->
+               
         
             </div>
         
-</div>
- 
 {% else %}
 
 {% include "noAuth.html" %}

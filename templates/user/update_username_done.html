@@ -3,7 +3,8 @@
 {% block section %}
 {% if user.is_authenticated %}
 
-<div class="card mt-md-5">
+<div class="row justify-content-md-center mt-md-5">
+    <div class="card">
     <div class="card-header white {% if action %} text-success {%else%} text-danger{% endif %}">
         {% if action %}
         <h4>Nombre de Usuario cambiado Exitosamente</h4>
@@ -43,7 +44,10 @@
         {% endif %}
 
     </div>
+    </div>
 </div>
+
+
 
 {% else %}
 {% include "noAuth.html" %}

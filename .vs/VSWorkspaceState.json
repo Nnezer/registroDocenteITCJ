@@ -2,10 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\registroCursos",
-    "\\sistemaDocenteITCJ",
+    "\\static",
+    "\\static\\css",
     "\\templates",
     "\\templates\\user"
   ],
-  "SelectedNode": "\\templates\\user\\user_profile.html",
+  "SelectedNode": "\\templates\\base.html",
   "PreviewInSolutionExplorer": false
 }

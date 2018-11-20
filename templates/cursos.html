@@ -10,8 +10,8 @@
 
 {% if user.is_authenticated %}
 
-<div class="col-md-7">
-    <div class=" card my-md-4 text-center">
+<div class="row my-md-5  justify-content-md-center">
+    <div class=" card w-75 text-center">
 
         <div class="card-header bg-info text-white">
             <h4>Cursos Disponibles Para Inscripcion</h4>
@@ -32,18 +32,12 @@
     </div>
 </div>
 
-
-
-
-<div class="col-md-12">
-    <div class="card white mt-4 align-content-md-center">
+ 
+<div class="row mt-md-3 justify-content-md-center">
+    <div class="card white align-content-md-center">
         {% include 'snippets/rows.html' %}
     </div>
 </div>
-
-
-
-
 
 {%endif%}
 
