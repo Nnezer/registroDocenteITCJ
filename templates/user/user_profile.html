@@ -3,109 +3,148 @@
 
 {% block section %}
 {% if user.is_authenticated %}
-        <div class="row mt-md-5 justify-content-md-center">
-                <!--Form con los datos-->
-                <div class="card">
-                    <div class="card-img-top">
-                        <img class="z-depth-2 rounded-circle"  src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
-                            width="250" height="100" alt="Card image cap">
-                        <a href="#!">
-                            <div class="mask rgba-white-slight"></div>
-                        </a>
+<div class="row mt-5 justify-content-center">
+    <!--Form con los datos-->
+    <div class="card">
+        <div class="card-img-top">
+            <img class="z-depth-2 rounded-circle" src="https://i1.wp.com/www.winhelponline.com/blog/wp-content/uploads/2017/12/user.png?fit=256%2C256&quality=100&ssl=1"
+                width="250" height="100" alt="Card image cap">
+            <a href="#!">
+                <div class="mask rgba-white-slight"></div>
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title text-info text-center"> Datos Personales</h2>
+            <form action="/accounts/user_profile/" method="POST" class="md-form">
+
+                {%csrf_token%}
+                {% load widget_tweaks %}
+                <!--Primera fila -->
+                <div class="row justify-content-center">
+                    <!--Fist name-->
+                    <div class="md-form ">
+                        {% render_field form_user.first_name class+="form-control" value=user.first_name %}
+                        <label>Nombre(s)</label>
+                        {{from_user.first_name.errors}}
+
                     </div>
-                    <div class="card-body">
-                        <h2 class="card-title text-info text-center"> Datos Personales</h2>
-                        <form action="/accounts/user_profile/" method="POST" class="md-form">
-        
-                            {%csrf_token%}
-                            {% load widget_tweaks %}
-                            <!--Primera fila -->
-        
-                            
-                            <div class="row justify-content-md-center">
-                                <!--Fist name-->
-                                <div class="md-form ">
-                                    {% render_field form_user.first_name class+="form-control" value=user.first_name %}
-                                    <label>Nombre(s)</label>
-                                    {{from_user.first_name.errors}}
-        
-                                </div>
-                                <!--Last name-->
-                                <div class="md-form  ml-md-4">
-                                    {% render_field form_user.last_name class+="form-control" value=user.last_name %}
-                                    <label>Apellidos</label>
-                                    {{form_user.last_name.errors}}
-                                </div>
-        
-                            </div>
-                            <!--Segunda fila -->
-                            <div class="row justify-content-md-center">
-                                <!--Username-->
-                                <div class="md-form  ml-md-4">
-                                    {% render_field form_user.username class+="form-control" value=user.username %}
-                                    <label>Nombre de Usuario</label>
-                                    {{form_user.username.errors}}
-                                </div>
-                                <div class="md-form ml-md-4">
-                                    {% render_field form_user.email class+="form-control" value=user.email %}
-                                    <label>Email</label>
-                                    {{form_user.email.errors}}
-                                </div>
-                                <div class="md-form ml-md-4">
-                                    {% render_field form_profile.telefono_particular class+="form-control" value=profile.telefono_particular %}
-                                    <label>Telefono Particular</label>
-                                    {{form_profile.telefono_particular.errors}}
-                                </div>
-                            </div>
-        
-                            <!--Tercera Fila-->
-                            <h2 class="card-title text-info text-center"> Datos Academicos</h2>
-        
-                            <div class="row justify-content-md-center">
-                                <div class="md-form ml-md-4">
-                                    <label>Nombramiento</label>
-                                    <input type="text" class="form-control" disabled value="{{profile.get_nombramiento_display}}">
-                                </div>
-                                <div class="md-form  ml-md-4">
-                                    <label>Grado</label>
-                                    <input type="text" class="form-control" disabled value="{{profile.get_grado_display}}">
-                                </div>
-                                <div class="md-form  ml-md-4">
-                                    <label>Puesto</label>
-                                    <input type="text" class="form-control" disabled value="{{profile.get_puesto_display}}">
-                                </div>
-        
-                            </div>
-                            <!--Cuarta Fila-->
-                            <div class="row justify-content-md-center">
-                                <div class="md-form ml-md-4">
-                                    {% render_field form_profile.departamento class+="form-control" value=profile.departamento%}
-                                    <label>Departamento</label>
-                                    {{form_profile.departamento.errors}}
-                                </div>
-                                <div class="md-form ml-md-4">
-                                    {% render_field form_profile.RFC class+="form-control" value=profile.RFC %}
-                                    <label>RFC</label>
-                                    {{form_profile.RFC.errors}}
-                                </div>
-                                <div class="md-form ml-md-4">
-                                    {% render_field form_profile.CURP class+="form-control" value=profile.CURP %}
-                                    <label>CURP</label>
-                                    {{form_profile.CURP.errors}}
-                                </div>
-                            </div>
-                            <div class="row justify-content-md-center">
-                                    <input type="submit" value="Guardar Cambios" class="btn btn-outline-info">
-                            </div>
-                            
-                        </form>
-        
+                    <!--Last name-->
+                    <div class="md-form  ml-4">
+                        {% render_field form_user.last_name class+="form-control" value=user.last_name %}
+                        <label>Apellidos</label>
+                        {{form_user.last_name.errors}}
+                    </div>
+
+
+                    <div class="md-form  ml-4">
+                        {% render_field form_user.username class+="form-control" value=user.username %}
+                        <label>Nombre de Usuario</label>
+                        {{form_user.username.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_user.email class+="form-control" value=user.email %}
+                        <label>Email</label>
+                        {{form_user.email.errors}}
                     </div>
                 </div>
-               
-        
-            </div>
-        
+
+                <!--Segunda fila -->
+                <div class="row justify-content-center">
+                    <div class="md-form">
+                        {% render_field form_profile.nombramiento    class+="form-control" value=profile.nombramiento%}
+                    
+                        {{form_profile.nombramiento.errors}}
+ 
+                    </div>
+                    <div class="md-form  ml-4">
+                    {% render_field form_profile.grado class+="form-control" value=profile.grado  %}
+                        
+                        {{form_profile.grado.errors}}
+
+                        
+                    </div>
+                    <div class="md-form  ml-4">
+                        {% render_field form_profile.puesto class+="form-control" value=profile.puesto %}
+                   
+                        {{form_profile.puesto.errors}}
+                    </div>
+                   
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.telefono_particular class+="form-control" value=profile.telefono_particular %}
+                        <label>Telefono Particular</label>
+                        {{form_profile.telefono_particular.errors}}
+                    </div>
+                </div>
+ 
+                <div class="row justify-content-center">
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.area class+="form-control" value=profile.area%}
+                        
+                        {{form_profile.area.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.RFC class+="form-control" value=profile.RFC %}
+                        <label>RFC</label>
+                        {{form_profile.RFC.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.CURP class+="form-control" value=profile.CURP %}
+                        <label>CURP</label>
+                        {{form_profile.CURP.errors}}
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.sexo class+="form-control" value=profile.sexo %}
+                        {{form_profile.sexo.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.horas class+="form-control" value=profile.horas %}
+                        <label>Horas</label>
+                        {{form_profile.horas.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.carrera class+="form-control" value=profile.carrera %}
+                        <label>Carrera</label>
+                        {{form_profile.carrera.errors}}
+                    </div>
+                </div>
+
+                <div class="row justify-content-center">
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.extension class+="form-control" value=profile.extension%}
+                        <label>Extension</label>
+                        {{form_profile.extension.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.jefe_inmediato class+="form-control" value=profile.jefe_inmediato %}
+                        <label>Jefe Inmediato</label>
+                        {{form_profile.jefe_inmediato.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.horario_inicio class+="form-control" value=profile.horario_inicio %}
+                        <label>Hora de Entrada</label>
+                        {{form_profile.horario_inicio.errors}}
+                    </div>
+                    <div class="md-form ml-4">
+                        {% render_field form_profile.horario_final class+="form-control" value=profile.horario_final %}
+                        <label>Hora de Salida</label>
+                        {{form_profile.horario_final.errors}}
+                    </div>
+                </div> 
+                <div class="row justify-content-center">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-outline-info">
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+
+</div>
+
 {% else %}
 
 {% include "noAuth.html" %}

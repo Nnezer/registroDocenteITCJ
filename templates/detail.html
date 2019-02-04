@@ -1,125 +1,109 @@
 {% extends 'base.html' %}
-
-
 {% block title %}
 Detalles del curso
 {% endblock title %}
-
 {% block section %}
 
 {% if user.is_authenticated %}
-{%csrf_token%}
 
-<div class="row mt-md-5 justify-content-md-center">
-        <div class="col-md-6 ">
-                <div class="card white">
-            
-                    <div class="card-body mt-md-2 text-center">
-            
-                        <!-- Title -->
-                        <h5 class="card-title text-info">{{curso}}</h5>
-                        <!-- Text -->
-                        <div class="card-text">
-            
-                            <h6><b>Instructor</b> <br />{{curso.instructor.get_full_name|title}}</h6>
-            
-                            {%if curso.colaborador%}
-            
-                            <h6><b>Colaborador</b> <br />{{curso.colaborador.get_full_name|title}}</h6>
-                            {%endif%}
-                            <br />
-            
-                            <h6><b>Fecha</b> <br />{{curso.dia_inicio}} - {{curso.dia_final}}</h6>
-                            <br />
-            
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <h6><b>Horario</b> <br /> {{curso.hora_inicio}} - {{curso.hora_final}}</h6>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6><b>Tipo</b> <br />{{curso.get_tipo_display}}</h6>
-            
-                                </div>
-                            </div>
-                            <br />
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <h6><b>Salon</b> <br />{{curso.salon}}</h6>
-                                </div>
-                                <div class="col-md-6">
-                                    <h6><b>Semestre</b> <br />{{curso.get_semestre_display}}</h6>
-                                </div>
-                            </div>
+{%csrf_token%}
+<div class="row mt-5 justify-content-center">
+    <div class="col-6 ">
+        <div class="card white">
+            <div class="card-body mt-2 text-center">
+                <!-- Title -->
+                <h5 class="card-title text-info">{{curso}}</h5>
+                <!-- Text -->
+                <div class="card-text">
+                    <h6><b>Instructor</b> <br />{{curso.instructor.get_full_name|title}}</h6>
+                    {%if curso.colaborador%}
+                    <h6><b>Colaborador</b> <br />{{curso.colaborador.get_full_name|title}}</h6>
+                    {%endif%}
+                    <br />
+                    <h6><b>Fecha</b> <br />{{curso.dia_inicio}} - {{curso.dia_final}}</h6>
+                    <br />
+                    <div class="row">
+                        <div class="col-5">
+                            <h6><b>Horario</b> <br /> {{curso.hora_inicio}} - {{curso.hora_final}}</h6>
+                        </div>
+                        <div class="col-6">
+                            <h6><b>Tipo</b> <br />{{curso.get_tipo_display}}</h6>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-6">
+                            <h6><b>Salon</b> <br />{{curso.salon}}</h6>
+                        </div>
+                        <div class="col-6">
+                            <h6><b>Semestre</b> <br />{{curso.get_semestre_display}}</h6>
                         </div>
                     </div>
                 </div>
-            
             </div>
-            
-            <div class="col-md-4 mt-md-4">
-            
-                <div class="card white">
-                    <div class="card-body mt-md-2 text-center">
-                        {%if onCourseAsInstructor%}
-                        
-                        <h6 class="text-center mt-md-4">El usuario es Instructor de este curso, no es posible inscribirse</h6>
+        </div>
+    </div> 
+    <div class="col-4 mt-4">
+        <div class="card white">
+            <div class="card-body mt-2 text-center">
+               
+                <h6 class="text-center text-info">Este curso se cancelara con menos de cinco participantes</h6>
+                <hr>
+                {% if curso.alumno.count < 5 %}
+                <h5 class="text-center text-danger">Alumnos inscritos: {{curso.alumno.count}}</h5>
+                {% else %}
+                <h5 class="text-center text-success">Alumnos inscritos: {{curso.alumno.count}}</h5>
+                {% endif %} 
+                <hr>
+                {% if first_day_pass and not onCourseAsInstructor %}
+                    <h6 class=" text-center text-danger m-3">
+                    Ha pasado el dia de inscripcion y desinscripcion para este curso
+                    </h6>
+                {% else %}
+                    {%if onCourseAsInstructor%}
+                        <h6 class="text-center mt-4">El usuario es Instructor de este curso, no es posible inscribirse</h6>
+                        <hr>
                         <h6>Presione abajo para administrar este grupo</h6>
-
                         <a href="{%url 'admin_course' curso.id %}" class="btn btn-outline-purple text-capitalize">
-                            Administrar
-                            <i class="fas fa-book fa-lg ml-md-2"> </i>
+                        Administrar
+                        <i class="fas fa-book fa-lg ml-2"> </i>
                         </a>
- 
-            
-                        {%else%}
-            
-                        <h6 class="text-center mt-md-4"> Es posible desinscribirse hasta el dia de inicio del curso. </h6>
-            
-                        <!-- Panel para usuario ya inscrito -->
+                    {% else  %}
+                    <h6 class="text-center mt-4"> Es posible desinscribirse hasta el dia de inicio del curso. </h6> 
                         {% if onCourseAsAlumno %}
-            
-                        {%include 'modals/disenroll.html' %}
-                        <br>
-                        <h6 class="text-danger m-3"> Este usuario esta actualmente inscrito a este curso</h6>
-              
-                        <h6 class=" text-center m-3">
-                            El ultimo dia del curso se le activara esta opcion para que pueda realizar la
-                            encuesta de servicio.
-                        </h6>
-            
-                        <a href="/course/detail/{{curso.id}}/poll" class="btn btn-outline-info text-capitalize m-3">
-                            <h6>Realizar Encuesta <i class="fas fa-file-alt fa-lg ml-2 "></i></h6>
-                        </a>
-            
-                        {%else%}
-            
-                        <!-- Panel para usuario no inscrito -->
-            
-                        <h6 class="text-center m-3">
+                            {%include 'modals/disenroll.html' %}
+                            <br>
+                            <h6 class="text-danger m-3"> Este usuario esta actualmente inscrito a este curso</h6>
+                            <hr>
+                            <h6 class=" text-center m-3"> El dia {{curso.dia_final}} podra realizar la encuesta de servicio.
+                            </h6>
+                            <hr>
+                        {% else %} 
+                            <h6 class="text-center text-success m-3">
                             Para inscribirse a este curso solo presione el boton de abajo.
-                        </h6>
-            
-                        {%include 'modals/enroll.html' %}
-            
-                        
-                        {%endif%}
-                        {%endif%}
-                    </div>
-            
-                </div>
-            
+                            </h6> 
+                            {%include 'modals/enroll.html' %}
+                        {% endif %}    
+                    {% endif %}
+ 
+                {% if time_to_poll %}
+                <a href="/course/detail/{{curso.id}}/poll/{{user.id}}" class="btn btn-outline-info text-capitalize m-3">
+                    <h6>Realizar Encuesta <i class="fas fa-file-alt ml-2"></i></h6>
+                </a>
+                {%endif%}
+
+                {%if user.is_superuser%}
+                    <hr>
+                    <a href="/course/detail/{{curso.id}}/reports" class="btn btn-outline-secondary text-capitalize m-3">
+                        <h6>Reportes <i class="fas fa-file-pdf ml-2"></i></h6>
+                    </a>
+                    {%endif%}
+                {% endif %}
             </div>
-            
+        </div>
+    </div>
 </div>
-
-
-
-
-
 {% else %}
-
 {% include 'noAuth.html' %}
-
 {% endif %}
-
 {% endblock section %}

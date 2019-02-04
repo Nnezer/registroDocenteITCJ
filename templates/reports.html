@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Cursos disponibles{% endblock %}
+
+{% block section %}
+{% if user.is_authenticated %}
+
+{% if user.is_superuser %}
+<div class="row mt-5 justify-content-center">
+    <div class="col-5">
+        <div class=" card text-center">
+            <div class="card-header">
+                <h3 class="text-info">Pagina de Control de reportes</h3>
+                <h4>Bienvenido(a) </h4>
+                <h5>{{user.get_full_name}}</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-5">
+        <div class="card text-center">
+            <div class="card-header bg-gray text-dark">
+                <h5 class="text-center"> {{curso}}</h5>
+                <h5 class="text-center"> {{curso.instructor.get_full_name|title}}</h5>
+            </div>
+            <div class="card-footer">
+                <div class="row justify-content-center ">
+                    <a href="#" class="col-3 btn btn-primary text-capitalize">Asistencia</a>
+                    <a href="#" class="col-3 btn btn-secondary text-capitalize">Encuestas</a>
+                    <a href="#" class="col-3 btn btn-cyan text-capitalize">Cedulas</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% for alumno in curso.alumno.all %}
+
+<div class=" row mt-4 mb-2">
+    <div class="col-6">
+        <div class="card white">
+            <h4 class="text-center">{{alumno.get_full_name | title}}</h4>
+
+        </div>
+    </div> 
+    <div class="col-3"> 
+        <form action="/course/detail/{{curso.id}}/reports" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="type_pdf" value="inscription">
+                <input type="hidden" name="id_alumno" value="{{alumno.id}}">
+            <button type="submit" class="btn btn-info btn-block text-capitalize">Cedula de Inscripcion<i class="fas fa-file-pdf ml-2"></i></button>
+        </form> 
+    </div>
+    <div class="col-3">
+
+            <form action="/course/detail/{{curso.id}}/reports" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="type_pdf" value="poll">
+                    <input type="hidden" name="id_alumno" value="{{alumno.id}}">
+                <button type="submit" class="btn btn-info btn-block text-capitalize">Encuesta de Servicio<i class="fas fa-file-pdf ml-2"></i></button>
+            </form> 
+    </div>
+
+</div>
+
+ 
+</div>
+</div>
+
+{% endfor %}
+
+
+{% else %}
+<div class="row my-5  justify-content-center">
+    <div class=" card w-75 text-center">
+        <div class="card-header bg-danger text-white">
+            <h4>No tienes los permisos necesarios para entrar en esta pagina</h4>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% else %}
+{% include 'noAuth.html' %}
+{%endif%}
+{% endblock section %}

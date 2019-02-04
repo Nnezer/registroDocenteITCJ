@@ -4,7 +4,7 @@
 {% block section %}
 {% if user.is_authenticated %}
 
-<div class="row justify-content-md-center mt-md-5">
+<div class="row justify-content-center mt-5">
 <div class="card ">
 
     <div class="card-header white {% if 'username' in error or 'email' in error %}  text-danger {%else%} text-success {% endif %}">
@@ -14,7 +14,7 @@
         <h4>Cambio Exitosos</h4>
         {% endif %}
     </div>
-    <div class="card-body text-md-center ">
+    <div class="card-body text-center ">
 
          {% if 'username' in error %}
         <h5 class="text-danger">Los cambios no se pudieron guardar, Nombre de Usuario ya esta en uso</h5>
@@ -25,7 +25,7 @@
 
         {% if 'username' in error or 'email' in error %}
         <h5 class="text-danger">En breve sera redireccionado, para que lo vuelva a intentar, si esto no sucede presione el link de abajo</h5>
-        <a class="btn btn-outline-info " href="{%url 'user_profile' %}"><i class="fas fa-user mr-md-2"> </i>Perfil de Usuario</a>
+        <a class="btn btn-outline-info " href="{%url 'user_profile' %}"><i class="fas fa-user mr-2"> </i>Perfil de Usuario</a>
 
         <script type="text/javascript">setTimeout(function () {window.location = "{%url 'user_profile' %}"},5000); </script>
 
@@ -33,7 +33,7 @@
 
         <h5 class="text-success">Los datos han sido cambiados exitosamente </h5>
         <h5 class="text-success">Sera redireccionado hacia la pagina de inicio, si esto no sucede presione el link de abajo</h5>
-        <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-md-2"> </i>Inicio</a>
+        <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-2"> </i>Inicio</a>
 
         <script type="text/javascript">   setTimeout(function () {   window.location = "/"}, 5000);  </script>
 

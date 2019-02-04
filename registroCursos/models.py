@@ -9,32 +9,52 @@ ago_dic = 'ago_dic'
 nombramientos = (('TC',"Tiempo Completo"),('3/4',"3/4"),('1/2',"1/2"),('PA',"Por Asignatura")
                     ,('HN',"Honorarios"),('HA',"Horas Administrativas"),('DIR',"Directivo"))
 
+
+areas = (('admin',"Economico-Admvas"),('DVP','Division de Estudios Profesionales'),('RF','Recursos Financieros'),
+            ('EXT','Actividades Extraescolares'),('CBAS','Ciencias Basicas'),('CII','Campus II'), ('CDC','Centro de Computo'),
+            ('CDI','Centro De Informacion'),('CYD','Comunicacion y Difusion'),('DA','Desarrollo Academico'),
+            ('DEP','Division de Estudios Profesionales'),('ED',"Educacion a Distancia"),('Elec',"Electrica - Electronica"),
+            ('GTV','Gestion Tecnologica y Vinculacion'),('INDUS','ING. Industrial'),('MEM','Metal-Mecanica'),
+            ('PLA',"Planeacion"), ("POSG", 'Posgrado'),('RECMYS','Recursos Materiales y Servicios'), ('RECF','Recursos Financieros'),
+            ('RECH','Recursos Humanos'), ('SERV','Servicios Escolares'), ('SYS','Sistemas Y Computacion'),('SUB','Subdireccion Academica'))
+
 cursos = (("AP","Actualizacion Profesional"),("FD","Formacion Docente"),
         ("DT","Diplomado en Tutorias"),("DC","Diplomado en Competencias"),
         ("APD","Actualizacion Profesional y Formacion Docente"))
 
 semestres = ((ago_dic, 'Ago - Dic'), (ene_jun, 'Ene - Jun'))
 
-evaluacion = ((5,"Totalmente de Acuerdo"),(4,"Parcialmente de Acuerdo"),
-                (3,"Indiferente"),(2,"Parcialmente"),
-                (1,"Totalmente en Desacuerdo"))
+evaluacion = (('5',"Totalmente de Acuerdo"),('4',"Parcialmente de Acuerdo"),
+                ('3',"Indiferente"),('2',"Parcialmente"),
+                ('1',"Totalmente en Desacuerdo"))
 
-class UserProfile(models.Model):
+ 
+class Perfil(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
 
     sexo = models.CharField(max_length = 1, choices=sexos, default='',blank=True)
 
     nombramiento = models.CharField(max_length=3,choices=nombramientos , default='')
 
-    Horas = models.IntegerField(blank=True, default='')
+    horas = models.IntegerField(blank=True, default='')
 
     grado = models.CharField(max_length=4, choices=grados, default='')
 
-    departamento = models.CharField(max_length=20,blank=True,default='')
+    carrera = models.CharField(max_length=30, default='')
+
+    area = models.CharField(max_length=20,choices=areas,default='')
 
     puesto = models.CharField(max_length=7, choices=puestos, default='')
 
-    telefono_particular = models.BigIntegerField(blank=True, default='')
+    telefono_particular = models.CharField(max_length=10, blank=True, default='')
+
+    extension = models.CharField(max_length=4,blank=True,default='')
+
+    jefe_inmediato = models.CharField(max_length=40, blank=True,default='')
+
+    horario_inicio = models.TimeField(blank=True,default='');
+
+    horario_final = models.TimeField(blank=True,default='');
 
     RFC = models.CharField(max_length=14, blank=True, default='')
 
@@ -43,8 +63,8 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.get_full_name()
     class Meta:
-        verbose_name_plural = "UserProfile"
-        db_table = 'UserProfile'
+        verbose_name_plural = "Perfiles"
+        db_table = 'Perfil'
 
 class Curso(models.Model):
     nombre = models.CharField(max_length=100)
@@ -77,7 +97,6 @@ class Curso(models.Model):
 
     class Meta:
         db_table = 'Curso'
-
 
 class Historial(models.Model):
 
@@ -118,28 +137,30 @@ class Encuesta(models.Model):
 
     alumno = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    pregunta_1 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_1 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_2 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_2 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_3 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_3 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_4 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_4 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_5 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_5 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_6 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_6 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_7 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_7 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_8 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_8 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_9 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_9 = models.CharField(max_length=1,choices=evaluacion,default='')
 
-    pregunta_10 = models.CharField(max_length=2,choices=evaluacion,default='')
+    pregunta_10 = models.CharField(max_length=1,choices=evaluacion,default='')
+
+    pregunta_11 = models.CharField(max_length=1,choices=evaluacion,default='')
 
     def __str__(self):
-        return self.curso.nombre
+        return self.curso.nombre +" / " + self.alumno.get_full_name()
 
     class Meta:
         verbose_name_plural = "Encuesta"

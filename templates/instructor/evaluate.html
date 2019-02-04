@@ -1,102 +1,90 @@
-{% extends 'base.html' %} {% block section %} {% if user.is_authenticated %} 
-{%if is_instructor and has_alumno %}
+{% extends 'base.html' %} {% block section %} {% if user.is_authenticated %}
+{%if is_instructor and has_alumno and can_evaluate %}
 
-<div class="row mt-md-5 justify-content-md-center">
-  <div class="card p-md-3">
+<div class="row mt-5 justify-content-center">
+  <div class="card p-3">
     <h3 class="card-title text-center text-info">
       {{ curso }} <br />
       <div class="text-dark">Evaluacion y Asistencia</div>
     </h3>
   </div>
 </div>
-
-<div class="row mt-md-3 justify-content-md-center">
+<div class="row mt-3 justify-content-center">
   <div class="card">
     <h3 class="card-header text-center">{{ alumno.get_full_name }}</h3>
-     
-    </div>
   </div>
-
-
-  <form action="/course/detail/{{id_curso}}/admin/{{id_user}}/done"  method="POST" class="justify-content-md-center">
-
-    {% csrf_token %}
-    
-
-  <div class="row mt-md-3 justify-content-md-center">
-      <div class=" col-md-3 mx-md-1">
-            <div class="card">
-                    <h4 class="card-header bg-info text-white text-center">Aprobado</h4>
-                    <div class="card-body">
-                        <div class="form-check">
-                                <input type="checkbox"  name="aprobado">
-                                <label >Check si aprobado</label>
-                        </div>
-                       
-                    </div>
-                    
-                </div>
+</div>
+<form action="/course/detail/{{id_curso}}/admin/{{id_user}}/done" method="POST" class="justify-content-center">
+  {% csrf_token %}
+  <div class="row mt-3 justify-content-center">
+    <div class=" col-3 mx-1">
+      <div class="card">
+        <h4 class="card-header bg-info text-white text-center">Aprobado</h4>
+        <div class="card-body">
+          <div class="form-check">
+            <input type="checkbox" name="aprobado">
+            <label>Check si aprobado</label>
+          </div>
+        </div>
       </div>
-    <div class="col-md-4 mx-md-1">
-<div class="card">
+    </div>
+    <div class="col-4 mx-1">
+      <div class="card">
         <h4 class="card-header bg-info text-white text-center">Calificacion </h4>
         <div class="card-body">
-            <div class="md-form p-md-0 m-md-0">
-                    <input class="form-control"  type="number" value="0" name="calificacion">
-                    <label >Calificacion (Solo si aplica)</label>
-            </div>
-            
+          <div class="md-form p-0 m-0">
+            <input class="form-control" type="number" value="0" name="calificacion">
+            <label>Calificacion (Solo si aplica)</label>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-    <div class="col-md-3">
-        <button type="submit" class="btn mt-md-2 p-md-5 btn-lg btn-outline-info bg-white text-capitalize">
-            Guardar <i class=" ml-md-1 fas fa-save fa-lg"></i>
-        </button>
- 
-    </div>
- 
-  </div>
- 
-</div>
-
-<div class="row mt-md-3 justify-content-md-center">
-   
-  <div class="card">
-    <h4 class="card-header text-center bg-info text-white">Asistencia</h4>
-    <div class="card-body">
-      <table class="table table-responsive-md">
-        <thead>
-            <tr>
-                {% for dia in dias  %}
-                    <th>
-                        {{dia}}
-                    </th>
-                {% endfor %}
-            </tr>
-            <tr>
-                {% for dia in dias %}
-                  <th><input type="checkbox" name="{{dia}}"></th>
-                {% endfor %}
-            </tr>
-
-        </thead>
-        
-      </table>
+    <div class="col-3">
+      <button type="submit" class="btn mt-2 p-5 btn-lg btn-outline-info bg-white text-capitalize">
+        Guardar <i class=" ml-1 fas fa-save fa-lg"></i>
+      </button>
     </div>
   </div>
- 
-</div>
-
- 
-
+  </div>
+  <div class="row mt-3 justify-content-center">
+    <div class="card">
+      <h4 class="card-header text-center bg-info text-white">Asistencia</h4>
+      <div class="card-body">
+        <table class="table table-responsive-md">
+          <thead>
+            <tr>
+              {% for dia in dias %}
+              <th>
+                {{dia}}
+              </th>
+              {% endfor %}
+            </tr>
+            <tr>
+              {% for dia in dias %}
+              <th><input type="checkbox" name="{{dia}}"></th>
+              {% endfor %}
+            </tr>
+          </thead>
+        </table>
+      </div>
+    </div>
+  </div>
 </form>
-
 {% else %}
 
-<div class="row mt-md-5 justify-content-md-center">
+<div class="row mt-5 justify-content-center">
   <div class="card">
-    <h3> El usuario no es instructor de este curso o el alumno no esta inscrito a este curso</h3>
+    
+    {% if not can_evaluate %}
+    <h3 class="text-center text-danger"> Hasta el {{curso.dia_final}} se activara esta opcion para que pueda capturar calificaciones y asistencia</h3>
+    {% endif %}
+
+    
+    {% if not is_instructor and  not has_alumno%}
+    <h3 class="text-center text-danger"> El usuario no es instructor de este curso o el alumno no esta inscrito a este curso</h3>
+    {% endif %}
+      
+    
   </div>
 </div>
 

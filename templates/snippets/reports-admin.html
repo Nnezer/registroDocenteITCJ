@@ -1,0 +1,13 @@
+ 
+
+        {%for curso in cursos%}
+        <div class="bg-info text-white my-3 card ">
+            <h4 class="text-center">{{curso.nombre}}</h4>
+            <h5 class="text-center">{{curso.instructor.get_full_name|title}}</h5>
+            
+            
+
+        </div>
+         
+        {%endfor%}
+    

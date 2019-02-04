@@ -4,7 +4,7 @@
 {% block section %}
 {% if user.is_authenticated %}
 
-<div class="row mt-md-5 justify-content-md-center">
+<div class="row mt-5 justify-content-center">
                 <div class="card white text-center{% if done == True %} text-success {% else %} text-danger {% endif %}">
                     <div class="card-header">
                         <h4>
@@ -43,7 +43,7 @@
                                 sera redireccionando hacia la pagina de inicio automaticamente,
                                 si esto no sucede presione el link de abajo <br>
             
-                            <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-md-2"> </i>Inicio</a>
+                            <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-2"> </i>Inicio</a>
                             <script type="text/javascript">
                                 setTimeout(function () {
                                     window.location = "/"

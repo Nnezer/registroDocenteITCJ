@@ -4,11 +4,222 @@
 
 
 {% if user.is_authenticated %}
+    {% if is_instructor %}
+<h5 class="red-text card-header white text-center mt-5">
+    Eres instructor de este grupo, no es posible que realize la encuesta
+</h5>
+
+    {%elif poll_done %}
+<h5 class="red-text card-header white text-center mt-5">
+    Ya haz realizado la encuesta de servicio para este curso
+</h5>
+
+    {% elif is_alumno %}
+
+<h5 class="card-header white text-center mt-5">
+    Solo es posible contestar la encuesta una vez, sea sincero al contestar, toda la informacion sera anonima
+</h5>
+
+<div class="row mt-5 justify-content-center">
+    <div class="card w-100 white">
+        <h5 class="card-header text-info text-center">Encuesta de Servicio</h5>
+        <div class="card-body">
+            <form action="/course/detail/{{curso.id}}/poll/{{user.id}}/done" method="POST">
+                {%csrf_token%}
+                {% load widget_tweaks %}
+                <input type="hidden" name="user_id" value="{{user.id}}">
+                <input type="hidden" name="curso_id" value="{{curso.id}}">
+                <div class="md-form">
+                    <div class="row my-3">
+                        <div class="col-8"><label>Proporciono elementos para su desarrollo laboral</label>
+                        </div>
+                        <div class="col-4">
+                            <select name="question-1">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+                        <div class="col-8"><label>Permitio desarrollar habilidades adicionales</label>
+                        </div>
+                        <div class="col-4">
+                            <select name="question-2">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>Genero un mayor dominio de los conceptos academicos aplicables en la materia que imparte</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-3">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>La distribucion del tiempo fue la adecuada para cubrir el contenido</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-4">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>Los temas fueron suficientes para el alccanzar el objetivo del curso</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-5">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>El curso comprendio ejercicios de practica relacionados con el
+                                contenido</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-6">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>El curso cubrio sus expectativas</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-7">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>Mostro dominio del contenido abordado</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-8">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>aclaro las dudas que se presentaron</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-9">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>Inicio y concluyo puntualmente las sesiones</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-10">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+                    <div class="row my-3">
+
+                        <div class="col-8"><label>les propociono el material didactico por algun medio</label>
+                        </div>
+
+                        <div class="col-4">
+                            <select name="question-11">
+                                <option value="1">Totalmente en desacuerdo</option>
+                                <option value="2">Parcialmente en desacuerdo</option>
+                                <option value="3">Indiferente</option>
+                                <option value="4">Parcialmente de acuerdo</option>
+                                <option value="5">Totalmente de acuerdo</option>
+                            </select>
+                        </div>
+
+                    </div>
+
+                </div>
+                <div class="row justify-content-center">
+                    <input type="submit" value="Guardar Encuesta" class="btn btn-info">
+
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+</div>
+
+{% endif %}
 
 
 {% else %}
 {% include 'noAuth.html' %}
 {% endif %}
-    
-  
+
 {% endblock section %}
