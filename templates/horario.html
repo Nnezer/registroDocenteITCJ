@@ -1,7 +1,7 @@
 
 <table class="table text-dark text-center  table-responsive-md ">
 
-    <thead class="text-white bg-info">
+    <thead class="text-white bg-danger">
         <tr>
             <th scope="col-md"><h6>Status</h6></th>
             <th scope="col-md"><h6>Curso</h6></th>
@@ -26,7 +26,7 @@
                 </b>
             </td>
             <td>
-                <a href="{% url 'detail' curso.id %}" class="btn  btn-outline-info  btn-sm m-0"><b>Ver Curso</b></a>
+                <a href="{% url 'detail' curso.id %}" class="btn  btn-outline-danger  btn-sm m-0"><b>Ver Curso</b></a>
             </td>
 
         </tr>
@@ -47,7 +47,7 @@
                 {{curso.dia_inicio}} - {{curso.dia_final}}
             </td>
             <td>
-                <a href="{% url 'detail' curso.id %}" class="btn btn-outline-info  btn-sm m-0"><b>Ver Curso</b></a>
+                <a href="{% url 'detail' curso.id %}" class="btn btn-outline-danger  btn-sm m-0"><b>Ver Curso</b></a>
             </td>
         </tr>
         {%endfor%}
@@ -66,7 +66,7 @@
             {{curso.dia_inicio}} - {{curso.dia_final}}
         </td>
         <td>
-            <a href="{% url 'detail' curso.id %}" class="btn btn-outline-info  btn-sm m-0"><b>Ver Curso</b></a>
+            <a href="{% url 'detail' curso.id %}" class="btn btn-outline-danger  btn-sm m-0"><b>Ver Curso</b></a>
         </td>
 
     </tr>

@@ -25,7 +25,7 @@
                     <h5>Si el direccionamiento no sucede o esta tardado haga click en el siguiente link</h5>
             
                     {% if action %}
-                    <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-2"> </i>Inicio</a>
+                    <a class="btn btn-danger text-capitalize" href="/"><i class="fas fa-home mr-2"> </i>Inicio</a>
                     <script type="text/javascript">
                         setTimeout(function () {
                             window.location = "/"
@@ -33,7 +33,7 @@
                             4000);
                     </script>
                     {%else%}
-                    <a href="{%url 'update_email' %}" class="btn btn-info text-capitalize">
+                    <a href="{%url 'update_email' %}" class="btn btn-danger text-capitalize">
                         <i class="fas fa-user-envelope"> </i> Cambiar Email</a>
                     <script type="text/javascript">
                         setTimeout(function () {

@@ -12,7 +12,7 @@ Detalles del curso
         <div class="card white">
             <div class="card-body mt-2 text-center">
                 <!-- Title -->
-                <h5 class="card-title text-info">{{curso}}</h5>
+                <h5 class="card-title text-danger">{{curso}}</h5>
                 <!-- Text -->
                 <div class="card-text">
                     <h6><b>Instructor</b> <br />{{curso.instructor.get_full_name|title}}</h6>
@@ -47,7 +47,7 @@ Detalles del curso
         <div class="card white">
             <div class="card-body mt-2 text-center">
                
-                <h6 class="text-center text-info">Este curso se cancelara con menos de cinco participantes</h6>
+                <h6 class="text-center text-danger">Este curso se cancelara con menos de cinco participantes</h6>
                 <hr>
                 {% if curso.alumno.count < 5 %}
                 <h5 class="text-center text-danger">Alumnos inscritos: {{curso.alumno.count}}</h5>
@@ -87,7 +87,7 @@ Detalles del curso
                     {% endif %}
  
                 {% if time_to_poll %}
-                <a href="/course/detail/{{curso.id}}/poll/{{user.id}}" class="btn btn-outline-info text-capitalize m-3">
+                <a href="/course/detail/{{curso.id}}/poll/{{user.id}}" class="btn btn-outline-danger text-capitalize m-3">
                     <h6>Realizar Encuesta <i class="fas fa-file-alt ml-2"></i></h6>
                 </a>
                 {%endif%}

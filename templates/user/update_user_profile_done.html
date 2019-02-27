@@ -25,7 +25,7 @@
 
         {% if 'username' in error or 'email' in error %}
         <h5 class="text-danger">En breve sera redireccionado, para que lo vuelva a intentar, si esto no sucede presione el link de abajo</h5>
-        <a class="btn btn-outline-info " href="{%url 'user_profile' %}"><i class="fas fa-user mr-2"> </i>Perfil de Usuario</a>
+        <a class="btn btn-outline-danger " href="{%url 'user_profile' %}"><i class="fas fa-user mr-2"> </i>Perfil de Usuario</a>
 
         <script type="text/javascript">setTimeout(function () {window.location = "{%url 'user_profile' %}"},5000); </script>
 
@@ -33,7 +33,7 @@
 
         <h5 class="text-success">Los datos han sido cambiados exitosamente </h5>
         <h5 class="text-success">Sera redireccionado hacia la pagina de inicio, si esto no sucede presione el link de abajo</h5>
-        <a class="btn btn-info text-capitalize" href="/"><i class="fas fa-home mr-2"> </i>Inicio</a>
+        <a class="btn btn-danger text-capitalize" href="/"><i class="fas fa-home mr-2"> </i>Inicio</a>
 
         <script type="text/javascript">   setTimeout(function () {   window.location = "/"}, 5000);  </script>
 

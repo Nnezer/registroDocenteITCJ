@@ -14,7 +14,7 @@
             </a>
         </div>
         <div class="card-body">
-            <h2 class="card-title text-info text-center"> Datos Personales</h2>
+            <h2 class="card-title text-danger text-center"> Datos Personales</h2>
             <form action="/accounts/user_profile/" method="POST" class="md-form">
 
                 {%csrf_token%}
@@ -51,9 +51,14 @@
                 <!--Segunda fila -->
                 <div class="row justify-content-center">
                     <div class="md-form">
-                        {% render_field form_profile.nombramiento    class+="form-control" value=profile.nombramiento%}
-                    
-                        {{form_profile.nombramiento.errors}}
+                        <select name="nombramiento" class="form-control">
+                            {% for key in dict_nombramiento.items %}
+                              <option value="{{key}}">{{key}}</option>
+                            {% endfor %}
+ 
+                        </select>
+             
+                        
  
                     </div>
                     <div class="md-form  ml-4">
@@ -122,27 +127,26 @@
                         <label>Jefe Inmediato</label>
                         {{form_profile.jefe_inmediato.errors}}
                     </div>
-                    <div class="md-form ml-4">
-                        {% render_field form_profile.horario_inicio class+="form-control" value=profile.horario_inicio %}
+                    <div class="md-form ml-4"> 
                         <label>Hora de Entrada</label>
-                        {{form_profile.horario_inicio.errors}}
+                        <input type="text" name="horario_inicio" class="form-control" value="{{profile.horario_inicio}}">
+         
                     </div>
                     <div class="md-form ml-4">
-                        {% render_field form_profile.horario_final class+="form-control" value=profile.horario_final %}
+                         
                         <label>Hora de Salida</label>
-                        {{form_profile.horario_final.errors}}
+                        <input type="text" name="horario_final" class="form-control" value="{{profile.horario_final}}">
+                         
                     </div>
                 </div> 
                 <div class="row justify-content-center">
-                    <input type="submit" value="Guardar Cambios" class="btn btn-outline-info">
+                    <input type="submit" value="Guardar Cambios" class="btn btn-outline-danger">
                 </div>
 
             </form>
 
         </div>
-    </div>
-
-
+    </div> 
 </div>
 
 {% else %}

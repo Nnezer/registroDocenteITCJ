@@ -13,7 +13,7 @@
 <div class="row my-5  justify-content-center">
     <div class=" card w-75 text-center">
 
-        <div class="card-header bg-info text-white">
+        <div class="card-header bg-danger text-white">
             <h4>Cursos Disponibles Para Inscripcion</h4>
 
             <h5> {% if current_semester == 'ago_dic' %} Agosto - Diciembre {% else %} Enero - Junio {% endif %} {%now 'Y'%} </h5>
@@ -22,7 +22,7 @@
                 <form class="form-inline md-form mr-auto mb-4">
                     <div class="col-12">
                             <input class="form-control mr-sm-2" type="text" placeholder="Buscar" name="search" aria-label="Search">
-                            <button class="btn btn-outline-info btn-rounded btn-sm my-0 text-capitalize" type="submit">Buscar Cursos</button>
+                            <button class="btn btn-outline-danger btn-rounded btn-sm my-0 text-capitalize" type="submit">Buscar Cursos</button>
                     </div>
                         
                       </form>

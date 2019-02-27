@@ -10,7 +10,7 @@
     <div class="col-5">
         <div class=" card text-center">
             <div class="card-header">
-                <h3 class="text-info">Pagina de Control de reportes</h3>
+                <h3 class="text-danger">Pagina de Control de reportes</h3>
                 <h4>Bienvenido(a) </h4>
                 <h5>{{user.get_full_name}}</h5>
             </div>
@@ -48,7 +48,7 @@
             {% csrf_token %}
             <input type="hidden" name="type_pdf" value="inscription">
                 <input type="hidden" name="id_alumno" value="{{alumno.id}}">
-            <button type="submit" class="btn btn-info btn-block text-capitalize">Cedula de Inscripcion<i class="fas fa-file-pdf ml-2"></i></button>
+            <button type="submit" class="btn btn-danger btn-block text-capitalize">Cedula de Inscripcion<i class="fas fa-file-pdf ml-2"></i></button>
         </form> 
     </div>
     <div class="col-3">
@@ -57,7 +57,7 @@
                 {% csrf_token %}
                 <input type="hidden" name="type_pdf" value="poll">
                     <input type="hidden" name="id_alumno" value="{{alumno.id}}">
-                <button type="submit" class="btn btn-info btn-block text-capitalize">Encuesta de Servicio<i class="fas fa-file-pdf ml-2"></i></button>
+                <button type="submit" class="btn btn-danger btn-block text-capitalize">Encuesta de Servicio<i class="fas fa-file-pdf ml-2"></i></button>
             </form> 
     </div>
 

@@ -6,7 +6,7 @@
 
 <div class="row justify-content-center mt-5">
         <div class="card w-75">
-                <h5 class="card-header text-info text-center">Cambiar Nombre de Usuario</h5>
+                <h5 class="card-header text-danger text-center">Cambiar Nombre de Usuario</h5>
                 <div class="card-body">
                         <form action="/accounts/update_username/" method="POST">
                                 {%csrf_token%}
@@ -18,7 +18,7 @@
                                 </div>
 
                                 <div class="row justify-content-center">
-                                        <input type="submit" value="Cambiar Nombre de Usuario" class="btn btn-info">
+                                        <input type="submit" value="Cambiar Nombre de Usuario" class="btn btn-danger">
                                 </div>
 
 
