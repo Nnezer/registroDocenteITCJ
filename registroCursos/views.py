@@ -4,8 +4,8 @@ from registroCursos.models import *
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .forms import *
+import fill_poll
 from datetime import date, timedelta, datetime
-from .utils import *
 from .choices import *
 
 day, month, year = timezone.now().strftime('%d/%m/%Y').split("/")
