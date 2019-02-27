@@ -4,7 +4,7 @@ from registroCursos.models import *
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .forms import *
-import fill_poll
+#import fill_poll
 from datetime import date, timedelta, datetime
 from .choices import *
 
@@ -29,7 +29,7 @@ class ReportsView(View):
         user_profile=Perfil.objects.get(id=id_alumno)
 
         user=User.objects.get(id=id_alumno)
-        fill_poll(user, user_profile, curso)
+        #fill_poll(user, user_profile, curso)
 
 
         return render(request, self.template_name, locals())
