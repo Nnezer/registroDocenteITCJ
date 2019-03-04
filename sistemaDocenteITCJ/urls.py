@@ -28,7 +28,9 @@ urlpatterns = [
     path('course/detail/<int:id_curso>/poll/<int:id_user>', PollView.as_view(), name='poll'),
     path('course/detail/<int:id_curso>/poll/<int:id_user>/done', PollDoneView.as_view(), name='poll_done'),
     path('course/detail/<int:id_curso>/reports', ReportsView.as_view(),name='reports'),
-    path('stats/',StatsView.as_view(),name='stats'),
+    path('stats/',StatsGeneralView.as_view(),name='stats'),
+    
+    path('stats/detail/<int:id_curso>', StatsIndividualView.as_view(), name='stats_general'),
      path('admin/', admin.site.urls), # link a sitio de administracion (solo administradores o superuser)
     path('accounts/', include('django.contrib.auth.urls')), # link para el inicio de sesion
     path('accounts/update_email/', UpdateEmailView.as_view(),name='update_email'), # link para el cambio de email

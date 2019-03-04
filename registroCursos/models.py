@@ -84,7 +84,7 @@ class Historial(models.Model):
     calificacion = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.curso.nombre
+        return self.curso.nombre + " - " +self.alumno.get_full_name()
 
     class Meta:
         verbose_name_plural = "Historial"

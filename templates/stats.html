@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+{% block section %}
+{% if user.is_authenticated %}
+{% if user.is_superuser %}
+
+<div class="my-5 card white justify-content-center">
+  <h1 class="text-center text-danger">Muestreo y Estadisticas</h1>
+</div>
+<div class="card white my-3">
+  <h3 class="card-header text-center text-white bg-danger">Buscar</h3>
+  <div class="card-body">
+    <form method="POST" class="md-form row" action="/stats/">
+
+      {% csrf_token %}
+      <input name="nombre" class="col-3 form-control mx-2" type="text">
+      <select class="col-1 mx-2 px-3 " name="semestre" id="">
+        <option value=""></option>
+        {% for key, value in option_semestres.items %}
+        <option value="{{key}}">{{value}}</option>
+
+        {% endfor %}
+
+      </select>
+
+      <select class="col-3 mx-2 px-1" name="tipo" id="">
+        <option value=""></option>
+        {% for key, value in option_cursos.items %}
+        <option value="{{key}}">{{value}}</option>
+        {% endfor %}
+
+      </select>
+      <select class="col-1 mx-2" name="anno" id="">
+        <option value="2018">2018</option>
+        <option selected value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+        <option value="2022">2022</option>
+        <option value="2023">2023</option>
+      </select>
+      <input class="btn btn-danger col-3 mx-2" type="submit" value="Buscar">
+    </form>
+  </div>
+</div>
+<!-- Resultados -->
+<div class="card white">
+  <h3 class="card-header text-center bg-danger text-white">Resultados: {{cursos_data.count}} </h3>
+  <div class="card-body">
+    <!--pesta;as con la informacion general-->
+    <ul class="nav nav-tabs mt-2 justify-content-center" id="myTab" role="tablist">
+      <li class="nav-item">
+        <a class="nav-link active btn btn-outline-danger text-capitalize" id="info-tab" data-toggle="tab" href="#info"
+          role="info" aria-controls="info" aria-selected="true">Informacion General</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link btn btn-outline-danger text-capitalize" id="stats-tab" data-toggle="tab" href="#stats"
+          role="stats" aria-controls="stats" aria-selected="false">Estadisticas</a>
+      </li>
+    </ul>
+    <div class="tab-content py-2" id="myTabContent">
+      <div class="tab-pane fade show active" id="info" role="tabpanel" aria-labelledby="info-tab">
+
+        <div class="row justify-content-around py-1">
+          <h4><b>Alumnos Inscritos: </b> {{count_alumnos}}</h4>
+          <h4><b>Alumnos Aprobados: </b> {{count_aprobados}} ({{porcent_aprobados}}%)</h4>
+          <h4><b>Alumnos Reprobados: </b> {{count_reprobados}} ({{porcent_reprobados}}%)</h4>
+        </div>
+
+        {% for key,value in dict_results.items  %}
+        <div class="row justify-content-center py-3">
+          <h2 class="text-capitalize text-danger"><b>{{key}}</b></h2>
+
+        </div> <div class="row py-2 justify-content-center">
+        {% for key2,value2 in value.items  %}
+        
+        {% for key3,value3 in value2.items  %} 
+          {% if value3 %} 
+          <h4 class='col-auto'><b>{{key3}}:</b> {{value3}}</h4>
+         
+          {% endif %} 
+         
+        {% endfor %}
+ 
+        {% endfor %}
+  </div>
+        {% endfor %} 
+      </div>
+      <div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+        <div class="row">
+        
+          
+          <canvas class="col-5" id="alumnosChart"></canvas>
+          <canvas class="col-5" id="gradosChart"></canvas>
+        </div>
+
+        <script>
+          var ctx = document.getElementById('alumnosChart').getContext('2d');
+          var chart = new Chart(ctx, {
+            // The type of chart we want to create
+            type: 'pie',
+
+            // The data for our dataset
+            data: {
+              labels: ["Aprobados", "Reprobados"],
+              datasets: [{
+                backgroundColor: ['green', 'red'],
+                data: [{{ count_aprobados }}, {{ count_reprobados }}],
+          }]
+            }, 
+          });
+
+          var ctx2 = document.getElementById('gradosChart').getContext('2d')
+          var chart2 = new Chart(ctx2, {
+            // The type of chart we want to create
+            type: 'bar', 
+            // The data for our dataset
+             
+            data: { 
+              labels: ["Hombre","Mujer"],
+              datasets: [{
+                 
+                backgroundColor: ['blue','pink'],
+                
+                data: [{{count_hombres}},{{count_mujeres}}],
+              }]
+            },
+
+            // Configuration options go here
+            options: {}
+          })
+
+
+
+        </script>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="card white my-2">
+  {% for item in cursos_data  %}
+  <a class="btn btn-outline-danger text-center text-capitalize my-2" href="/stats/detail/{{item.id}}">{{item}}</a>
+
+  {% endfor %}
+</div>
+
+</div>
+</div>
+{% else %}
+<div class="row my-5  justify-content-center">
+  <div class=" card w-75 text-center">
+    <div class="card-header bg-danger text-white">
+      <h4>No tienes los permisos necesarios para entrar en esta pagina</h4>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% else %}
+{% include 'noAuth.html' %}
+
+{% endif %}
+{% endblock section %}

@@ -9,15 +9,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-135282646-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135282646-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
 
-  gtag('config', 'UA-135282646-1');
-</script>
-
+        gtag('config', 'UA-135282646-1');
+    </script>
 
 
     <title>{% block title %}{% endblock %}</title>
@@ -27,10 +26,15 @@
     <link href="{%static 'css/mdb.min.css' %}" rel="stylesheet" />
     <link href="{%static 'css/style.css' %}" rel="stylesheet" />
     <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css"
+        integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossorigin="anonymous">
 
-</head>
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/mdb.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/popper.min.js' %}"></script>
+    <script src="{% static 'js/modules/chart.js' %}"></script>
+    </head>
 
 <body>
 
@@ -39,30 +43,27 @@
     </header>
 
     <main>
-        
+
         <div class="container">
-            
-                    {%block section%}
-                    
-                    {% endblock section%}    
-                   
-                 
+
+            {%block section%}
+
+            {% endblock section%}
+
+
 
         </div>
     </main>
 
-    <footer class="page-footer fixed-bottom font-small mt-5 text-center text-danger white">        
-            Instituto Tecnologico De Ciudad Juarez | Desarrollo Academico | Av. Tecnológico No. 1340 C.P. 32500 Ciudad Juárez, Chih. México
-            | Make it simple, but not simpler 
-   
+
+
+    <footer class="page-footer fixed-bottom font-small mt-5 text-center text-danger white">
+        Instituto Tecnologico De Ciudad Juarez | Desarrollo Academico | Av. Tecnológico No. 1340 C.P. 32500 Ciudad
+        Juárez, Chih. México
+        | Make it simple, but not simpler
+
 
     </footer>
-
-    {% load static %}
-    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-    <script src="{% static 'js/mdb.min.js' %}"></script>
-    <script src="{% static 'js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'js/popper.min.js' %}"></script>
 
 
 </body>

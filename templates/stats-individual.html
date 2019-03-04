@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block header %}
+{% include 'header.html' %}
+{% endblock header %}
+
+
+
+{% block section %} 
+
+{% if user.is_authenticated %}
+  
+  {% if user.is_superuser %}
+    <ul class="nav nav-tabs white card-header mt-5 justify-content-center" id="myTab" role="tablist">
+            
+            <li class="nav-item">
+              <a class="nav-link active btn btn-outline-danger text-capitalize" id="info-tab" data-toggle="tab" href="#info" role="info" aria-controls="info"
+                aria-selected="true">Informacion General</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-outline-danger text-capitalize" id="stats-tab" data-toggle="tab" href="#stats" role="stats" aria-controls="stats"
+                aria-selected="false">Estadisticas</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link btn btn-outline-danger text-capitalize" id="list-tab" data-toggle="tab" href="#list" role="list" aria-controls="list"
+                aria-selected="false">Lista de Alumnos</a>
+            </li> 
+          </ul> 
+          <div class="tab-content white card py-2" id="myTabContent">
+            <div class="tab-pane fade show active card-body" id="info" role="tabpanel" aria-labelledby="info-tab">
+               <h4 class="text-center"><b>{{curso.nombre}}</b></h4>   
+
+               <h4 class="text-center my-3"><b>Instructor</b> <br> {{curso.instructor.get_full_name}}</h4>
+              {% if curso.colaborador %}
+              <h4 class="text-center my-3"><b>Colaborador</b> <br> {{curso.colaborador.get_full_name}}</h4>
+              {% endif %}
+              <div class="row justify-content-around my-2">
+                  <h4 class="text-center"><b>Fecha</b> <br />{{curso.dia_inicio}} - {{curso.dia_final}}</h4>
+                  <h4 class="text-center"><b>Horario</b> <br /> {{curso.hora_inicio}} - {{curso.hora_final}}</h4>
+                </div>
+                
+              <div class="row justify-content-around my-2">
+                  <h4 class="text-center"><b>Tipo</b> <br />{{curso.get_tipo_display}}</h4>
+                <h4 class="text-center"><b>Salon</b><br> {{curso.salon}}</h4>
+                <h4 class="text-center"><b>Semestre</b><br>{{curso.get_semestre_display}}</h4>
+              </div>
+              <hr>
+              <div class="row justify-content-around my-3">
+                <h4 class="text-center   text-capitalize"> <b class="text-danger">Numero de Alumnos</b> <br>  {{count_alumnos}} </h4>
+                <h4 class="text-center text-capitalize"><b class="text-danger">Numero de Aprobados</b> <br>{{count_aprobados}} </h4>
+                <h4 class="text-center text-capitalize"> <b class="text-danger">Numero de Reprobados</b> <br> {{count_reprobados}} </h4>
+
+                   
+              </div>
+
+              {% for key,value in dict_results.items  %}
+        <div class="row justify-content-center py-3">
+            <h2 class="text-capitalize text-danger"><b>{{key}}</b></h2>
+ 
+        </div> <div class="row py-2 justify-content-center">
+        {% for key2,value2 in value.items  %}
+        
+        {% for key3,value3 in value2.items  %} 
+          {% if value3 %} 
+          <h4 class='col-auto'><b>{{key3}}:</b> {{value3}}</h4>
+         
+          {% endif %} 
+         
+        {% endfor %}
+ 
+        {% endfor %}
+  </div>
+        {% endfor %} 
+
+            </div>
+
+            <div class="tab-pane fade card-body" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+              <div class="row justify-content-around">
+                  <h5 class="btn btn-primary rounded-circle text-capitalize px-4 py-5" for="">{{count_alumnos}} Alumnos</h5>  
+                  <h5 class="btn btn-success rounded-circle text-capitalize px-4 py-5" for="">{{count_aprobados}} Aprobados</h5>  
+                  <h5 class="btn btn-danger rounded-circle text-capitalize px-4 py-5" for="">{{count_reprobados}} Reprobados</h5>  
+              </div>
+
+              <div class="row my-5">
+                  
+                  <canvas class="col-5" id="alumnosChart"></canvas>
+                  <canvas class="col-5" id="gradosChart"></canvas>
+                </div>
+        
+                <script>
+                  var ctx = document.getElementById('alumnosChart').getContext('2d');
+                  var chart = new Chart(ctx, {
+                    // The type of chart we want to create
+                    type: 'pie',
+        
+                    // The data for our dataset
+                    data: {
+                      labels: ["Aprobados", "Reprobados"],
+                      datasets: [{
+                        backgroundColor: ['green', 'red'],
+                        data: [{{ count_aprobados }}, {{ count_reprobados }}],
+                  }]
+                    }, 
+                  });
+        
+                  var ctx2 = document.getElementById('gradosChart').getContext('2d')
+                  var chart2 = new Chart(ctx2, {
+                    // The type of chart we want to create
+                    type: 'bar', 
+                    // The data for our dataset
+                     
+                    data: { 
+                      labels: ["Hombre","Mujer"],
+                      datasets: [{
+                         
+                        backgroundColor: ['blue','pink'],
+                        
+                        data: [{{count_hombres}},{{count_mujeres}}],
+                      }]
+                    },
+        
+                    // Configuration options go here
+                    options: {}
+                  })
+        
+        
+        
+                </script>
+            
+            
+            
+            </div>
+            <div class="tab-pane fade card-body" id="list" role="tabpanel" aria-labelledby="list-tab">
+              <hr>
+                   {% for alumno in alumnos  %}
+                     <h3 class="text-center text-capitalize">#{{alumno.id}}  {{alumno.get_full_name}}</h3>
+                   {% endfor %}
+            </div>
+  {% else %}
+  <div class="row my-5  justify-content-center">
+  <div class=" card w-75 text-center">
+    <div class="card-header bg-danger text-white">
+      <h4>No tienes los permisos necesarios para entrar en esta pagina</h4>
+    </div>
+  </div>
+</div>
+  {% endif %} 
+{% else %}
+
+{% include 'noAuth.html' %}
+
+{% endif %}
+    
+{% endblock section %} 
+ 
+
+       
