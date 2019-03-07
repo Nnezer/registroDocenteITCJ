@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  {% include 'header.html' %}
+{% endblock header %}
+
+{% block section %}
+  
+
+{% if user.is_authenticated %}
+    
+    {% if user.is_superuser %}
+        <div class="row justify-content-center">
+                <h1 class="card white text-center my-5 text-white bg-danger col-6 py-2">Estadisticas Personales</h1>
+
+        </div>
+
+        <h2 class="card text-center text-danger text-capitalize py-3">{{perfil}}</h2> 
+        <div class="card">
+            <h3 class="card-header text-white bg-danger text-center">Informacion del Usuario</h3>
+            
+            <div class="row justify-content-around mb-2 mt-4">
+                <h4> Sexo:  <b class="text-danger"> {{perfil.get_sexo_display}}</b></h4>
+                <h4> Nombramiento:  <b class="text-danger"> {{perfil.get_nombramiento_display}}</b></h4>
+                <h4>Horas:  <b class="text-danger"> {{perfil.horas}}</b></h4>
+                <h4>Grado:  <b class="text-danger"> {{perfil.get_grado_display}}</b></h4>
+            </div>
+            <hr>
+            <div class="row justify-content-around  my-2">
+                    <h4>Carrera:  <b class="text-danger"> {{perfil.carrera}}</b></h4>
+                    <h4> area:  <b class="text-danger"> {{perfil.get_area_display}}</b></h4>
+                    <h4>Puesto:  <b class="text-danger"> {{perfil.get_puesto_display}}</b></h4>
+                </div>
+                <hr>
+                <div class="row justify-content-around  my-2">
+                        <h4>Telefono Particular:  <b class="text-danger"> {{perfil.telefono_particular}}</b></h4>
+                        <h4> Extension:  <b class="text-danger"> {{perfil.extension}}</b></h4>
+                        <h4>Jefe Inmediato:  <b class="text-danger"> {{perfil.jefe_inmediato}}</b></h4>
+                    </div>
+                    <hr>
+                    <div class="row justify-content-around  my-2">
+                            <h4>Hora de Entrada:  <b class="text-danger"> {{perfil.horario_inicio}}</b></h4>
+                            <h4>Hora de Salidad:  <b class="text-danger"> {{perfil.horario_final}}</b></h4>
+                            
+                        </div>
+                        <hr>
+                        <div class="row justify-content-around my-2">
+                                <h4>RFC:  <b class="text-danger"> {{perfil.RFC}}</b></h4>
+                                <h4>CURP:  <b class="text-danger"> {{perfil.CURP}}</b></h4> 
+                        </div>
+                        <hr>
+        </div>
+
+        <div class="card white my-5">
+            <h3 class="card-header text-center text-white bg-danger">Cursos Tomados : {{cursos.count}}</h3>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-6">
+                            {% for curso in cursos %}
+                            <a href="/stats/detail/{{curso.id}}" class="text-center text-capitalize btn-block py-2 btn btn-outline-danger">{{curso}}</a>
+                          {% endfor %}
+                    </div>
+                    <div class="col-6">
+                            {% for item in historial %}
+                            <h4 class="text-center"> <b>Aprobado:</b> <b class="text-danger">{{item.aprobado}}</b></h4>
+                          {% endfor %}
+                        </div>
+                </div>
+ 
+            </div>
+            <div class="card-footer row justify-content-around">
+                <h5 class="text-info">Cursos Aprobados: {{aprobados}} </h5>
+                <h5 class="text-info">Cursos Reprobados: {{reprobados}} </h5>
+            </div>
+        </div>
+
+        {% else %}
+<div class="row my-5  justify-content-center">
+  <div class=" card w-75 text-center">
+    <div class="card-header bg-danger text-white">
+      <h4>No tienes los permisos necesarios para entrar en esta pagina</h4>
+    </div>
+  </div>
+</div>
+
+    {% endif %}
+        
+{% else %}
+{% include 'noAuth.html' %}
+{% endif %}
+    
+
+
+{% endblock section %}
+
+

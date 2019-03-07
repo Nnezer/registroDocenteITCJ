@@ -7,11 +7,77 @@ from .forms import *
 #import fill_poll
 from datetime import date, timedelta, datetime
 from .choices import * 
+from django.http import JsonResponse
 
 day, month, year = timezone.now().strftime('%d/%m/%Y').split("/")
 currentSemester = "ago_dic" if int(month) >= 7 else "ene_jun"
 
+dict_results = {
+    'grados': {
+        'lic': {'Licenciatura':set() },
+        'mtr': {'Maestria':set() },
+        'doc': {'Doctorado':set() }
+    },
+    'puestos': {
+        'docente': {'Docente':set() },
+        'jefe': {'Jefe Depto':set() }
+    },
+    'sexos': {
+        'H': {'Hombre':set() },
+        'M': {'Mujer':set() }
+    },
+    'nombramientos': {
+        'TC': {'Tiempo Completo':set() },
+        '3/4': {'Tres Cuartos':set() },
+        '1/2': {'1/2':set() },
+        'PA': {'Por Asignatura':set() },
+        'HN': {'Honorarios':set() },
+        'HA': {'Horas Administrativas':set() },
+        'DIR': {'Directivo':set() }
+    },
+    'areas': {
+        'admin': {'Economico-Admvas':set() },
+        'DVP': {'Division de Estudios Profesionales':set() },
+        'RF': {'Recursos Financieros':set() },
+        'EXT': {'Actividades Extraescolares':set() },
+        'CBAS': {'Ciencias Basicas':set() },
+        'CII': {'Campus II':set() },
+        'CDC': {'Centro De Computo':set() },
+        'CDI': {'Centro De Informacion':set() },
+        'CYD': {'Comunicacion y Difusion':set() },
+        'DA': {'Desarrollo Academico':set() },
+        'DEP': {'Division de Estudios Profesionales':set() },
+        'ED': {"Educacion a Distancia":set() },
+        'ELEC': {"Electrica - Electronica":set() },
+        'GTV': {'Gestion Tecnologica y Vinculacion':set() },
+        'INDUS': {'ING. Industrial':set() },
+        'MEM': {'Metal-Mecanica':set() },
+        'PLA': {"Planeacion":set() },
+        'POSG': {'Posgrado':set() },
+        'RECMYS': {'Recursos Materiales y Servicios':set() },
+        'RECF': {'Recursos Financieros':set() },
+        'RECH': {'Recursos Humanos':set() },
+        'SERV': {'Servicios Escolares':set() },
+        'SYS': {'Sistemas Y Computacion':set() },
+        'SUB': {'Subdireccion Academica':set() },
+    } 
+} 
  
+class StatsUserView(View):
+    template_name = "stats-user.html"
+    def get(self, request, *args, **kwargs):
+        id_user=self.kwargs["id_user"]
+
+        historial = Historial.objects.filter(alumno_id = id_user)
+        perfil = Perfil.objects.get(user_id = id_user)
+        cursos = Curso.objects.filter(alumno__id=id_user)
+        aprobados = historial.filter(aprobado = True).count()
+        reprobados = historial.filter(aprobado = False).count()
+ 
+        return render(request, self.template_name, locals())
+    
+
+
 class StatsIndividualView(View):
     template_name = 'stats-individual.html'
     def get(self, request, *args, **kwargs):
@@ -22,86 +88,40 @@ class StatsIndividualView(View):
         option_areas = dict(areas)
         option_nombramientos = dict(nombramientos)
         option_sexos = dict(sexos)
-        dict_results = {    
-            'grados': {
-        'lic': {'Licenciatura':0},
-        'mtr': {'Maestria':0},
-        'doc': {'Doctorado':0}
-    },
-    'puestos': {
-        'docente': {'Docente':0},
-        'jefe': {'Jefe Depto':0}
-    },
-    'sexos': {
-        'H': {'Hombre':0},
-        'M': {'Mujer':0}
-    },
-    'nombramientos': {
-        'TC': {'Tiempo Completo':0},
-        '3/4': {'Tres Cuartos':0},
-        '1/2': {'1/2':0},
-        'PA': {'Por Asignatura':0},
-        'HN': {'Honorarios':0},
-        'HA': {'Horas Administrativas':0},
-        'DIR': {'Directivo':0}
-    },
-    'areas': {
-        'admin': {'Economico-Admvas':0},
-        'DVP': {'Division de Estudios Profesionales':0},
-        'RF': {'Recursos Financieros':0},
-        'EXT': {'Actividades Extraescolares':0},
-        'CBAS': {'Ciencias Basicas':0},
-        'CII': {'Campus II':0},
-        'CDC': {'Centro De Computo':0},
-        'CDI': {'Centro De Informacion':0},
-        'CYD': {'Comunicacion y Difusion':0},
-        'DA': {'Desarrollo Academico':0},
-        'DEP': {'Division de Estudios Profesionales':0},
-        'ED': {"Educacion a Distancia":0},
-        'ELEC': {"Electrica - Electronica":0},
-        'GTV': {'Gestion Tecnologica y Vinculacion':0},
-        'INDUS': {'ING. Industrial':0},
-        'MEM': {'Metal-Mecanica':0},
-        'PLA': {"Planeacion":0},
-        'POSG': {'Posgrado':0},
-        'RECMYS': {'Recursos Materiales y Servicios':0},
-        'RECF': {'Recursos Financieros':0},
-        'RECH': {'Recursos Humanos':0},
-        'SERV': {'Servicios Escolares':0},
-        'SYS': {'Sistemas Y Computacion':0},
-        'SUB': {'Subdireccion Academica':0},
-    } 
-} 
+        results =  dict_results
         id_curso=self.kwargs["id_curso"]
         curso=Curso.objects.get(id=id_curso) 
+        all_perfiles = Perfil.objects.all()
         alumnos = curso.alumno.all()
         historial = Historial.objects.filter(curso_id=id_curso)
         print(historial)
         list_alumnos = [] 
         for item in historial:
             list_alumnos.append(item.alumno.id)
-       
-         
 
+        perfil_data = Perfil.objects.none() 
+        for item in set(list_alumnos):
+            perfil_data = perfil_data | all_perfiles.filter(id = item) 
+        count_alumnos = curso.alumno.count()
         for alumno in set(list_alumnos): 
             user_to_stat = Perfil.objects.get(id=alumno)
-            dict_results['grados'][user_to_stat.grado][option_grados[user_to_stat.grado]] += 1
-            dict_results['puestos'][user_to_stat.puesto][option_puestos[user_to_stat.puesto]] += 1
-            dict_results['sexos'][user_to_stat.sexo][option_sexos[user_to_stat.sexo]] += 1
-            dict_results['nombramientos'][user_to_stat.nombramiento][option_nombramientos[user_to_stat.nombramiento]] += 1
-            dict_results['areas'][user_to_stat.area][option_areas[user_to_stat.area]] += 1
-
-
-        count_hombres = dict_results['sexos']['H']["Hombre"]
-        count_hombres = dict_results['sexos']['M']["Mujer"]
-        count_alumnos = curso.alumno.count()
-        count_aprobados = historial.filter(aprobado = True).count()
-        count_reprobados =  count_alumnos - count_aprobados
+            dict_results['grados'][user_to_stat.grado][option_grados[user_to_stat.grado]].add(user_to_stat) 
+            dict_results['puestos'][user_to_stat.puesto][option_puestos[user_to_stat.puesto]].add(user_to_stat) 
+            dict_results['sexos'][user_to_stat.sexo][option_sexos[user_to_stat.sexo]].add(user_to_stat) 
+            dict_results['nombramientos'][user_to_stat.nombramiento][option_nombramientos[user_to_stat.nombramiento]].add(user_to_stat) 
+            dict_results['areas'][user_to_stat.area][option_areas[user_to_stat.area]].add(user_to_stat) 
+ 
+        count_hombres =  len(dict_results['sexos']['H']['Hombre'] )
+        count_mujeres = len(dict_results['sexos']['M']['Mujer'] )
+        grados_data = len(dict_results['grados'] )
+        count_aprobados = historial.filter(aprobado=True).count()
+        count_reprobados =historial.filter(aprobado=False).count()
         porcent_aprobados = 0 if count_alumnos == 0 else round((count_aprobados / count_alumnos) * 100,2)
         porcent_reprobados =  0 if count_alumnos == 0 else round((count_reprobados / count_alumnos) * 100,2)
-        porcent_hombres = 0 if count_alumnos == 0 else round(dict_results['sexos']['H']['Hombre']/count_alumnos * 100,2)
-        porcent_mujeres = 0 if count_alumnos == 0 else round(dict_results['sexos']['M']['Mujer']/count_alumnos * 100,2)
- 
+        porcent_hombres = 0 if count_alumnos == 0 else round(count_hombres/count_alumnos * 100,2)
+        porcent_mujeres = 0 if count_alumnos == 0 else round(count_mujeres/count_alumnos * 100,2) 
+        
+        
          
         return render(request, self.template_name, locals())
 
@@ -140,56 +160,8 @@ class StatsGeneralView(View):
 
     def post(self, request, *args, **kwargs): 
         
-        dict_results = {
-    'grados': {
-        'lic': {'Licenciatura':0},
-        'mtr': {'Maestria':0},
-        'doc': {'Doctorado':0}
-    },
-    'puestos': {
-        'docente': {'Docente':0},
-        'jefe': {'Jefe Depto':0}
-    },
-    'sexos': {
-        'H': {'Hombre':0},
-        'M': {'Mujer':0}
-    },
-    'nombramientos': {
-        'TC': {'Tiempo Completo':0},
-        '3/4': {'Tres Cuartos':0},
-        '1/2': {'1/2':0},
-        'PA': {'Por Asignatura':0},
-        'HN': {'Honorarios':0},
-        'HA': {'Horas Administrativas':0},
-        'DIR': {'Directivo':0}
-    },
-    'areas': {
-        'admin': {'Economico-Admvas':0},
-        'DVP': {'Division de Estudios Profesionales':0},
-        'RF': {'Recursos Financieros':0},
-        'EXT': {'Actividades Extraescolares':0},
-        'CBAS': {'Ciencias Basicas':0},
-        'CII': {'Campus II':0},
-        'CDC': {'Centro De Computo':0},
-        'CDI': {'Centro De Informacion':0},
-        'CYD': {'Comunicacion y Difusion':0},
-        'DA': {'Desarrollo Academico':0},
-        'DEP': {'Division de Estudios Profesionales':0},
-        'ED': {"Educacion a Distancia":0},
-        'ELEC': {"Electrica - Electronica":0},
-        'GTV': {'Gestion Tecnologica y Vinculacion':0},
-        'INDUS': {'ING. Industrial':0},
-        'MEM': {'Metal-Mecanica':0},
-        'PLA': {"Planeacion":0},
-        'POSG': {'Posgrado':0},
-        'RECMYS': {'Recursos Materiales y Servicios':0},
-        'RECF': {'Recursos Financieros':0},
-        'RECH': {'Recursos Humanos':0},
-        'SERV': {'Servicios Escolares':0},
-        'SYS': {'Sistemas Y Computacion':0},
-        'SUB': {'Subdireccion Academica':0},
-    } 
-} 
+        results = dict_results
+
         option_semestres = dict(semestres)
         option_cursos = dict(cursos) 
         option_grados = dict(grados)
@@ -208,7 +180,7 @@ class StatsGeneralView(View):
                                             nombre__icontains=post_data['nombre'],
                                             semestre__icontains=post_data['semestre'],
                                             anno = post_data['anno'])
-
+    
         historial_data = Historial.objects.none() 
         for item in cursos_data:
             historial_data = historial_data | all_historial.filter(curso_id= item.id)
@@ -221,9 +193,7 @@ class StatsGeneralView(View):
             count_alumnos = count_alumnos + item.alumno.count() 
   
         list_alumnos = []
-        perfil_data = Perfil.objects.none()
-
-
+        perfil_data = Perfil.objects.none() 
         for item in historial_data:
             list_alumnos.append(item.alumno.id)
             if item.aprobado == True:
@@ -233,29 +203,24 @@ class StatsGeneralView(View):
 
         for item in set(list_alumnos):
             perfil_data = perfil_data | all_perfiles.filter(id = item)
-        
+
         user_to_stat = Perfil.objects.none()  
 
         for alumno in set(list_alumnos): 
             user_to_stat = Perfil.objects.get(id=alumno)
-            dict_results['grados'][user_to_stat.grado][option_grados[user_to_stat.grado]] += 1
-            dict_results['puestos'][user_to_stat.puesto][option_puestos[user_to_stat.puesto]] += 1
-            dict_results['sexos'][user_to_stat.sexo][option_sexos[user_to_stat.sexo]] += 1
-            dict_results['nombramientos'][user_to_stat.nombramiento][option_nombramientos[user_to_stat.nombramiento]] += 1
-            dict_results['areas'][user_to_stat.area][option_areas[user_to_stat.area]] += 1
-             
-         
-        count_hombres =  dict_results['sexos']['H']['Hombre']
-        count_mujeres = dict_results['sexos']['M']['Mujer']
-
-        grados_data = dict_results['grados']
+            dict_results['grados'][user_to_stat.grado][option_grados[user_to_stat.grado]].add(user_to_stat) 
+            dict_results['puestos'][user_to_stat.puesto][option_puestos[user_to_stat.puesto]].add(user_to_stat) 
+            dict_results['sexos'][user_to_stat.sexo][option_sexos[user_to_stat.sexo]].add(user_to_stat) 
+            dict_results['nombramientos'][user_to_stat.nombramiento][option_nombramientos[user_to_stat.nombramiento]].add(user_to_stat) 
+            dict_results['areas'][user_to_stat.area][option_areas[user_to_stat.area]].add(user_to_stat) 
+ 
+        count_hombres =  len(dict_results['sexos']['H']['Hombre'] )
+        count_mujeres = len(dict_results['sexos']['M']['Mujer'] )
+        grados_data = len(dict_results['grados'] )
         porcent_aprobados = 0 if count_alumnos == 0 else round((count_aprobados / count_alumnos) * 100,2)
         porcent_reprobados =  0 if count_alumnos == 0 else round((count_reprobados / count_alumnos) * 100,2)
-        porcent_hombres = 0 if count_alumnos == 0 else round(dict_results['sexos']['H']['Hombre']/count_alumnos * 100,2)
-        porcent_mujeres = 0 if count_alumnos == 0 else round(dict_results['sexos']['M']['Mujer']/count_alumnos * 100,2)
- 
-       
-
+        porcent_hombres = 0 if count_alumnos == 0 else round(count_hombres/count_alumnos * 100,2)
+        porcent_mujeres = 0 if count_alumnos == 0 else round(count_mujeres/count_alumnos * 100,2) 
         return render(request, self.template_name, locals())
 
 class PollView(View):
@@ -273,8 +238,7 @@ class PollView(View):
             curso_id=id_curso, alumno_id=request.user.id) else False
 
         return render(request, self.template_name, locals())
-
-
+ 
 class PollDoneView(View):
     template_name='user/poll_done.html'
     def post(self, request, *args, **kwargs):

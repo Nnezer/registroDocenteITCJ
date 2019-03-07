@@ -29,7 +29,7 @@ urlpatterns = [
     path('course/detail/<int:id_curso>/poll/<int:id_user>/done', PollDoneView.as_view(), name='poll_done'),
     path('course/detail/<int:id_curso>/reports', ReportsView.as_view(),name='reports'),
     path('stats/',StatsGeneralView.as_view(),name='stats'),
-    
+    path('stats/detail/user/<int:id_user>', StatsUserView.as_view(), name='stats_user'),
     path('stats/detail/<int:id_curso>', StatsIndividualView.as_view(), name='stats_general'),
      path('admin/', admin.site.urls), # link a sitio de administracion (solo administradores o superuser)
     path('accounts/', include('django.contrib.auth.urls')), # link para el inicio de sesion

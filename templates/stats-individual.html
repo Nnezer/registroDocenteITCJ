@@ -49,50 +49,24 @@
                 <h4 class="text-center   text-capitalize"> <b class="text-danger">Numero de Alumnos</b> <br>  {{count_alumnos}} </h4>
                 <h4 class="text-center text-capitalize"><b class="text-danger">Numero de Aprobados</b> <br>{{count_aprobados}} </h4>
                 <h4 class="text-center text-capitalize"> <b class="text-danger">Numero de Reprobados</b> <br> {{count_reprobados}} </h4>
-
-                   
-              </div>
-
-              {% for key,value in dict_results.items  %}
-        <div class="row justify-content-center py-3">
-            <h2 class="text-capitalize text-danger"><b>{{key}}</b></h2>
  
-        </div> <div class="row py-2 justify-content-center">
-        {% for key2,value2 in value.items  %}
-        
-        {% for key3,value3 in value2.items  %} 
-          {% if value3 %} 
-          <h4 class='col-auto'><b>{{key3}}:</b> {{value3}}</h4>
-         
-          {% endif %} 
-         
-        {% endfor %}
- 
-        {% endfor %}
-  </div>
-        {% endfor %} 
-
-            </div>
-
+              </div> 
+            </div> 
             <div class="tab-pane fade card-body" id="stats" role="tabpanel" aria-labelledby="stats-tab">
               <div class="row justify-content-around">
                   <h5 class="btn btn-primary rounded-circle text-capitalize px-4 py-5" for="">{{count_alumnos}} Alumnos</h5>  
                   <h5 class="btn btn-success rounded-circle text-capitalize px-4 py-5" for="">{{count_aprobados}} Aprobados</h5>  
                   <h5 class="btn btn-danger rounded-circle text-capitalize px-4 py-5" for="">{{count_reprobados}} Reprobados</h5>  
-              </div>
-
-              <div class="row my-5">
-                  
+              </div> 
+              <div class="row my-5"> 
                   <canvas class="col-5" id="alumnosChart"></canvas>
                   <canvas class="col-5" id="gradosChart"></canvas>
-                </div>
-        
+                </div> 
                 <script>
                   var ctx = document.getElementById('alumnosChart').getContext('2d');
                   var chart = new Chart(ctx, {
                     // The type of chart we want to create
-                    type: 'pie',
-        
+                    type: 'pie', 
                     // The data for our dataset
                     data: {
                       labels: ["Aprobados", "Reprobados"],
@@ -126,16 +100,49 @@
         
         
                 </script>
-            
-            
-            
+             
             </div>
             <div class="tab-pane fade card-body" id="list" role="tabpanel" aria-labelledby="list-tab">
               <hr>
-                   {% for alumno in alumnos  %}
-                     <h3 class="text-center text-capitalize">#{{alumno.id}}  {{alumno.get_full_name}}</h3>
-                   {% endfor %}
+              {% for item in perfil_data  %}
+              <a class="btn btn-outline-danger btn-block text-capitalize" href="/stats/detail/user/{{item.id}}">#{{item.id}} {{item}}</a>
+            {% endfor %}
+            </div> 
+
             </div>
+
+            <div class="card white mt-3">
+                <ul class="nav nav-tabs mb-3 card-header justify-content-center" id="pills-tab" role="tablist"> 
+                    
+                    {% for key,value in results.items %} 
+                    <li class="nav-item">
+                      <a class="nav-link btn btn-danger white text-capitalize" id="{{key}}-tab" data-toggle="pill" href="#pills-{{key}}" role="tab"
+                        aria-controls="pills-{{key}}" aria-selected="true">{{key}}</a>
+                    </li> 
+                  {% endfor %}
+           </ul> 
+           <div class="tab-content pt-2 pl-1 card-body" id="pills-tabContent"> 
+               
+            {% for key,value in results.items  %}
+              <div class="tab-pane fade show" id="pills-{{key}}" role="tabpanel" aria-labelledby="pills-{{key}}-tab">
+                {% for key2,value2 in value.items  %}
+                
+                {% for key3,value3 in value2.items  %} 
+                 
+                  {% if value3 %} 
+                    <h4 class="text-center text-danger  mt-5"><b class="font-weight-bold">{{key3}}</b></h4>
+                     {% for item in value3  %}
+                       <a class="btn btn-outline-danger btn-block text-capitalize" href="/stats/detail/user/{{item.id}}">#{{item.id}} {{item}}</a>
+                     {% endfor %} 
+                  {% endif %} 
+                {% endfor %} 
+              
+                {% endfor %}
+                 </div>    
+            {% endfor %} 
+        </div> 
+           </div>
+
   {% else %}
   <div class="row my-5  justify-content-center">
   <div class=" card w-75 text-center">
